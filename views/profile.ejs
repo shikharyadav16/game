@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Baloo+Bhaijaan+2:wght@400..800&family=Dancing+Script:wght@400..700&family=Kalam:wght@300;400;700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Russo+One&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="heading">Profile</div>
+            <div class="heading-des">Manage your personal information, keep your details up to date, and customize your
+                experience, all in one place.</div>
+            <div class="filter">
+                <div class="home" onclick="window.location.href='/'">Home</div>
+                <div class="history" onclick="window.location.href='/history'">History</div>
+                <div class="stats"  onclick="window.location.href='/stats'">Stats</div>
+                <div class="profile filter-active"  onclick="window.location.href='/profile'">Profile</div>
+            </div>
+            <div class="filter-mob">
+                <a href="/" class="down-a"><i class="ph ph-game-controller"></i></a>
+                <a href="/history" class="down-a"><i class="ph ph-clock-counter-clockwise"></i></a>
+                <a href="/stats" class="down-a"><i class="ph ph-chart-donut"></i></a>
+                <a href="/profile" class="down-a filter-mob-active" style="margin-right: 5px;"><i
+                        class="ph ph-user-circle"></i></a>
+            </div>
+        </div>
+        <div class="main">
+            <div class="main-heading">Basic data</div>
+            <div class="main-des">Your core information at a glance. Keep your essential details accurate and up to
+                date.</div>
+            <hr>
+            <div class="credentials">
+                <div class="input-area">
+                    <div class="input-heading">Email address</div>
+                    <input type="text" value="yadavshikhar49@gmail.com">
+                </div>
+                <div class="input-area">
+                    <div class="input-heading">Username</div>
+                    <input type="text">
+                </div>
+                <div class="input-area">
+                    <div class="input-heading">IGN (In Game Name)</div>
+                    <input type="text">
+                </div>
+                <div class="input-area">
+                    <div class="input-heading">UPI Id</div>
+                    <input type="text">
+                </div>
+                <div class="input-area">
+                    <div class="input-heading">Password</div>
+                    <input type="text">
+                </div>
+            </div>
+
+            <hr>
+            <div class="profile-btn">Save</div>
+        </div>
+    </div>
+</body>
+
+</html>

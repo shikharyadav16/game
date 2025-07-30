@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/signup-upper-part.css">
+    <link rel="stylesheet" href="/css/log-sig-lower-part.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="container">
+        <!-- <div class="error-card hide"> -->
+        <!-- <div class="icon"><i class="fa-solid fa-circle-exclamation"></i></div> -->
+        <!-- <div class="text"> -->
+        <!-- <strong id="error-name">Login error!</strong><br> -->
+        <!-- <span id="error-description">Incorrect username or password.</span> -->
+        <!-- </div> -->
+        <!-- </div> -->
+        <%- include('./components/error-card.ejs') %>
+            <div id="upper-part">
+                <div id="form-container">
+                    <div id="login-header">
+                        <div class="login-header-main">Sign up</div>
+                        <div class="login-header-content">You can sign up quickly using one of our sign-in options.
+                        </div>
+                    </div>
+                    <div class="divider">
+                        <hr>
+                        <span>continue with</span>
+                        <hr>
+                    </div>
+                    <div class="form-input">
+                        <input id="ign" type="text" placeholder="IGN (In Game Name)" required>
+                        <input id="upi" type="text" placeholder="UPI ID" required>
+                        <input id="email" type="text" placeholder="Your email address" required>
+                        <input id="password" type="text" placeholder="Your password" required>
+                        <button id="signup-btn">SIGN UP</button>
+                        <button id="loading-signup-btn" hidden><img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..."
+                                width="20px" style="position: 'absolute'" /></button>
+                        <button id="create-account">ALREADY HAVE AN ACCOUNT</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div id="lower-part">
+                <div class="left-part">
+                    <div class="privacy-links">
+                        <a href="#">COOKIE POLICY</a>
+                        <a href="#">PRIVACY POLICY</a>
+                        <a href="#">TERMS & CONDITIONS</a>
+                        <a href="#">RULES AND REGULATIONS</a>
+                        <a href="#">ABOUT US</a>
+                        <a href="#">FAQ</a>
+                    </div>
+                    <div class="privacy-rights">
+                        © 2025 NEXTSCRIMZ ALL RIGHTS <br>RESERVED.
+                    </div>
+                </div>
+                <div class="right-part">
+                    <div class="logo">
+                        NEXTSCRIMZ<span>.com</span>
+                    </div>
+                    <div class="socials">
+                        <div class="socil-header">FOLLOW US ON:</div>
+                        <div class="socials-link">
+                            <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="#" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <script>
+        const signupBtn = document.getElementById("signup-btn");
+
+        signupBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            handleSignup();
+        })
+
+        function disableBtn() {
+            document.getElementById("ign").disabled = true;
+            document.getElementById("upi").disabled = true;
+            document.getElementById("email").disabled = true;
+            document.getElementById("password").disabled = true;
+        }
+
+        function enableBtn() {
+            document.getElementById("ign").disabled = false;
+            document.getElementById("upi").disabled = false;
+            document.getElementById("email").disabled = false;
+            document.getElementById("password").disabled = false;
+        }
+
+        function originalState() {
+            document.getElementById("loading-signup-btn").style.display = "none";
+            document.getElementById("signup-btn").style.display = "block";
+        }
+
+        function setCardTimeout(eName, eDescription) {
+            let errorName = document.getElementById("error-name");
+            let errorDescription = document.getElementById("error-description");
+            const card = document.getElementsByClassName('error-card')[0];
+
+            errorName.innerText = eName;
+            errorDescription.innerText = eDescription;
+            card.classList.remove("hide");
+
+            setTimeout(() => {
+                card.classList.add('hide');
+            }, 3000);
+        }
+
+        function handleSignup() {
+            const userIgn = document.getElementById("ign").value;
+            const userUpi = document.getElementById("upi").value;
+            const userEmail = document.getElementById("email").value;
+            const userPassword = document.getElementById("password").value;
+
+            if (userIgn.length === 0 || userUpi.length === 0 || userPassword.length === 0 || userEmail.length === 0) {
+                return setCardTimeout("Signup error!", "This field is required and cannot be left blank.")
+            }
+
+            if (userIgn.length < 4) {
+                return setCardTimeout("Signup error!", "IGN should be atleast 4 characters.")
+            }
+
+            if (userUpi.length < 4) {
+                return setCardTimeout("Signup error!", "The provided UPI Id is invalid.")
+            }
+
+            if (userPassword.length < 6) {
+                return setCardTimeout("Signup error!", "Password should be atleast 6 characters.")
+            }
+
+            if (userIgn.length >= 60 || userUpi.length >= 60 || userPassword.length >= 60 || userEmail.length >= 60) {
+                return setCardTimeout("Signup error!", "Input exceeds maximum allowed length. Please shorten your entry.")
+            }
+            document.getElementById("loading-signup-btn").style.display = "block";
+            document.getElementById("signup-btn").style.display = "none";
+            disableBtn();
+            sendOTP(userEmail, userIgn, userPassword, userUpi);
+        }
+
+        async function sendOTP(userEmail, userIgn, userPassword, userUpi) {
+
+            try {
+                sessionStorage.setItem("email", userEmail);
+                sessionStorage.setItem("user", JSON.stringify({ userEmail, userIgn, userPassword, userUpi }));
+                const res = await fetch('/send-otp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail, ign: userIgn })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    window.location.href = data.redirected;
+                } else {
+                    const data = await res.json();
+                    enableBtn();
+                    originalState();
+                    setCardTimeout(data.name, data.description);
+                }
+            } catch (err) {
+                if (err) {
+                    console.log("Error:", err);
+                    setCardTimeout("Server Error!", "Please reload the page.")
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

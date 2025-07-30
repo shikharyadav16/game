@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Email</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400..800&family=Basic&family=Dancing+Script:wght@400..700&family=Kalam:wght@300;400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Russo+One&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url('/assets/abstract-background-3.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: "Poppins", sans-serif;
+            height: 100vh;
+            width: 100vw;
+            padding: 1rem;
+        }
+
+        .container {
+            background: #fff;
+            color: #000;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .container h2 {
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .container p {
+            font-size: 0.95rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background-color: #dedede;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #ffffff;
+            width: 100%;
+            height: 40px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .footer-text a {
+            color: #8b6e3f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-final {
+            color: white;
+            background-color: rgb(20, 20, 20);
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <%- include('./components/error-card.ejs') %>
+            <h2>Confirm Email.</h2>
+            <p>A confirmation code was sent to your email. Enter the code below to complete the signup process.</p>
+            <input type="text" placeholder="Enter code" id="otp" maxlength="6" oninput="checkDigit()" />
+            <button class="btn">VERIFY EMAIL</button>
+            <button class="btn btn-final">VERIFY EMAIL</button>
+            <button class="btn" id="loading-btn" hidden><img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..."
+                    width="20px" style="position: 'absolute'; z-index: '10'" /></button>
+            <div class="footer-text">
+                Didn’t receive a code? <a href="#">Request again.</a>
+            </div>
+    </div>
+
+    <script>
+
+        function setCardTimeout(eName, eDescription) {
+            let errorName = document.getElementById("error-name");
+            let errorDescription = document.getElementById("error-description");
+            const card = document.getElementsByClassName('error-card')[0];
+
+            errorName.innerText = eName;
+            errorDescription.innerText = eDescription;
+            card.classList.remove("hide");
+
+            setTimeout(() => {
+                card.classList.add('hide');
+            }, 3000);
+        }
+
+        function checkDigit() {
+            const otp = document.getElementById('otp').value;
+            const btn = document.getElementsByClassName("btn")[0];
+            const btnFinal = document.getElementsByClassName("btn-final")[0];
+            if (otp.length === 6) {
+                btnFinal.style.display = 'block';
+                btn.style.display = "none"
+            } else {
+                btn.style.display = "block"
+                btnFinal.style.display = "none"
+            }
+        }
+
+        function originalState() {
+            const otpBtn = document.getElementById('otp');
+            document.getElementById("loading-btn").style.display = "none";
+            document.getElementsByClassName("btn-final")[0].style.display = "block";
+            otpBtn.disabled = false;
+
+        }
+
+        function handleVerifyOTP() {
+            document.getElementById("loading-btn").style.display = "block";
+            document.getElementsByClassName("btn-final")[0].style.display = "none";
+            verifyOTP();
+        }
+
+        async function verifyOTP() {
+            const email = sessionStorage.getItem("email");
+            const credentials = JSON.parse(sessionStorage.getItem("user"));
+            let { userIgn, userPassword, userUpi } = credentials;
+            const otpBtn = document.getElementById('otp');
+            otpBtn.disabled = true;
+            otp = otpBtn.value;
+            try {
+                const res = await fetch('/verify-otp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, otp, userUpi, userIgn, userPassword })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    window.location.href = data.redirected;
+                } else {
+                    console.log("Wrong OTP!");
+                    setCardTimeout(data.name, data.description);
+                    originalState();
+                }
+            } catch (err) {
+                console.log("Some error occured!")
+            }
+        }
+
+        document.getElementsByClassName("btn-final")[0].addEventListener("click", (e) => {
+            handleVerifyOTP();
+        })
+    </script>
+
+</body>
+
+</html>

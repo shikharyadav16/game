@@ -1,0 +1,18 @@
+<svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .text { fill: #BBBBBB; font-size: 20px; font-family: 'Segoe UI', sans-serif; text-transform: uppercase; font-weight: bold; }
+    .stroke { stroke: #CCCCCC; stroke-width: 3; fill: none; }
+    .glass { stroke: #CCCCCC; stroke-width: 4; fill: none; stroke-linecap: round; }
+  </style>
+
+  <!-- Magnifying glass -->
+  <circle cx="90" cy="80" r="30" class="glass"></circle>
+  <line x1="112" y1="102" x2="140" y2="130" class="glass"></line>
+
+  <!-- Box (empty content) -->
+  <rect x="170" y="60" width="70" height="50" rx="6" class="stroke"></rect>
+  <line x1="170" y1="85" x2="240" y2="85" class="stroke"></line>
+
+  <!-- Text -->
+  <text x="50%" y="175" text-anchor="middle" class="text">GAMES NOT FOUND</text>
+</svg>

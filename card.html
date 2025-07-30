@@ -1,0 +1,49 @@
+<script>
+  async function sendOTP() {
+    const email = document.getElementById('email').value;
+    const res = await fetch('http://localhost:3000/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    alert(await res.text());
+  }
+
+
+</script>
+<div class="room-card">
+  <div class="card-img"><img src="/assets/games/EWC-Web-Game-Hero-Banners---Apex-001-01-DQDma-94.jpg" alt=""></div>
+  <div class="room-details">
+    <img src="/assets/bgmi_logo.png" alt="err">
+    <div class="room-info">
+      <div class="room-time similar-room-info">
+        <div class="card-heading">Time:</div>
+        <div class="card-value">6pm (Today)</div>
+      </div>
+      <hr>
+      <div class="room-players similar-room-info">
+        <div class="card-heading">Players:</div>
+        <div class="card-value">6/60</div>
+      </div>
+      <hr>
+      <div class="prize">
+        <div class="card-heading">Prize:</div>
+        <div class="kill-prize">
+          <div class="prize-heading">Kill Prize:</div>
+          <div class="prize-value">$6 / kill</div>
+        </div>
+        <div class="pos-prize">
+          <div class="prize-heading">Position Prize:</div>
+          <div class="prize-value">$20</div>
+        </div>
+      </div>
+      <hr>
+      <div class="entry-fee similar-room-info">
+        <div class="card-heading">Entry fee:</div>
+        <div class="card-value">$6</div>
+      </div>
+    </div>
+  </div>
+  <div class="register-btn card-btn">Register</div>
+  <div class="details-btn card-btn">Details</div>
+</div>

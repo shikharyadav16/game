@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/login-upper-part.css">
+    <link rel="stylesheet" href="/css/log-sig-lower-part.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .error-card {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            max-width: 400px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            border-left: 6px solid #ae3e3e;
+            color: #ae3e3e;
+            font-family: 'Segoe UI', sans-serif;
+            z-index: 1000;
+        }
+
+        .error-card .icon {
+            font-size: 20px;
+            margin-top: 3px;
+        }
+
+        .error-card .text strong {
+            font-size: 18px;
+            color: #b71c1c;
+        }
+
+        .error-card .text span {
+            font-size: 14px;
+            color: #b71c1c;
+        }
+
+        @media (max-width: 500px) {
+            .error-card {
+                top: 20px;
+                right: 50%;
+                transform: translateX(50%);
+                width: 85%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <%- include('./components/error-card.ejs') %>
+
+            <div id="upper-part">
+                <div id="form-container">
+                    <div id="login-header">
+                        <div class="login-header-main">Login</div>
+                        <div class="login-header-content">You can login quickly using one of our sign-in options.</div>
+                    </div>
+                    <div class="divider">
+                        <hr>
+                        <span>continue with</span>
+                        <hr>
+                    </div>
+                    <div class="form-input">
+                        <input id="email" type="text" placeholder="Your email address" required>
+                        <input id="password" type="text" placeholder="Your password" required>
+                        <button id="login-btn">LOGIN</button>
+                        <button id="loading-login-btn" hidden><img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..." width="20px" style="position: 'absolute'"  /></button>
+                        <button id="create-account">CREATE A FREE ACCOUNT</button>
+                    </div>
+                    <div class="forgot-password">Can’t remember your password? You can easily recovery it
+                        within few steps. <span>Recover now!</span></div>
+                </div>
+            </div>
+            <hr>
+            <div id="lower-part">
+                <div class="left-part">
+                    <div class="privacy-links">
+                        <a href="#">COOKIE POLICY</a>
+                        <a href="#">PRIVACY POLICY</a>
+                        <a href="#">TERMS & CONDITIONS</a>
+                        <a href="#">RULES AND REGULATIONS</a>
+                        <a href="#">ABOUT US</a>
+                        <a href="#">FAQ</a>
+                    </div>
+                    <div class="privacy-rights">
+                        © 2025 NEXTSCRIMZ ALL RIGHTS <br>RESERVED.
+                    </div>
+                </div>
+                <div class="right-part">
+                    <div class="logo">
+                        NEXTSCRIMZ<span>.com</span>
+                    </div>
+                    <div class="socials">
+                        <div class="socil-header">FOLLOW US ON:</div>
+                        <div class="socials-link">
+                            <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="#" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <script>
+        const loginBtn = document.getElementById("login-btn");
+
+        loginBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            handleLogin();
+        })
+
+        function disableBtn() {
+            document.getElementById("email").disabled = true;
+            document.getElementById("password").disabled = true;
+        }
+
+        function enableBtn() {
+            document.getElementById("email").disabled = false;
+            document.getElementById("password").disabled = false;
+        }
+
+        function originalState() {
+            document.getElementById("loading-login-btn").style.display = "none";
+            document.getElementById("login-btn").style.display = "block";
+        }
+
+        function setCardTimeout(eName, eDescription) {
+            let errorName = document.getElementById("error-name");
+            let errorDescription = document.getElementById("error-description");
+            const card = document.getElementsByClassName('error-card')[0];
+
+            errorName.innerText = eName;
+            errorDescription.innerText = eDescription;
+            card.classList.remove("hide");
+
+            setTimeout(() => {
+                card.classList.add('hide');
+            }, 3000);
+        }
+
+        function handleLogin() {
+            const userEmail = document.getElementById("email").value;
+            const userPassword = document.getElementById("password").value;
+
+            if (userPassword.length === 0 || userEmail.length === 0) {
+                return setCardTimeout("Login error!", "This field is required and cannot be left blank.")
+            }
+
+            if (userPassword.length >= 60 || userEmail.length >= 60) {
+                return setCardTimeout("Login error!", "Input exceeds maximum allowed length. Please shorten your entry.")
+            }
+            document.getElementById("loading-login-btn").style.display = "block";
+            document.getElementById("login-btn").style.display = "none";
+            disableBtn();
+            sendOTP(userEmail, userPassword);
+        }
+
+        async function sendOTP(userEmail, userPassword) {
+
+            try {
+                const res = await fetch('/check-login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail, password: userPassword })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    window.location.href = data.redirected;
+                } else {
+                    const data = await res.json();
+                    enableBtn();
+                    originalState();
+                    setCardTimeout(data.name, data.description);
+                }
+            } catch (err) {
+                if (err) {
+                    console.log("Error:", err);
+                    setCardTimeout("Server Error!", "Please reload the page.")
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

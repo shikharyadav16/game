@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Baloo+Bhaijaan+2:wght@400..800&family=Dancing+Script:wght@400..700&family=Kalam:wght@300;400;700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Russo+One&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+    <link rel="stylesheet" href="/css/home.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="register-page-container">
+            <%- include('./components/register-page.ejs') %>
+        </div>
+        <div class="nav">
+            <img class="logo" src="/assets/logo-white.svg" alt="">
+            <div class="dropdown">
+                <div class="dropdown-toggle">Fantasy&nbsp;&nbsp;<i class="ph ph-caret-down"
+                        style="font-weight: bold"></i></div>
+                <div class="dropdown-menu">
+                    <a href="/history">History</a>
+                    <a href="/stats">Stats</a>
+                </div>
+            </div>
+            <div class="profile" onclick="window.location.href='/profile'"><i class="ph ph-user-circle"></i>
+                <div class="profile-des">Profile</div>
+            </div>
+        </div>
+        <div class="theme">
+            <div class="theme-overlay"></div>
+            <div class="theme-content">
+                <div class="theme-logo">NEXTSCRIMZ <div class="theme-logo-domain">.com</div>
+                </div>
+                <div class="theme-intro">Welcome to NextScrimz Game Hub!</div>
+                <div class="theme-des">Choose a game to play and compete for prizes! Get the prize based on your points
+                    and
+                    rankings.</div>
+            </div>
+            <div class="game active-game">Games</div>
+            <div class="my-game">My Games</div>
+        </div>
+        <div class="main-container">
+            <div class="main-container-header">
+                <div class="heading">
+                    <div>All Games</div><i class="ph ph-info"></i>
+                </div>
+                <div class="filter-group">
+                    <div class="solo filter-team-active">Solo</div>
+                    <div class="duo">Duo</div>
+                    <div class="squad">Squad</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="room-container">
+
+            <!-- <div class="room-card"> -->
+                <!-- <div class="card-img"><img src="/assets/games/green.jpg" alt="" style="border-bottom: 5px solid green;"> -->
+                <!-- </div> -->
+                <!-- <div class="room-details"> -->
+                    <!-- <img src="/assets/bgmi.png" alt="err"> -->
+                    <!-- <div class="room-info"> -->
+                        <!-- <div class="room-time similar-room-info"> -->
+                            <!-- <div class="card-heading">Time:</div> -->
+                            <!-- <div class="card-value">6pm (Today)</div> -->
+                        <!-- </div> -->
+                        <!-- <hr> -->
+                        <!-- <div class="room-players similar-room-info"> -->
+                            <!-- <div class="card-heading">Players:</div> -->
+                            <!-- <div class="card-value">6/60</div> -->
+                        <!-- </div> -->
+                        <!-- <hr> -->
+                        <!-- <div class="prize"> -->
+                            <!-- <div class="card-heading">Prize:</div> -->
+                            <!-- <div class="kill-prize"> -->
+                                <!-- <div class="prize-heading">Kill Prize:</div> -->
+                                <!-- <div class="prize-value">$6 / kill</div> -->
+                            <!-- </div> -->
+                            <!-- <div class="pos-prize"> -->
+                                <!-- <div class="prize-heading">Position Prize:</div> -->
+                                <!-- <div class="prize-value">$20</div> -->
+                            <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- <hr> -->
+                        <!-- <div class="entry-fee similar-room-info"> -->
+                            <!-- <div class="card-heading">Entry fee:</div> -->
+                            <!-- <div class="card-value">$6</div> -->
+                        <!-- </div> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+                <!-- <div class="register-btn btn-closed card-btn">Closed</div> -->
+                <!-- <!~~ <div class="idp-btn card-btn timer-btn">room ID & Password</div> ~~> -->
+                <!-- <div class="details-btn card-btn">Details</div> -->
+            <!-- </div> -->
+
+            <%  if(games.length === null || games.length === 0) { %>
+                <img class="nothing_found" src="/assets/not_found.svg" alt="">
+            <% } else { %>
+             
+            <% Object.values(games).forEach(game=> { %>
+                <div class="room-card">
+                    <div class="card-img"><img src="/assets/games/<%= game.eventColor %>.jpg" alt=""
+                            class="<%= game.eventColor %>"></div>
+                    <div class="room-details">
+                        <img src="/assets/<%= game.eventType %>.png" alt="err">
+                        <div class="room-info">
+                            <div class="room-time similar-room-info">
+                                <div class="card-heading">Time:</div>
+                                <div class="card-value">
+                                    <%= game.eventTime %> (<%= game.eventDate %>)
+                                </div>
+                            </div>
+                            <hr>
+                            <% const playersJoined=game.eventArray.length; %>
+                                <div class="room-players similar-room-info">
+                                    <div class="card-heading">Players:</div>
+                                    <div class="card-value">
+                                        <%= playersJoined %> / <%= game.eventSize %>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="prize">
+                                    <div class="card-heading">Prize:</div>
+                                    <div class="kill-prize">
+                                        <div class="prize-heading">Kill Prize:</div>
+                                        <div class="prize-value">₹<%= game.eventKillPrize %> / kill</div>
+                                    </div>
+                                    <div class="pos-prize">
+                                        <div class="prize-heading">Position Prize:</div>
+                                        <div class="prize-value">₹<%= game.eventPosPrize %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="entry-fee similar-room-info">
+                                    <div class="card-heading">Entry fee:</div>
+                                    <div class="card-value">₹<%= game.eventEntry %>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                <% } %>
+                    <% let status; if (game.eventSize <=game.eventArray.length) { %>
+                        <div data-id="<%= game.eventId %>" class="register-btn btn-closed card-btn">Closed</div>
+                        <% } else { %>
+                            <div data-id="<%= game.eventId %>" class="register-btn card-btn register">Register</div>
+                            <% } %>
+                                <div class="details-btn card-btn">Details</div>
+                </div>
+                <% } %>
+
+
+        </div>
+<hr class="end-of-room">
+        <%- include('./components/suggestion-page.ejs') %>
+
+        <div class="copyright-info">
+            <div class="logo-contact">
+                <div class="copy-logo">
+                    <img src="/assets/logo-white.svg" alt="">
+                    <div class="reserved">
+                        © 2025 NextScrimz All rights reserved.
+                    </div>
+                </div>
+                <div class="rules">
+                    <a href="/about">ABOUT US</a>I
+                    <a href="/contact">CONTACT US</a>
+                </div>
+            </div>
+        </div>
+        <div class="downbar">
+            <a href="/" class="down-a downbar-active"><i class="ph ph-game-controller"></i></a>
+            <a href="/history" class="down-a"><i class="ph ph-clock-counter-clockwise"></i></a>
+            <a href="/stats" class="down-a"><i class="ph ph-chart-donut"></i></a>
+            <a href="/profile" class="down-a"><i class="ph ph-user-circle"></i></a>
+        </div>
+    </div>
+
+    <script src="/js/home.js"></script>
+
+    <script>
+
+        function onRegisterBtn() {
+            document.getElementsByTagName("body")[0].style.overflow = "hidden";
+            document.getElementsByClassName("register-page-container")[0].style.display = "flex"
+        }
+        function offRegisterBtn() {
+            document.getElementsByTagName("body")[0].style.overflow = "scroll";
+            document.getElementsByClassName("register-page-container")[0].style.display = "none"
+        }
+
+        Array.from(document.getElementsByClassName("register")).forEach((Element) => {
+            Element.addEventListener("click", (e) => {
+                e.preventDefault();
+                onRegisterBtn();
+            });
+        })
+
+        document.getElementsByClassName("register-page")[0].firstElementChild.addEventListener("click", (e)=> {
+            e.preventDefault();
+            offRegisterBtn();
+        })
+
+
+    </script>
+
+</body>
+
+</html>
