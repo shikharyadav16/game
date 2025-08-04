@@ -10,7 +10,6 @@ const userSchema = mongoose.Schema({
     },
     upi: {
         type: String,
-        required: true,
     },
     email: {
         type: String,
@@ -21,6 +20,10 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    game: {
+        type: String,
+        required: true
     },
     registeredArray: [
         {

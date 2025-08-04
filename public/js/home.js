@@ -92,6 +92,10 @@
                     const container = document.getElementsByClassName('room-container')[0];
                     container.innerHTML = '';
 
+                    if (data.games.length === 0) {
+                        document.getElementsByClassName("room-container")[0].innerHTML = `<img src="/assets/empty_img.png" id="empty-img" alt="">`
+                    }
+
                     if (lobby === "games") {
                         data.games.forEach((game) => {
                             createGameCard(game);
@@ -154,7 +158,7 @@
                 </div>
             </div>
         </div>
-        <div data-id="${game.eventId}" class="register-btn ${isClosed ? "btn-closed" : ""} card-btn">
+        <div data-id="${game.eventId}" class="register-btn ${isClosed ? "btn-closed" : "register"} card-btn">
             ${isClosed ? "Closed" : "Register"}
         </div>
         <div class="details-btn card-btn">Details</div>
@@ -207,7 +211,7 @@
                 </div>
             </div>
         </div>
-        <div class="idp-btn card-btn timer-btn">Loading...</div>
+        <div class="idp-btn card-btn timer-btn" data-id="${game.eventId}">Loading...</div>
         <div class="details-btn card-btn">Details</div>
     `;
 

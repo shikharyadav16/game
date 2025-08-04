@@ -625,9 +625,12 @@ body {
   background-color: #75613d;
   border: none;
 }
-.nothing_found {
+#empty-img {
   margin-block: 40px;
-  height: 250px;
+  height: 150px;
   object-position: center;
   object-fit: cover;
+}
+.empty-des {
+  background-color: red;
 }

@@ -24,8 +24,7 @@
                 <div id="form-container">
                     <div id="login-header">
                         <div class="login-header-main">Sign up</div>
-                        <div class="login-header-content">You can sign up quickly using one of our sign-in options.
-                        </div>
+                        <div class="login-header-content">Join now to connect, explore, and personalize your experience.</div>
                     </div>
                     <div class="divider">
                         <hr>
@@ -34,7 +33,11 @@
                     </div>
                     <div class="form-input">
                         <input id="ign" type="text" placeholder="IGN (In Game Name)" required>
-                        <input id="upi" type="text" placeholder="UPI ID" required>
+                        <!-- <input id="upi" type="text" placeholder="UPI ID" required> -->
+                        <div class="select-game">
+                            <div class="select-bgmi"><img src="/assets/bgmisvg.svg" alt=""></div>
+                            <div class="select-ff"><img src="/assets/ffsvg.svg" alt=""></div>
+                        </div>
                         <input id="email" type="text" placeholder="Your email address" required>
                         <input id="password" type="text" placeholder="Your password" required>
                         <button id="signup-btn">SIGN UP</button>
@@ -77,23 +80,41 @@
     </div>
 
     <script>
+        let selectedGame = null;
         const signupBtn = document.getElementById("signup-btn");
+        const selectBgmi = document.getElementsByClassName("select-bgmi")[0];
+        const selectFf = document.getElementsByClassName("select-ff")[0];
 
         signupBtn.addEventListener("click", (e) => {
             e.preventDefault();
             handleSignup();
+        });
+        selectBgmi.addEventListener("click", (e)=>{
+            e.preventDefault();
+            disableSelectGame();
+            selectBgmi.style.outline = "2px solid #000000bc"
+            selectedGame = "bgmi";
         })
+        selectFf.addEventListener("click", (e)=>{
+            e.preventDefault();
+            disableSelectGame();
+            selectFf.style.outline = "2px solid #000000bc"
+            selectedGame = "ff";
+        })
+
+        function disableSelectGame() {
+            document.getElementsByClassName("select-bgmi")[0].style.outline = "1px solid rgba(0, 0, 0, 0.23)";
+            document.getElementsByClassName("select-ff")[0].style.outline = "1px solid rgba(0, 0, 0, 0.23)";
+        }
 
         function disableBtn() {
             document.getElementById("ign").disabled = true;
-            document.getElementById("upi").disabled = true;
             document.getElementById("email").disabled = true;
             document.getElementById("password").disabled = true;
         }
 
         function enableBtn() {
             document.getElementById("ign").disabled = false;
-            document.getElementById("upi").disabled = false;
             document.getElementById("email").disabled = false;
             document.getElementById("password").disabled = false;
         }
@@ -119,11 +140,11 @@
 
         function handleSignup() {
             const userIgn = document.getElementById("ign").value;
-            const userUpi = document.getElementById("upi").value;
             const userEmail = document.getElementById("email").value;
+            const userGame = selectedGame;
             const userPassword = document.getElementById("password").value;
 
-            if (userIgn.length === 0 || userUpi.length === 0 || userPassword.length === 0 || userEmail.length === 0) {
+            if (userIgn.length === 0 || userPassword.length === 0 || userEmail.length === 0) {
                 return setCardTimeout("Signup error!", "This field is required and cannot be left blank.")
             }
 
@@ -131,28 +152,28 @@
                 return setCardTimeout("Signup error!", "IGN should be atleast 4 characters.")
             }
 
-            if (userUpi.length < 4) {
-                return setCardTimeout("Signup error!", "The provided UPI Id is invalid.")
+            if (userGame === null) {
+                return setCardTimeout("Signup error!", "Please select atleast one game.")
             }
 
             if (userPassword.length < 6) {
                 return setCardTimeout("Signup error!", "Password should be atleast 6 characters.")
             }
 
-            if (userIgn.length >= 60 || userUpi.length >= 60 || userPassword.length >= 60 || userEmail.length >= 60) {
+            if (userIgn.length >= 60 || userPassword.length >= 60 || userEmail.length >= 60) {
                 return setCardTimeout("Signup error!", "Input exceeds maximum allowed length. Please shorten your entry.")
             }
             document.getElementById("loading-signup-btn").style.display = "block";
             document.getElementById("signup-btn").style.display = "none";
             disableBtn();
-            sendOTP(userEmail, userIgn, userPassword, userUpi);
+            sendOTP(userEmail, userIgn, userPassword, userGame);
         }
 
-        async function sendOTP(userEmail, userIgn, userPassword, userUpi) {
+        async function sendOTP(userEmail, userIgn, userPassword, userGame) {
 
             try {
                 sessionStorage.setItem("email", userEmail);
-                sessionStorage.setItem("user", JSON.stringify({ userEmail, userIgn, userPassword, userUpi }));
+                sessionStorage.setItem("user", JSON.stringify({ userEmail, userIgn, userPassword, userGame }));
                 const res = await fetch('/send-otp', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

@@ -2,7 +2,10 @@ const Event = require("../models/Event");
 const User = require("../models/User");
 
 async function handleGetGames(req, res) {
-    const { type = "bgmi", size = "solo" } = req.params;
+    const { size = "solo" } = req.params;
+
+    const type = req.user.game;
+    const email = req.user.email;
 
     try {
         const games = await Event.find({
@@ -14,7 +17,7 @@ async function handleGetGames(req, res) {
             return res.json({ games });
         }
 
-        res.render('home.ejs', { games: games });
+        res.render('home.ejs', { games });
 
     } catch (err) {
         console.error("Error:", err);
@@ -23,14 +26,14 @@ async function handleGetGames(req, res) {
 }
 
 async function handleGetMyGames(req, res) {
-    const { type = "bgmi", size = "solo", lobby = "games" } = req.params;
-    const { userEmail } = req.body
+    const { size = "solo", lobby = "games" } = req.params;
+    const { email, game }= req.user;
     
     try {
         
         if (lobby === "games") {
             const games = await Event.find({
-                eventType: type,
+                eventType: game,
                 eventTeamSize: size
             });
             
@@ -41,7 +44,7 @@ async function handleGetMyGames(req, res) {
             return res.render('home.ejs', { games: games });
         }
         
-        const user = await User.findOne({ email: userEmail });
+        const user = await User.findOne({ email: email });
 
         if (!user) {
             return res.status(404).json({ success: false, redirect: "/login" });
