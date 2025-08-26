@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esports Wallet - Add Funds</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+
+
+    <link rel="stylesheet" href="/css/wallet.css">
+
+</head>
+
+<body>
+
+    <%- include('./components/navbar.ejs') %>
+
+        <!-- Main Content -->
+        <div class="container">
+            <div class="page-header">
+                <h1><i class="fas fa-wallet"></i> eSports Wallet</h1>
+                <p>Add funds to your account and manage your transaction history</p>
+            </div>
+
+            <!-- Wallet Card -->
+            <div class="wallet-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-coins"></i> Add Funds</h2>
+                </div>
+
+                <div class="balance-display">
+                    <div class="balance-label">Current Balance</div>
+                    <div class="balance-amount">
+                        ₹ <%= wallet %>
+                    </div>
+                </div>
+
+                <div class="add-money-form">
+                    <div class="form-group">
+                        <label for="amount">Amount to Add</label>
+                        <div class="amount-input">
+                            <span class="currency-symbol">₹</span>
+                            <input type="number" id="amount" class="form-control" placeholder="Enter amount" min="5"
+                                step="5" value="50">
+                        </div>
+                    </div>
+
+                    <div class="quick-amounts">
+                        <div class="amount-btn">₹10</div>
+                        <div class="amount-btn">₹25</div>
+                        <div class="amount-btn">₹50</div>
+                        <div class="amount-btn">₹100</div>
+                        <div class="amount-btn">₹200</div>
+                        <div class="amount-btn">₹500</div>
+                    </div>
+
+
+                    <button class="add-btn">
+                        <i class="fas fa-plus-circle"></i> Add Funds
+                        <img src="/assets/loading2.svg" alt="err" class="add-btn-secondary" style="display: none;">
+                    </button>
+                    <button class="draw-btn">
+                        <i class="fas fa-money-bill-wave"></i>Withdraw Funds
+                        <img src="/assets/loading2.svg" alt="err" class="draw-btn-secondary" style="display: none;">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Transaction History -->
+            <div class="history-card">
+                <div class="history-header">
+                    <h2><i class="fas fa-history"></i> Transaction History</h2>
+
+                </div>
+
+                <div class="transaction-list">
+
+                    <% transactions.forEach(tx=> { %>
+                        <div class="transaction-item">
+                            <div class="transaction-icon <%= tx.type === 'debit' ? 'icon-payment' : 'icon-add' %>">
+                                <% if(tx.source==='topup' ) { %>
+                                    <i class="fas fa-plus"></i>
+                                    <% } else if(tx.source==='withdraw' ) { %>
+                                        <i class="fas fa-money-bill-wave"></i>
+                                        <% } else if(tx.source==='event_entry' ) { %>
+                                            <i class="fas fa-ticket-alt"></i>
+                                            <% } else if(tx.source==='event_prize' ) { %>
+                                                <i class="fas fa-trophy"></i>
+                                                <% } %>
+                            </div>
+
+                            <div class="transaction-details">
+                                <div class="transaction-title">
+                                    <% if(tx.source==='topup' ) { %>
+                                        Top Up
+                                        <% } else if(tx.source==='withdraw' ) { %>
+                                            Cash Out
+                                            <% } else if(tx.source==='event_entry' ) { %>
+                                                Tournament Entry Fee
+                                                <% } else if(tx.source==='event_prize' ) { %>
+                                                    Tournament Prize
+                                                    <% } %>
+                                </div>
+                                <div class="transaction-meta">
+                                    <span>
+                                        <%= new Date(tx.date).toLocaleDateString('en-US', { month: 'short' ,
+                                            day: 'numeric' , year: 'numeric' }) %>
+                                    </span>
+                                    <span>ID: <%= tx.transId.slice(0, 10)%>***</span>
+                                </div>
+                            </div>
+
+                            <div
+                                class="transaction-amount <%= tx.type === 'debit' ? 'amount-negative' : 'amount-positive' %>">
+                                <%= tx.type==='debit' ? '-' : '+' %> ₹<%= tx.amount %>
+                            </div>
+
+                            <div
+                                class="transaction-status <%= tx.status === 'SUCCESS' ? 'status-completed' : tx.status === 'PENDING' ? 'status-pending' : 'status-failed' %>">
+                                <%= tx.status.charAt(0).toUpperCase() + tx.status.slice(1).toLowerCase() %>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>NEXTSCRIMZ</h3>
+                    <p>Professional esports platform for competitive gamers. Join tournaments, track stats, and compete
+                        with
+                        the best.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/games"><i class="fas fa-home"></i> Games</a></li>
+                        <li><a href="/leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+                        <li><a href="/wallet"><i class="fas fa-wallet"></i> Wallet</a></li>
+                        <li><a href="/profile"><i class="fas fa-user"></i> Profile</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="/support"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                        <li><a href="/contact"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="/tac"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
+                        <li><a href="/privacy"><i class="fas fa-lock"></i> Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 NextScrimz. All rights reserved. Designed for competitive gamers.
+            </div>
+        </footer>
+
+
+        <script>
+            // Quick amount buttons
+            document.querySelectorAll('.amount-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('amount').value = btn.textContent.substring(1);
+                });
+            });
+
+            // Payment method selection
+            document.querySelectorAll('.method').forEach(method => {
+                method.addEventListener('click', () => {
+                    document.querySelectorAll('.method').forEach(m => m.classList.remove('active'));
+                    method.classList.add('active');
+                });
+            });
+
+
+            //Withdraw funds button
+            document.querySelector(".draw-btn").addEventListener("click", handleDrawMoneyListener);
+
+            function handleDrawMoneyListener() {
+                const amount = document.getElementById('amount').value;
+                if (amount >= 5) {
+                    btnStateChange();
+                    document.getElementsByClassName("draw-btn-secondary")[0].style.display = "block"
+
+                    drawMoney(amount);
+                } else {
+                }
+            }
+
+            // Add funds button
+            document.querySelector('.add-btn').addEventListener('click', handleAddMoneyListener);
+
+            function handleAddMoneyListener() {
+                const amount = document.getElementById('amount').value;
+                if (amount >= 5) {
+                    btnStateChange();
+                    document.getElementsByClassName("add-btn-secondary")[0].style.display = "block"
+
+                    addMoney(amount);
+                } else {
+                }
+            }
+        </script>
+        <script>
+            async function addMoney(amount) {
+
+                const res = await fetch("/add-money", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        amount,
+                        customerId: "cust123",
+                        customerEmail: "test@example.com",
+                        customerPhone: "9999999999"
+                    })
+                });
+
+                const data = await res.json();
+                console.log("Order Created:", data);
+
+                if (data.payment_session_id) {
+                    const cashfree = Cashfree({ mode: "sandbox" });
+
+                    cashfree.checkout({
+                        paymentSessionId: data.payment_session_id,
+                        redirectTarget: "_self"
+                    });
+                } else {
+                    window.location.href = "/wallet"
+                    alert("Error: " + JSON.stringify(data));
+                }
+            }
+
+            async function drawMoney(amount) {
+                const res = await fetch("/withdraw-money", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ amount })
+                });
+
+                const data = await res.json();
+                console.log("Withdraw Response:", data);
+                alert("Withdraw status: " + JSON.stringify(data));
+            }
+
+            function btnStateChange() {
+                document.getElementsByClassName('add-btn')[0].removeEventListener("click", handleAddMoneyListener);
+                document.getElementsByClassName('draw-btn')[0].removeEventListener("click", handleDrawMoneyListener);
+            }
+        </script>
+
+</body>
+
+</html>

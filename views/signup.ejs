@@ -24,7 +24,8 @@
                 <div id="form-container">
                     <div id="login-header">
                         <div class="login-header-main">Sign up</div>
-                        <div class="login-header-content">Join now to connect, explore, and personalize your experience.</div>
+                        <div class="login-header-content">Join now to connect, explore, and personalize your experience.
+                        </div>
                     </div>
                     <div class="divider">
                         <hr>
@@ -33,6 +34,7 @@
                     </div>
                     <div class="form-input">
                         <input id="ign" type="text" placeholder="IGN (In Game Name)" required>
+                        <input id="phone" type="number" placeholder="Your phone number" required>
                         <!-- <input id="upi" type="text" placeholder="UPI ID" required> -->
                         <div class="select-game">
                             <div class="select-bgmi"><img src="/assets/bgmisvg.svg" alt=""></div>
@@ -43,7 +45,8 @@
                         <button id="signup-btn">SIGN UP</button>
                         <button id="loading-signup-btn" hidden><img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..."
                                 width="20px" style="position: 'absolute'" /></button>
-                        <button id="create-account">ALREADY HAVE AN ACCOUNT</button>
+                        <button id="create-account" onclick="window.location.href = '/login'">ALREADY HAVE AN
+                            ACCOUNT</button>
                     </div>
                 </div>
             </div>
@@ -89,13 +92,13 @@
             e.preventDefault();
             handleSignup();
         });
-        selectBgmi.addEventListener("click", (e)=>{
+        selectBgmi.addEventListener("click", (e) => {
             e.preventDefault();
             disableSelectGame();
             selectBgmi.style.outline = "2px solid #000000bc"
             selectedGame = "bgmi";
         })
-        selectFf.addEventListener("click", (e)=>{
+        selectFf.addEventListener("click", (e) => {
             e.preventDefault();
             disableSelectGame();
             selectFf.style.outline = "2px solid #000000bc"
@@ -141,12 +144,21 @@
         function handleSignup() {
             const userIgn = document.getElementById("ign").value;
             const userEmail = document.getElementById("email").value;
+            let userPhone = document.getElementById("phone").value.trim();
             const userGame = selectedGame;
             const userPassword = document.getElementById("password").value;
 
             if (userIgn.length === 0 || userPassword.length === 0 || userEmail.length === 0) {
                 return setCardTimeout("Signup error!", "This field is required and cannot be left blank.")
             }
+            if (userPhone.length === 12) {
+                userPhone = userPhone.slice(2);
+            }
+
+            if (!/^\+?\d{10,15}$/.test(userPhone)) {
+                return setCardTimeout("Signup error!", "Please enter a valid phone number.");
+            }
+
 
             if (userIgn.length < 4) {
                 return setCardTimeout("Signup error!", "IGN should be atleast 4 characters.")
@@ -166,14 +178,14 @@
             document.getElementById("loading-signup-btn").style.display = "block";
             document.getElementById("signup-btn").style.display = "none";
             disableBtn();
-            sendOTP(userEmail, userIgn, userPassword, userGame);
+            sendOTP(userEmail, userIgn, userPassword, userGame, userPhone);
         }
 
-        async function sendOTP(userEmail, userIgn, userPassword, userGame) {
+        async function sendOTP(userEmail, userIgn, userPassword, userGame, userPhone) {
 
             try {
                 sessionStorage.setItem("email", userEmail);
-                sessionStorage.setItem("user", JSON.stringify({ userEmail, userIgn, userPassword, userGame }));
+                sessionStorage.setItem("user", JSON.stringify({ userEmail, userIgn, userPassword, userGame, userPhone }));
                 const res = await fetch('/send-otp', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

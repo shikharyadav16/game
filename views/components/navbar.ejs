@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
+    <style>
+        :root {
+            --color-dark: #161616;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --primary: #ffe69b;
+            --primary-dark: rgb(149, 123, 74);
+            --light: #f7f9fc;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+            --nav-height: 80px;
+        }
+        
+        header {
+            background-color: rgba(22, 22, 22, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 0 5%;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgb(149, 123, 74);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            color: #ffe69b;
+            font-size: 2rem;
+        }
+
+        .logo h1 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ffe69b, var(--warning));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .navbar {
+            margin-left: 30px;
+            font-family: "Nunito", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1rem;
+        }
+        .large-nav {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .small-nav {
+            font-size: 1.5rem;
+            display: none;
+            gap: 30px;
+            list-style: none;
+        }
+
+
+        .navbar a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .navbar a:hover {
+            color: #ffe69b;
+        }
+
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffe69b;
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover::after {
+            width: 100%;
+        }
+
+        .wallet {
+            width: 100px;
+            height: 50px;
+            background: linear-gradient(145deg, #1e1e1e, #232323);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(191, 158, 96, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgb(149, 123, 74);
+        }
+
+        .wallet:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(191, 158, 96, 0.2);
+            border: 1px solid #ffe69b;
+        }
+
+        .wallet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ffe69b, var(--warning));
+        }
+
+        .wallet-icon {
+            margin-top: 5px;
+            font-size: 22px;
+            color: #ffe69b;
+            z-index: 2;
+        }
+
+        .wallet-amount {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--light);
+            z-index: 2;
+            letter-spacing: 0.5px;
+        }
+
+        /* Wallet States */
+        .wallet-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .downbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(22, 22, 22, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgb(149, 123, 74);
+            box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            padding: 10px 0;
+            height: 70px;
+        }
+
+        .downbar .nav-list {
+            display: flex;
+            list-style: none;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .downbar .nav-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .downbar .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
+        }
+
+        .downbar .nav-icon {
+            font-size: 24px;
+            color: #777;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .downbar .nav-label {
+            font-size: 0.55rem;
+            color: #777;
+            margin-top: 5px;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .downbar .nav-link.active,
+        .downbar .nav-link:hover {
+            transform: translateY(-15px);
+        }
+
+        .downbar .nav-link.active .nav-icon,
+        .downbar .nav-link:hover .nav-icon {
+            color: #ffe69b;
+            text-shadow: 0 0 15px rgba(191, 158, 96, 0.7);
+            transform: scale(1.2);
+        }
+
+        .downbar .nav-link.active .nav-label,
+        .downbar .nav-link:hover .nav-label {
+            opacity: 1;
+            transform: translateY(0);
+            color: #ffe69b;
+        }
+
+        .downbar .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 50px;
+            height: 50px;
+            background: rgba(191, 158, 96, 0.15);
+            border-radius: 50%;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1;
+        }
+
+        .downbar .nav-link.active::before,
+        .downbar .nav-link:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .downbar .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            width: 0;
+            height: 3px;
+            background: #ffe69b;
+            border-radius: 2px;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 10px #ffe69b;
+        }
+
+        .downbar .nav-link.active::after,
+        .downbar .nav-link:hover::after {
+            width: 70%;
+        }
+
+        .downbar .active-indicator {
+            position: absolute;
+            top: -10px;
+            width: 6px;
+            height: 6px;
+            background: #ffe69b;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffe69b;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .downbar .nav-link.active .active-indicator {
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .downbar .nav-list {
+                padding: 0 10px;
+            }
+            
+            .downbar .nav-link {
+                padding: 10px 15px;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(191, 158, 96, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(191, 158, 96, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(191, 158, 96, 0);
+            }
+        }
+
+        @media(max-width: 1020px) {
+            .large-nav {
+                display: none;
+            }
+
+            .small-nav {
+                display: flex;
+            }
+
+        }
+
+        @media(max-width: 810px) {
+
+            .logo {
+                gap: 5px;
+            }
+
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+
+            .logo i {
+                font-size: 1.7rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .small-nav {
+                display: none;
+            }
+
+            .downbar {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <i class="ph ph-finn-the-human"></i>
+            <h1>NextScrimz</h1>
+        </div>
+        <nav class="navbar">
+            <ul class="large-nav">
+                <li><a href="/games" class="active">Games</a></li>
+                <li><a href="/my-games">My Games</a></li>
+                <li><a href="/leaderboard">Leaderboard</a></li>
+                <li><a href="/hostory">History</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/support">Support</a></li>
+            </ul>
+            <ul class="small-nav">
+                <li><a href="/games" class="active"><i class="ph ph-house"></i></a></li>
+                <li><a href="/my-games"><i class="ph ph-game-controller"></i></a></li>
+                <li><a href="/leaderboard"><i class="ph ph-trophy"></i></a></li>
+                <li><a href="/history"><i class="ph ph-clock-counter-clockwise"></i></a></li>
+                <li><a href="/profile"><i class="ph ph-user"></i></a></li>
+                <li><a href="/support"><i class="ph ph-headset"></i></a></li>
+            </ul>
+            <div class="wallet wallet-pulse" onclick="window.location.href='/wallet'">
+                <i class="ph ph-wallet wallet-icon"></i>
+                <div class="wallet-amount">Rs <%= wallet %></div>
+            </div>
+        </nav>
+    </header>
+    <nav class="downbar">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="/games" class="nav-link active">
+                    <i class="ph ph-house nav-icon"></i>
+                    <span class="nav-label">Home</span>
+                    <span class="active-indicator"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/my-games" class="nav-link">
+                    <i class="ph ph-game-controller nav-icon"></i>
+                    <span class="nav-label">Lobby</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/leaderboard" class="nav-link">
+                    <i class="ph ph-trophy nav-icon"></i>
+                    <span class="nav-label">Leaderboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/history" class="nav-link">
+                    <i class="ph ph-clock-counter-clockwise nav-icon"></i>
+                    <span class="nav-label">History</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/support" class="nav-link">
+                    <i class="ph ph-headset nav-icon"></i>
+                    <span class="nav-label">Support</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="ph ph-user nav-icon"></i>
+                    <span class="nav-label">Profile</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <script>
+        // Add click event to nav items
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Remove active class from all links
+                document.querySelectorAll('.nav-link').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Add active class to clicked link
+                this.classList.add('active');
+
+                // Add a ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.backgroundColor = 'rgba(191, 158, 96, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.pointerEvents = 'none';
+
+                // Set ripple position and size
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = size + 'px';
+                ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+
+                this.appendChild(ripple);
+
+                // Remove ripple after animation
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation to CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

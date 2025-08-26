@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games | NextScrimz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/games.css">
+</head>
+
+<body>
+    <%- include('./components/navbar.ejs', { wallet: wallet }) %>
+        <%- include('./components/error-card.ejs') %>
+            <%- include('./components/prize-dist.ejs') %>
+
+                <section class="hero">
+                    <h2>Competitive Tournaments</h2>
+                    <p>Join thrilling esports competitions, showcase your skills, and win amazing prizes. Register now
+                        for
+                        upcoming
+                        tournaments!</p>
+
+                    <div class="filters">
+                        <div class="filter-btn active" id="all-games">All Games</div>
+                        <div class="filter-btn" id="solo">Solo</div>
+                        <div class="filter-btn" id="duo">Duo</div>
+                        <div class="filter-btn" id="squad">Squad</div>
+                    </div>
+                </section>
+
+                <div class="container">
+                    <div class="section-title">
+                        <h3><i class="fas fa-trophy"></i> Upcoming Matches</h3>
+                    </div>
+
+                    <div class="tournament-cards">
+                        <% if (!games || games===null) { %>
+                            <div class="no-card">
+                                <i class="ph ph-calendar-x"></i>
+                                <div>No upcoming tournaments — check back later</div>
+                            </div>
+                            <% } else { %>
+                                <!-- Tournament Card 1 -->
+                                <% games.forEach(game=> { %>
+                                    <% let pp=game.eventSize*game.eventKillPrize; let regPlayers=game.eventArray.length;
+                                        %>
+                                        <div class="card">
+                                            <div class="card-img">
+                                                <img src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80"
+                                                    alt="BGMI Tournament">
+                                                <div class="game-name">
+                                                    <%= game.eventType %>
+                                                </div>
+                                            </div>
+                                            <div class="card-content">
+                                                <h3 class="tournament-name">
+                                                    <%= game.eventName %>
+                                                </h3>
+
+                                                <div class="details">
+                                                    <div class="detail-item">
+                                                        <i class="fas fa-users"></i>
+                                                        <div class="detail-text">
+                                                            <span class="detail-label">Team Size</span>
+                                                            <span class="detail-value">
+                                                                <%= game.eventTeamSize %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="detail-item">
+                                                        <i class="fas fa-calendar"></i>
+                                                        <div class="detail-text">
+                                                            <span class="detail-label">Date & Time</span>
+                                                            <span class="detail-value">
+                                                                <%= game.eventDate %> | <%= game.eventTime %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="detail-item">
+                                                        <i class="fas fa-trophy"></i>
+                                                        <div class="detail-text">
+                                                            <span class="detail-label">Prize Pool</span>
+                                                            <span class="detail-value">
+                                                                <%= pp %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="detail-item">
+                                                        <i class="fas fa-map-marker-alt"></i>
+                                                        <div class="detail-text">
+                                                            <span class="detail-label">Region</span>
+                                                            <span class="detail-value">India</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="progress-container">
+                                                    <div class="progress-label">
+                                                        <span>Slots Registered</span>
+                                                        <span>
+                                                            <%= regPlayers %>/<%= game.eventSize %>
+                                                        </span>
+                                                    </div>
+                                                    <div class="progress-bar">
+                                                        <div class="progress-fill"
+                                                            style="width: <%= Math.floor(regPlayers/game.eventSize*100) %>%">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="prizes">
+                                                    <div class="prize-item">
+                                                        <div class="prize-label">Per Kill</div>
+                                                        <div class="prize-amount">Rs <%= game.eventKillPrize %>
+                                                        </div>
+                                                    </div>
+                                                    <div class="prize-item">
+                                                        <div class="prize-label">1st Place</div>
+                                                        <div class="prize-amount pos-prize">Rs <%= game.eventPosPrize %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="entry-fee event-fee">
+                                                    <i class="fas fa-ticket-alt"></i> Entry Fee: Rs <%= game.eventEntry
+                                                        %> per slot
+                                                </div>
+
+                                                <div class="card-actions">
+                                                    <button class="btn-details" data-entry="<%= game.eventEntry %>"
+                                                        data-pos="<%= game.eventPosPrize %>"
+                                                        data-kill="<%= game.eventKillPrize %>"
+                                                        data-size="<%= game.eventSize %>">
+                                                        <i class="fas fa-info-circle"></i> Details
+                                                    </button>
+                                                    <button class="btn-register"
+                                                        onclick="handleRegisterEvent(this.dataset.id)"
+                                                        data-id="<%= game.eventId %>">
+                                                        <i class="fas fa-user-plus"></i> Register
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }) %>
+
+                                            <% } %>
+                    </div>
+                </div>
+
+
+
+
+                <footer>
+                    <p>© 2025 NextScrimz. All rights reserved. | Designed for competitive gamers</p>
+                </footer>
+                <%- include('./templates/filter-games.ejs') %>
+                    <script>
+                        const details = document.querySelectorAll(".btn-details");
+                        const register = document.querySelectorAll(".btn-register");
+
+                        details.forEach((btn) => {
+                            btn.addEventListener("click", (e) => {
+                                e.preventDefault();
+                                const clickedBtn = e.target;
+                                const entryFee = Number(clickedBtn.dataset.entry);
+                                const posPrize = Number(clickedBtn.dataset.pos);
+                                const killPrize = Number(clickedBtn.dataset.kill);
+                                const eventSize = Number(clickedBtn.dataset.size);
+                                showDetails(entryFee, posPrize, killPrize, eventSize);
+                            })
+                        });
+
+
+                        async function handleRegisterEvent(id) {
+                            try {
+                                const res = await fetch(`/game/${id}`, {
+                                    method: "GET",
+                                });
+                                const data = await res.json();
+
+                                if (data?.redirectedTo) {
+                                    window.location.href = data.redirectedTo;
+                                } else {
+                                    console.warn("No redirect URL found in response:", data);
+                                    alert(`Registeration error! ${data.message}`)
+                                }
+                            } catch (err) {
+                                console.log("Error:", err);
+                            }
+                        }
+
+
+                    </script>
+
+</body>
+
+</html>

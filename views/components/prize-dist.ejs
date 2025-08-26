@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prize Pool Distribution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .prize-card-wrapper {
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            position: fixed;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            display: none;
+            /* dimmed background */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .prize-card {
+
+            --primary: #bf9e60;
+            --primary-dark: #8e7443;
+            --color-dark: #161616;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --light: #f7f9fc;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+            --nav-height: 80px;
+
+            position: relative;
+            z-index: 1000;
+            width: 100%;
+            max-width: 500px;
+            background: rgb(230, 230, 230);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            font-family: "Nunito", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            transform: translateY(30px) scale(0.95);
+            opacity: 0;
+            animation: cardEntrance 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
+            display: none;
+        }
+
+        @keyframes cardEntrance {
+            0% {
+                transform: translateY(30px) scale(0.95);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .prize-card .card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prize-card .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            transform: rotate(30deg);
+        }
+
+        .prize-card .card-header h2 {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .prize-card .card-header i {
+            margin-right: 10px;
+        }
+
+        .prize-card .close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            align-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .prize-card .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .prize-card .card-body {
+            padding: 30px;
+        }
+
+        .prize-card .prize-formula {
+            background: linear-gradient(to right, var(--light) 0%, #f0f5ff 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--secondary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.6s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .prize-card .prize-formula h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .prize-card .prize-formula h3 i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        .prize-card .formula {
+            font-size: 1rem;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: 700;
+            color: var(--primary-dark);
+            letter-spacing: 0.5px;
+        }
+
+        .prize-card .prize-breakdown {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .prize-card .breakdown-item {
+            text-align: center;
+            flex: 1;
+            padding: 5px;
+            border-radius: 8px;
+            background: rgba(191, 158, 96, 0.08);
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .prize-card .breakdown-item:hover {
+            transform: translateY(-5px);
+            background: rgba(191, 158, 96, 0.15);
+        }
+
+        .prize-card .breakdown-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .prize-card .breakdown-label {
+            font-size: 0.8rem;
+            color: var(--dark);
+        }
+
+        .prize-card .position-prizes {
+            margin-top: 30px;
+        }
+
+        .prize-card .position-prizes h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+        }
+
+        .prize-card .position-prizes h3 i {
+            margin-right: 10px;
+            color: var(--success);
+        }
+        .position-prize {
+            color: black;
+        }
+
+        .prize-card .prize-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            animation: slideIn 0.5s ease-out 0.6s forwards;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .prize-card .prize-item {
+            background: linear-gradient(to bottom, #ffffff 0%, var(--light) 100%);
+            border-radius: 10px;
+            padding: 15px 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prize-card .prize-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .prize-card .prize-item:nth-child(1)::before {
+            background: linear-gradient(to right, #FFD700, #FFA500);
+        }
+
+        .prize-card .prize-item:nth-child(2)::before {
+            background: linear-gradient(to right, #C0C0C0, #A9A9A9);
+        }
+
+        .prize-card .prize-item:nth-child(3)::before {
+            background: linear-gradient(to right, #CD7F32, #8B4513);
+        }
+
+        .prize-card .prize-item:nth-child(4)::before {
+            background: linear-gradient(to right, var(--secondary), #00a8a8);
+        }
+
+        .prize-card .prize-item:nth-child(5)::before {
+            background: linear-gradient(to right, var(--warning), #fdc04d);
+        }
+
+        .prize-card .prize-item:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        .prize-card .position {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .prize-card.position-prize {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: 0.5px;
+        }
+
+        .prize-card .note {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 20px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .prize-card .card-decoration {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .prize-card .card-decoration:nth-child(2) {
+            top: 30%;
+            left: -30px;
+            background: var(--warning);
+            width: 60px;
+            height: 60px;
+        }
+
+        .prize-card .card-decoration:nth-child(3) {
+            bottom: 40px;
+            right: 30px;
+            background: var(--danger);
+            width: 40px;
+            height: 40px;
+            opacity: 0.08;
+        }
+
+        .prize-card .pulse {
+            animation: pulse-prize 2s infinite;
+        }
+
+        @keyframes pulse-prize {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="prize-card-wrapper">
+    <div class="prize-card">
+        <div class="card-decoration"></div>
+        <div class="card-decoration"></div>
+        <div class="card-decoration"></div>
+
+        <div class="card-header">
+            <h2><i class="fas fa-trophy"></i> Prize Distribution</h2>
+            <button class="close-btn pulse">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="card-body">
+            <div class="prize-formula">
+                <h3><i class="fas fa-calculator"></i> Prize Pool Formula</h3>
+                <div class="formula">
+                    Total Prize = Kill Prize + Position Prize
+                </div>
+                <div class="prize-breakdown">
+                    <div class="breakdown-item">
+                        <div class="breakdown-value" id="kill-prize">Rs 9999</div>
+                        <div class="breakdown-label">Per Kill</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="breakdown-value">+</div>
+                        <div class="breakdown-label">Plus</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="breakdown-value">Position</div>
+                        <div class="breakdown-label">Prize</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="position-prizes">
+                <h3><i class="fas fa-crown"></i> Top 5 Position Prizes</h3>
+                <div class="prize-grid">
+                    <div class="prize-item">
+                        <div class="position">1st</div>
+                        <div class="position-prize" id="first-prize">Rs 999</div>
+                    </div>
+                    <div class="prize-item">
+                        <div class="position">2nd</div>
+                        <div class="position-prize" id="second-prize">Rs 999</div>
+                    </div>
+                    <div class="prize-item">
+                        <div class="position">3rd</div>
+                        <div class="position-prize">Rs 0</div>
+                    </div>
+                    <div class="prize-item">
+                        <div class="position">4th</div>
+                        <div class="position-prize">Rs 0</div>
+                    </div>
+                    <div class="prize-item">
+                        <div class="position">5th</div>
+                        <div class="position-prize">Rs 0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                Note: Every player is eligible for kill rewards. Rewards from position and kills are added together.
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const closeBtn = document.querySelector('.close-btn');
+            const card = document.querySelector('.prize-card');
+            const prizeItems = document.querySelectorAll('.prize-item');
+            const wrapper = document.querySelector('.prize-card-wrapper');
+
+            // Close button functionality
+            closeBtn.addEventListener('click', function () {
+                card.style.transform = 'translateY(30px) scale(0.95)';
+                card.style.opacity = '0';
+                card.style.display = 'none';
+                wrapper.style.display = "none";
+                document.body.style.overflow = "scroll";
+            });
+
+            prizeItems.forEach((item, index) => {
+                item.style.animationDelay = `${0.7 + index * 0.1}s`;
+            });
+        });
+
+        function showDetails(fee, pos, kill, size) {
+            const killPrize = document.getElementById("kill-prize");
+            const firstPrize = document.getElementById("first-prize");
+            const secondPrize = document.getElementById("second-prize");
+
+            killPrize.innerHTML = `Rs ${kill}`;
+            firstPrize.innerHTML = `Rs ${Math.floor(2 * pos / 3)}`;
+            secondPrize.innerHTML = `Rs ${Math.floor(1 * pos / 3)}`;
+
+            const card = document.querySelector('.prize-card');
+            const wrapper = document.querySelector('.prize-card-wrapper');
+            wrapper.style.display = "flex";
+            document.body.style.overflow = "hidden";
+            card.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

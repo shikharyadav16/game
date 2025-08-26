@@ -5,8 +5,9 @@ const eventSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    eventColor: {
+    eventName: {
         type: String,
+        required: true,
     },
     eventType: {
         type: String,
@@ -40,12 +41,24 @@ const eventSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    eventStatus: {
+        type: String,
+        required: true
+    },
+    matchId: {
+        type: String
+    },
+    matchPass: {
+        type: String
+    },
     eventArray: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'users'
         }
     ]
+},{
+    timestamps: true
 });
 
 const Event = mongoose.model("events", eventSchema);

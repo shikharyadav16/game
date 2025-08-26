@@ -6,7 +6,9 @@ const path = require("path");
 const app = express();
 
 const authRoutes = require("./routes/authRoutes");
-const staticRoutes = require("./routes/staticRoutes")
+const staticRoutes = require("./routes/staticRoutes");
+const cashfreeRoutes = require("./routes/cashfreeRoutes")
+const regRoutes = require("./routes/regRoutes");
 const { connectToDb } = require("./Connection");
 const { restrictToLogin } = require("./middlewares/auth")
 
@@ -22,7 +24,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "landing.html"));
+});
 app.use("/", authRoutes);
+app.use("/", restrictToLogin, regRoutes);
+app.use("/", restrictToLogin, cashfreeRoutes);
 app.use("/", restrictToLogin, staticRoutes);
 
 const PORT = 3000 || process.env.PORT;

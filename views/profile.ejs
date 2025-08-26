@@ -20,56 +20,142 @@
 
 <body>
     <div class="container">
-        <div class="header">
-            <div class="heading">Profile</div>
-            <div class="heading-des">Manage your personal information, keep your details up to date, and customize your
-                experience, all in one place.</div>
-            <div class="filter">
-                <div class="home" onclick="window.location.href='/'">Home</div>
-                <div class="history" onclick="window.location.href='/history'">History</div>
-                <div class="stats"  onclick="window.location.href='/stats'">Stats</div>
-                <div class="profile filter-active"  onclick="window.location.href='/profile'">Profile</div>
-            </div>
-            <div class="filter-mob">
-                <a href="/" class="down-a"><i class="ph ph-game-controller"></i></a>
-                <a href="/history" class="down-a"><i class="ph ph-clock-counter-clockwise"></i></a>
-                <a href="/stats" class="down-a"><i class="ph ph-chart-donut"></i></a>
-                <a href="/profile" class="down-a filter-mob-active" style="margin-right: 5px;"><i
-                        class="ph ph-user-circle"></i></a>
-            </div>
-        </div>
-        <div class="main">
-            <div class="main-heading">Basic data</div>
-            <div class="main-des">Your core information at a glance. Keep your essential details accurate and up to
-                date.</div>
-            <hr>
-            <div class="credentials">
-                <div class="input-area">
-                    <div class="input-heading">Email address</div>
-                    <input type="text" value="yadavshikhar49@gmail.com">
-                </div>
-                <div class="input-area">
-                    <div class="input-heading">Username</div>
-                    <input type="text">
-                </div>
-                <div class="input-area">
-                    <div class="input-heading">IGN (In Game Name)</div>
-                    <input type="text">
-                </div>
-                <div class="input-area">
-                    <div class="input-heading">UPI Id</div>
-                    <input type="text">
-                </div>
-                <div class="input-area">
-                    <div class="input-heading">Password</div>
-                    <input type="text">
-                </div>
-            </div>
+        <%- include('./components/error-card.ejs') %>
 
-            <hr>
-            <div class="profile-btn">Save</div>
-        </div>
+            <div class="header">
+                <div class="heading">Profile</div>
+                <div class="heading-des">Manage your personal information, keep your details up to date, and customize
+                    your
+                    experience, all in one place.</div>
+                <div class="filter">
+                    <div class="home" onclick="window.location.href='/'">Home</div>
+                    <div class="history" onclick="window.location.href='/history'">History</div>
+                    <div class="stats" onclick="window.location.href='/stats'">Stats</div>
+                    <div class="profile filter-active" onclick="window.location.href='/profile'">Profile</div>
+                </div>
+                <div class="filter-mob">
+                    <a href="/" class="down-a"><i class="ph ph-game-controller"></i></a>
+                    <a href="/history" class="down-a"><i class="ph ph-clock-counter-clockwise"></i></a>
+                    <a href="/stats" class="down-a"><i class="ph ph-chart-donut"></i></a>
+                    <a href="/profile" class="down-a filter-mob-active" style="margin-right: 5px;"><i
+                            class="ph ph-user-circle"></i></a>
+                </div>
+            </div>
+            <div class="main">
+                <div class="main-heading">Basic data</div>
+                <div class="main-des">Your core information at a glance. Keep your essential details accurate and up to
+                    date.</div>
+                <hr>
+                <div class="credentials">
+                    <div class="input-area">
+                        <div class="input-heading">Email address</div>
+                        <input type="text" value="<%= user.email %>" id="email">
+                    </div>
+                    <div class="input-area">
+                        <div class="input-heading">Username</div>
+                        <input type="text" value="<%= user && user.username ? user.username : '' %>" id="username">
+                    </div>
+                    <div class="input-area">
+                        <div class="input-heading">IGN (In Game Name)</div>
+                        <input type="text" value="<%= user && user.ign ? user.ign : '' %>" id="ign">
+                    </div>
+                    <div class="input-area">
+                        <div class="input-heading">UPI Id</div>
+                        <input type="text" value="<%= user && user.upi ? user.upi : '' %>" id="upi">
+                    </div>
+                    <div class="input-area">
+                        <div class="input-heading">Password</div>
+                        <input type="text" value="<%= user && user.password ? user.password : '' %>" id="password">
+                    </div>
+                </div>
+
+                <hr>
+                <div id="loading-btn" class="profile-btn" hidden><img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..."
+                        width="20px" style="position: 'absolute'" /></div>
+                <div class="profile-btn" id="update-btn">Save</div>
+            </div>
     </div>
+
+    <script>
+        function setCardTimeout(eName, eDescription) {
+            let errorName = document.getElementById("error-name");
+            let errorDescription = document.getElementById("error-description");
+            const card = document.getElementsByClassName('error-card')[0];
+
+            errorName.innerText = eName;
+            errorDescription.innerText = eDescription;
+            card.classList.remove("hide");
+
+            setTimeout(() => {
+                card.classList.add('hide');
+            }, 3000);
+        }
+
+        document.getElementById("update-btn").addEventListener("click", handleUpdateData);
+
+
+        function disableFeilds() {
+            document.getElementById("username").disabled = true;
+            document.getElementById("ign").disabled = true;
+            document.getElementById("upi").disabled = true;
+            document.getElementById("password").disabled = true;
+        }
+
+        function enableFields() {
+            document.getElementById("username").disabled = false;
+            document.getElementById("ign").disabled = false;
+            document.getElementById("upi").disabled = false;
+            document.getElementById("password").disabled = false;
+        }
+        function newState() {
+            const loadingBtn = document.getElementById("loading-btn");
+            const updateBtn = document.getElementById("update-btn");
+            
+            disableFeilds();
+            loadingBtn.style.display = "block"
+            updateBtn.style.display = "none"
+        }
+        function originalState() {
+            const loadingBtn = document.getElementById("loading-btn");
+            const updateBtn = document.getElementById("update-btn");
+            
+            enableFeilds();
+            loadingBtn.style.display = "none"
+            updateBtn.style.display = "block"
+        }
+
+        async function handleUpdateData() {
+            const username = document.getElementById("username").value;
+            const ign = document.getElementById("ign").value;
+            const upi = document.getElementById("upi").value;
+            const password = document.getElementById("password").value;
+
+            if (userPassword.length < 6) {
+                return setCardTimeout("Signup error!", "Password should be atleast 6 characters.")
+            }
+            newState();
+
+            try {
+                const res = await fetch("/profile", {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({username, ign, upi, password})
+                });
+
+                if (res.ok) {
+                    setCardTimeout("Success!", "Changes have been made successfully.")
+                    origin
+                }
+
+
+            } catch (err) {
+                console.log('Error:', err);
+            }
+        }
+
+    </script>
 </body>
 
 </html>

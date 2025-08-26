@@ -164,7 +164,7 @@
         async function verifyOTP() {
             const email = sessionStorage.getItem("email");
             const credentials = JSON.parse(sessionStorage.getItem("user"));
-            let { userIgn, userPassword, userGame } = credentials;
+            let { userIgn, userPassword, userGame, userPhone } = credentials;
             const otpBtn = document.getElementById('otp');
             otpBtn.disabled = true;
             otp = otpBtn.value;
@@ -172,7 +172,7 @@
                 const res = await fetch('/verify-otp', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, otp, userGame, userIgn, userPassword })
+                    body: JSON.stringify({ email, otp, userGame, userIgn, userPassword, userPhone })
                 });
                 const data = await res.json();
 

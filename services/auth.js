@@ -4,10 +4,11 @@ const secureKey = "A7f9L2qX8rW3";
 
 function setUser(user) {
     const payload = {
+        _id: user._id,
         email: user.email,
-        game: user.game
+        game: user.userGame,
+        ign: user.userIgn
     }
-
     return jwt.sign(payload, secureKey);
 }
 

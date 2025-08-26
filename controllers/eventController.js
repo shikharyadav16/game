@@ -2,22 +2,15 @@ const Event = require("../models/Event");
 const User = require("../models/User");
 
 async function handleGetGames(req, res) {
-    const { size = "solo" } = req.params;
-
-    const type = req.user.game;
-    const email = req.user.email;
-
+    const { game, email } = req.user;
     try {
         const games = await Event.find({
-            eventType: type,
-            eventTeamSize: size
+            eventType: game,
         });
+        const user = await User.findOne({ email });
+        const wallet = await user.wallet;
 
-        if (req.headers['x-requested-with'] === 'XMLHttpRequest') {
-            return res.json({ games });
-        }
-
-        res.render('home.ejs', { games });
+        res.render('games.ejs', { games: games, wallet: wallet });
 
     } catch (err) {
         console.error("Error:", err);
@@ -25,44 +18,31 @@ async function handleGetGames(req, res) {
     }
 }
 
-async function handleGetMyGames(req, res) {
-    const { size = "solo", lobby = "games" } = req.params;
-    const { email, game }= req.user;
-    
+async function handleGetFilteredGames(req, res) {
+    const { size = "solo" } = req.params;
+    const { game } = req.user;
+
     try {
-        
-        if (lobby === "games") {
-            const games = await Event.find({
+
+        let games;
+
+        if (size === "all-games") {
+            games = await Event.find({
+                eventType: game,
+            });
+        } else {
+            games = await Event.find({
                 eventType: game,
                 eventTeamSize: size
             });
-            
-            if (req.headers['x-requested-with'] === 'XMLHttpRequest') {
-                return res.json({ games });
-            }
-            
-            return res.render('home.ejs', { games: games });
-        }
-        
-        const user = await User.findOne({ email: email });
-
-        if (!user) {
-            return res.status(404).json({ success: false, redirect: "/login" });
         }
 
-        let games = [];
-
-        for (const objId of user.registeredArray) {
-            let game = await Event.findOne({ _id: objId, eventType: type, eventTeamSize: size });
-            if (game) {
-                games.push(game);
-            }
-        }
 
         if (req.headers['x-requested-with'] === 'XMLHttpRequest') {
             return res.json({ games });
         }
-        res.render('home.ejs', { games: games });
+
+        res.render('games.ejs', { games: games });
 
     } catch (err) {
         console.error("Error:", err);
@@ -71,4 +51,4 @@ async function handleGetMyGames(req, res) {
 }
 
 
-module.exports = { handleGetGames, handleGetMyGames }
+module.exports = { handleGetGames, handleGetFilteredGames }
