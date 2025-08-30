@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert Notification System</title>
+    <style>
+        .alert-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            z-index: 1000;
+        }
+
+        .alert {
+            padding: 16px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            color: white;
+            background-color: rgb(29, 29, 29);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease forwards;
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+
+        .alert.success {
+            background: linear-gradient(to right, #2ecc71, #27ae60);
+            border-left: 5px solid #1e8449;
+        }
+
+        .alert.error {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+            border-left: 5px solid #922b21;
+        }
+
+        .alert.warning {
+            background: linear-gradient(to right, #f39c12, #e67e22);
+            border-left: 5px solid #b45a12;
+            color: #2c3e50;
+        }
+
+        .alert-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-icon {
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .warning .close-btn {
+            color: #2c3e50;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideOut {
+            to {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="alert-container" id="alertContainer"></div>
+
+    <script>
+        function showAlert(type, message) {
+            // Create alert element
+            const alert = document.createElement('div');
+            alert.className = `alert ${type}`;
+
+            // Set icon based on type
+            let icon = '✅';
+            if (type.includes("error")) icon = '❌';
+            if (type.includes('warning')) icon = '⚠️';
+
+            // Alert content
+            alert.innerHTML = `
+                <div class="alert-content">
+                    <span class="alert-icon">${icon}</span>
+                    <span>${message}</span>
+                </div>
+                <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+            `;
+
+            // Add to container
+            const container = document.getElementById('alertContainer');
+            container.appendChild(alert);
+
+            // Trigger animation
+            setTimeout(() => {
+                alert.style.animation = 'slideOut 0.3s ease forwards';
+            }, 2200);
+
+            // Remove after 2.5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 2500);
+        }
+    </script>
+</body>
+
+</html>

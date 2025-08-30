@@ -15,7 +15,7 @@
 
 <body>
     <%- include('./components/navbar.ejs', { wallet: wallet }) %>
-        <%- include('./components/error-card.ejs') %>
+        <%- include('./components/notify-card.ejs') %>
             <%- include('./components/prize-dist.ejs') %>
 
                 <section class="hero">
@@ -187,7 +187,7 @@
                                     window.location.href = data.redirectedTo;
                                 } else {
                                     console.warn("No redirect URL found in response:", data);
-                                    alert(`Registeration error! ${data.message}`)
+                                    showAlert("Registeration error!", data.message)
                                 }
                             } catch (err) {
                                 console.log("Error:", err);

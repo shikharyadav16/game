@@ -49,7 +49,7 @@
                 <div class="credentials">
                     <div class="input-area">
                         <div class="input-heading">Email address</div>
-                        <input type="text" value="<%= user.email %>" id="email">
+                        <input type="text" value="<%= user.email %>" id="email" disabled style="cursor: not-allowed;">
                     </div>
                     <div class="input-area">
                         <div class="input-heading">Username</div>
@@ -64,14 +64,15 @@
                         <input type="text" value="<%= user && user.upi ? user.upi : '' %>" id="upi">
                     </div>
                     <div class="input-area">
-                        <div class="input-heading">Password</div>
-                        <input type="text" value="<%= user && user.password ? user.password : '' %>" id="password">
+                        <div class="input-heading">Phone number</div>
+                        <input type="text" value="<%= user && user.phone ? user.phone : '' %>" id="phone" disabled
+                            style="cursor: not-allowed;">
                     </div>
                 </div>
 
                 <hr>
-                <div id="loading-btn" class="profile-btn" hidden><img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..."
-                        width="20px" style="position: 'absolute'" /></div>
+                <div id="loading-btn" class="profile-btn" hidden><img src="https://i.gifer.com/ZZ5H.gif"
+                        alt="Loading..." width="20px" style="position: 'absolute'" /></div>
                 <div class="profile-btn" id="update-btn">Save</div>
             </div>
     </div>
@@ -98,19 +99,17 @@
             document.getElementById("username").disabled = true;
             document.getElementById("ign").disabled = true;
             document.getElementById("upi").disabled = true;
-            document.getElementById("password").disabled = true;
         }
 
         function enableFields() {
             document.getElementById("username").disabled = false;
             document.getElementById("ign").disabled = false;
             document.getElementById("upi").disabled = false;
-            document.getElementById("password").disabled = false;
         }
         function newState() {
             const loadingBtn = document.getElementById("loading-btn");
             const updateBtn = document.getElementById("update-btn");
-            
+
             disableFeilds();
             loadingBtn.style.display = "block"
             updateBtn.style.display = "none"
@@ -118,8 +117,8 @@
         function originalState() {
             const loadingBtn = document.getElementById("loading-btn");
             const updateBtn = document.getElementById("update-btn");
-            
-            enableFeilds();
+
+            enableFields();
             loadingBtn.style.display = "none"
             updateBtn.style.display = "block"
         }
@@ -128,11 +127,6 @@
             const username = document.getElementById("username").value;
             const ign = document.getElementById("ign").value;
             const upi = document.getElementById("upi").value;
-            const password = document.getElementById("password").value;
-
-            if (userPassword.length < 6) {
-                return setCardTimeout("Signup error!", "Password should be atleast 6 characters.")
-            }
             newState();
 
             try {
@@ -141,17 +135,19 @@
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({username, ign, upi, password})
+                    body: JSON.stringify({ username, ign, upi })
                 });
 
                 if (res.ok) {
                     setCardTimeout("Success!", "Changes have been made successfully.")
-                    origin
                 }
 
 
             } catch (err) {
                 console.log('Error:', err);
+            } finally {
+                originalState();
+                enableFields();
             }
         }
 

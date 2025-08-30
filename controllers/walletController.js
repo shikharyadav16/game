@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Wallet = require("../models/Wallet");
+const Withdraw = require("../models/Withdraw");
 
 async function handleGetWallet(req, res) {
     const { _id } = req.user;
@@ -92,5 +93,38 @@ async function handleUpdateWallet(data) {
         updatedAt: formattedDate
     });
 }
+
+async function handleWithdrawFunds(req, res) {
+    const { email, _id } = req.user;
+    const { upi, amount } = req.body;
+
+    try {
+        const user = await User.findById(_id);
+        if (!user) {
+            return res.redirect("/login");
+        }
+        const transId = "_draw" + Date.now();
+
+        const withdrawObj = {
+            _id,
+            email,
+            transId,
+            upi,
+            amount,
+            balanceAfter: user.amount - amount,
+            status: "PENDING",
+            createdAt: Date.now(),
+            updatedAt: Date.now()
+        }
+
+        updateWithdrawReq(_id, email, upi, amount)
+        updateWithdrawTransactions()
+
+
+    } catch (err) {
+        console.log("Error:", err);
+    }
+}
+
 
 module.exports = { handleGetWallet, handleUpdateWallet, handleUpdateUser };

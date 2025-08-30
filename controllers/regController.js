@@ -11,10 +11,11 @@ async function handleGetEventRegister(req, res) {
     }
     try {
         const event = await Event.findOne({ eventId });
-        
+
         if (!event) {
             return res.status(404).json({ Error: "Event not found" });
         }
+
         if (event.eventArray.includes(_id)) {
             return res.status(400).json({ success: false, message: "Already joined in this event." })
         }
@@ -38,7 +39,7 @@ async function handleRegPayment(req, res) {
             return res.status(400).json({ success: false, message: "Invalid event ID!" });
         }
 
-        const event = await Event.findOne({eventId});
+        const event = await Event.findOne({ eventId });
         if (!event) {
             return res.status(404).json({ success: false, message: "Event not found!" });
         }
@@ -64,7 +65,7 @@ async function handleRegPayment(req, res) {
 
         await user.save();
         await event.save();
-        updateTransactions(_id, event.eventEntry + 1 );
+        updateTransactions(_id, event.eventEntry + 1);
 
         res.status(200).json({ success: true, redirectedto: "/my-games", wallet: user.wallet })
 
@@ -109,4 +110,4 @@ async function updateTransactions(_id, entryFee) {
     }
 }
 
-module.exports = { handleGetEventRegister, handleRegPayment };
+module.exports = { handleGetEventRegister, handleRegPayment, updateTransactions };

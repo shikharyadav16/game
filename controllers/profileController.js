@@ -14,10 +14,10 @@ async function handleGetProfile(req, res) {
 
 async function handleUpdateProfile(req, res) {
     const email = req.user.email;
-    const { username, ign, upi, password } = req.body;
+    const { username, ign, upi  } = req.body;
 
     try {
-        const user = await User.findOneAndUpdate(email, {username, ign, upi, password}, {
+        const user = await User.findOneAndUpdate(email, {username, ign, upi}, {
             new: true,
             runValidators: true
         });
