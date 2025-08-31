@@ -177,21 +177,7 @@
 
 
                         async function handleRegisterEvent(id) {
-                            try {
-                                const res = await fetch(`/game/${id}`, {
-                                    method: "GET",
-                                });
-                                const data = await res.json();
-
-                                if (data?.redirectedTo) {
-                                    window.location.href = data.redirectedTo;
-                                } else {
-                                    console.warn("No redirect URL found in response:", data);
-                                    showAlert("Registeration error!", data.message)
-                                }
-                            } catch (err) {
-                                console.log("Error:", err);
-                            }
+                            window.location.href = `/game/${id}`
                         }
 
 

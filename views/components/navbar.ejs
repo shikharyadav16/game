@@ -20,7 +20,7 @@
             --danger: #e17055;
             --nav-height: 80px;
         }
-        
+
         header {
             background-color: rgba(22, 22, 22, 0.95);
             backdrop-filter: blur(10px);
@@ -60,12 +60,13 @@
             font-family: "Nunito", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 1rem;
         }
+
         .large-nav {
             display: flex;
             gap: 30px;
             list-style: none;
         }
-        
+
         .small-nav {
             font-size: 1.5rem;
             display: none;
@@ -293,7 +294,7 @@
             .downbar .nav-list {
                 padding: 0 10px;
             }
-            
+
             .downbar .nav-link {
                 padding: 10px 15px;
             }
@@ -376,7 +377,8 @@
             </ul>
             <div class="wallet wallet-pulse" onclick="window.location.href='/wallet'">
                 <i class="ph ph-wallet wallet-icon"></i>
-                <div class="wallet-amount">Rs <%= wallet %></div>
+                <div class="wallet-amount">Rs <%= wallet %>
+                </div>
             </div>
         </nav>
     </header>

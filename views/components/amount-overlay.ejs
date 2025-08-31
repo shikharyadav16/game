@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* UPI Overlay Styles */
+        .upi-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .upi-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .upi-modal {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(-50px) scale(0.95);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            position: relative;
+        }
+
+        .upi-overlay.active .upi-modal {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .upi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .upi-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .close-upi {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .close-upi:hover {
+            color: var(--danger);
+            transform: rotate(90deg);
+        }
+
+        .upi-icon {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .upi-icon i {
+            font-size: 48px;
+            color: rgb(215, 173, 64);
+            background: rgba(218, 171, 0, 0.1);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .upi-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(219, 197, 52, 0.2);
+        }
+
+        .upi-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            height: 50px;
+            width: 100px;
+            background: var(--light);
+            color: var(--dark);
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-cancel:hover {
+            background: #e9ecef;
+        }
+
+        .btn-submit {
+            flex: 1;
+            height: 50px;
+            background: rgb(39, 120, 177);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-submit:hover {
+            background: rgb(32, 102, 151);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .upi-modal {
+                margin: 20px;
+                padding: 25px;
+            }
+
+            .upi-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="upi-overlay" id="amountOverlay">
+        <div class="upi-modal">
+            <button class="close-upi" id="closeAmount">&times;</button>
+
+            <div class="upi-header">
+                <h2 class="upi-title">Add Funds</h2>
+            </div>
+
+            <div class="upi-form">
+                <div class="form-group">
+                    <label class="form-label">Amount</label>
+                    <input type="number" class="form-input" placeholder="Enter amount" min="5" step="1" required
+                        id="addFundsAmount">
+                </div>
+
+                <div class="upi-buttons">
+                    <button class="btn-cancel" id="cancelAmount">Cancel</button>
+                    <button class="btn-submit" id="submitFundsAmount">Submit Payment</button>
+                    <img src="/assets/loading2.svg" alt="err" class="btn-submit" id="submitFundsAmountLoad"
+                        style="display: none;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

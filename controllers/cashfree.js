@@ -2,6 +2,7 @@ const axios = require("axios");
 const path = require("path")
 const Wallet = require("../models/Wallet")
 const crypto = require("crypto")
+const Withdraw = require("../models/Withdraw");
 const fs = require("fs");
 const User = require("../models/User")
 const { handleUpdateWallet, handleUpdateUser } = require("./walletController");
@@ -115,49 +116,102 @@ const handleSuccessPayment = async (req, res) => {
   }
 }
 
-// 3️⃣ Get Payout Token
-async function getPayoutToken() {
-  // const signature = generateSignature();
-  const res = await axios.post(
-    `${PAYOUT_BASE}/payout/v1/authorize`,
-    {},
-    {
-      headers: {
-        "X-Client-Id": PAYOUT_CLIENT_ID,
-        "X-Client-Secret": PAYOUT_CLIENT_SECRET,
-        "Content-Type": "application/json",
-      },
-    }
-  );
+// // 3️⃣ Get Payout Token
+// async function getPayoutToken() {
+//   // const signature = generateSignature();
+//   const res = await axios.post(
+//     `${PAYOUT_BASE}/payout/v1/authorize`,
+//     {},
+//     {
+//       headers: {
+//         "X-Client-Id": PAYOUT_CLIENT_ID,
+//         "X-Client-Secret": PAYOUT_CLIENT_SECRET,
+//         "Content-Type": "application/json",
+//       },
+//     }
+//   );
 
-  console.log(res.data)
-  if (res.data?.status === "SUCCESS") {
-    return res.data.data.token;
-  } else {
-    throw new Error(res.data.message || "Failed to generate token");
+//   console.log(res.data)
+//   if (res.data?.status === "SUCCESS") {
+//     return res.data.data.token;
+//   } else {
+//     throw new Error(res.data.message || "Failed to generate token");
+//   }
+// }
+
+// // 4️⃣ Withdraw Money
+// const handleWithdrawMoney = async (req, res) => {
+//   const { amount } = req.body;
+
+//   try {
+//     const token = await getPayoutToken();
+//     const response = await axios.post(
+//       `https://sandbox.cashfree.com/payout/v2/requestTransfer`,
+//       {
+//         beneId: "user123_wallet",
+//         amount,
+//         transferId: "txn_" + Date.now(),
+//       },
+//       { headers: { Authorization: `Bearer ${token}` } }
+//     );
+
+//     res.json(response.data);
+//   } catch (err) {
+//     res.status(500).json({ error: err.response?.data || err.message });
+//   }
+// }
+
+
+async function handleWithdrawMoney(req, res) {
+  const { email, _id } = req.user;
+  const { upi } = req.body;
+  const sAmount = req.body.amount;
+
+  const amount = Number(sAmount);
+  if (isNaN(amount)) {
+    return res.status(403).json({ success: false, message: "Invalid amount type." });
   }
-}
 
-// 4️⃣ Withdraw Money
-const handleWithdrawMoney = async (req, res) => {
-  const { amount } = req.body;
 
   try {
-    const token = await getPayoutToken();
-    const response = await axios.post(
-      `https://sandbox.cashfree.com/payout/v2/requestTransfer`,
-      {
-        beneId: "user123_wallet",
-        amount,
-        transferId: "txn_" + Date.now(),
-      },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    const user = await User.findById(_id);
+    if (!user) {
+      return res.redirect("/login");
+    }
+    const currentBalance = Number(user.wallet);
+    if (isNaN(currentBalance)) {
+      return res.status(500).json({ success: false, message: "User balance corrupted" });
+    }
 
-    res.json(response.data);
+    const balanceAfter = currentBalance - amount;
+    if (balanceAfter < 0) {
+      return res.status(403).json({ success: false, message: "Insufficient balance." });
+    }
+
+    const transId = "_draw" + Date.now();
+
+    const withdrawObj = {
+      userId: _id,
+      email,
+      transId,
+      upi,
+      amount,
+      balanceAfter,
+      status: "PENDING",
+      createdAt: Date.now(),
+      updatedAt: Date.now()
+    }
+    await handleUpdateUser({ transactionId: transId, referenceId: null, type: "debit", source: "withdraw", amount, formattedDate: Date.now(), status: "PENDING", balanceAfter, _id: req.user._id });
+    await handleUpdateWallet({ transactionId: transId, referenceId: null, type: "debit", source: "withdraw", amount, formattedDate: Date.now(), status: "PENDING", balanceAfter, _id: req.user._id });
+    await Withdraw.create(withdrawObj);
+
+    return res.status(200).json({ success: true, redirectedTo: "/wallet" });
+
   } catch (err) {
-    res.status(500).json({ error: err.response?.data || err.message });
+    console.log("Error:", err);
   }
 }
+
+
 
 module.exports = { handleAddMoney, handleSuccessPayment, handleWithdrawMoney };

@@ -1,6 +1,5 @@
 const User = require("../models/User");
 const Wallet = require("../models/Wallet");
-const Withdraw = require("../models/Withdraw");
 
 async function handleGetWallet(req, res) {
     const { _id } = req.user;
@@ -13,9 +12,10 @@ async function handleGetWallet(req, res) {
         }
 
         let { transactions, wallet } = user;
+        const upi = user?.upi;
         transactions = Array.isArray(transactions) ? [...transactions].reverse() : [];
 
-        return res.render("wallet.ejs", { wallet, transactions });
+        return res.render("wallet.ejs", { wallet, transactions, upi: (!upi ? "" : upi) });
 
     } catch (err) {
         console.log("Error:", err);
@@ -37,8 +37,8 @@ async function handleUpdateUser(data) {
 
     let updatedUser;
 
+    const user = await User.findById(_id).select({ transactions: { $slice: -50 }, wallet: 1 });
     if (status !== "PENDING") {
-        const user = await User.findById(_id).select({ transactions: { $slice: -50 }, wallet: 1 });
 
         const existingIndex = user.transactions.findIndex(t => t.transId === transactionId);
 
@@ -62,6 +62,18 @@ async function handleUpdateUser(data) {
                 { new: true }
             );
         }
+    } else if (status === "PENDING" && type === "debit") {
+
+        updatedUser = await User.findByIdAndUpdate(
+            _id,
+            {
+                $inc: { wallet: type === "debite" ? amount : -amount },
+                $push: { transactions: transaction }
+            },
+            { new: true }
+        );
+
+
     } else {
         updatedUser = await User.findByIdAndUpdate(
             _id,
@@ -93,38 +105,5 @@ async function handleUpdateWallet(data) {
         updatedAt: formattedDate
     });
 }
-
-async function handleWithdrawFunds(req, res) {
-    const { email, _id } = req.user;
-    const { upi, amount } = req.body;
-
-    try {
-        const user = await User.findById(_id);
-        if (!user) {
-            return res.redirect("/login");
-        }
-        const transId = "_draw" + Date.now();
-
-        const withdrawObj = {
-            _id,
-            email,
-            transId,
-            upi,
-            amount,
-            balanceAfter: user.amount - amount,
-            status: "PENDING",
-            createdAt: Date.now(),
-            updatedAt: Date.now()
-        }
-
-        updateWithdrawReq(_id, email, upi, amount)
-        updateWithdrawTransactions()
-
-
-    } catch (err) {
-        console.log("Error:", err);
-    }
-}
-
 
 module.exports = { handleGetWallet, handleUpdateWallet, handleUpdateUser };

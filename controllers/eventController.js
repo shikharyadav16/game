@@ -50,5 +50,24 @@ async function handleGetFilteredGames(req, res) {
     }
 }
 
+async function handleGetMyGames(req, res) {
+    const { _id } = req.user;
 
-module.exports = { handleGetGames, handleGetFilteredGames }
+    try {
+        const user = await User.findById(_id);
+
+        const events = await Event.find({ eventStatus: "upcoming" });
+
+        const myEvents = await Event.find({
+            _id: { $in: user.registeredArray },
+            eventStatus: "upcoming"
+        });
+
+        return res.render("my-games", { wallet: user.wallet, myEvents, eventsJoined: myEvents.length, totalWin: user.totalWin, maxWin: user.maxWin });
+
+    } catch (err) {
+        console.log("Error:", err);
+    }
+}
+
+module.exports = { handleGetGames, handleGetFilteredGames, handleGetMyGames }

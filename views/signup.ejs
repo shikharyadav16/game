@@ -141,22 +141,37 @@
             }, 3000);
         }
 
+        function validateIndianPhone(phone) {
+            phone = phone.trim().replace(/[\s\-()]/g, "");
+
+            if (phone.startsWith("+91")) {
+                phone = phone.slice(3);
+            }
+
+            if (phone.startsWith("91") && phone.length === 12) {
+                phone = phone.slice(2);
+            }
+
+            if (/^[6-9]\d{9}$/.test(phone)) {
+                return phone;
+            }
+
+            return false;
+        }
+
         function handleSignup() {
             const userIgn = document.getElementById("ign").value;
             const userEmail = document.getElementById("email").value;
-            let userPhone = document.getElementById("phone").value.trim();
+            let nonValidPhone = document.getElementById("phone").value.trim();
             const userGame = selectedGame;
             const userPassword = document.getElementById("password").value;
 
             if (userIgn.length === 0 || userPassword.length === 0 || userEmail.length === 0) {
                 return setCardTimeout("Signup error!", "This field is required and cannot be left blank.")
             }
-            if (userPhone.length === 12) {
-                userPhone = userPhone.slice(2);
-            }
-
-            if (!/^\+?\d{10,15}$/.test(userPhone)) {
-                return setCardTimeout("Signup error!", "Please enter a valid phone number.");
+            const userPhone = validateIndianPhone(nonValidPhone);
+            if (!userPhone) {
+                return setCardTimeout("Signup error!", "Invalid phone number")
             }
 
 

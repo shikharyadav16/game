@@ -11,6 +11,7 @@ const eventSchema = mongoose.Schema({
     },
     eventType: {
         type: String,
+        enum: ["bgmi", "ff"],
         required: true
     },
     eventTeamSize: {
@@ -43,6 +44,7 @@ const eventSchema = mongoose.Schema({
     },
     eventStatus: {
         type: String,
+        enum: ["upcoming", "ended"],
         required: true
     },
     matchId: {
@@ -57,7 +59,7 @@ const eventSchema = mongoose.Schema({
             ref: 'users'
         }
     ]
-},{
+}, {
     timestamps: true
 });
 

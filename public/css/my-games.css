@@ -292,9 +292,10 @@ body {
     margin: 20px 0;
     display: inline-block;
 }
+
 .idp-info {
     font-size: 14px;
-    color: var(--success);
+    color: var(--danger);
     font-family: "Nunito", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -346,6 +347,7 @@ footer {
     font-size: 0.9rem;
     border-top: 1px solid rgba(191, 158, 96, 0.2);
 }
+
 @media (max-width: 992px) {
     .tournament-cards {
         grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
@@ -383,15 +385,15 @@ footer {
         color: #ccc;
         font-size: 1rem;
     }
-    
+
     .hero h2 {
         font-size: 2.5rem;
     }
-    
+
     .section-title h3 {
         font-size: 1.2rem;
     }
-    
+
 }
 
 @media (max-width: 480px) {
@@ -399,6 +401,7 @@ footer {
         color: #ccc;
         font-size: 0.8rem;
     }
+
     .hero h2 {
         font-size: 2rem;
     }
