@@ -39,7 +39,15 @@
                                         Withdraw
                                     </button>
                                 </div>
-
+                                <% if (transactions[0].type==="debit" ) { %>
+                                    <p class="money-info"
+                                        style="color: var(--danger); font-size: 14px; margin-top: 10px;">
+                                        <strong>Please note:</strong> It
+                                        will take up to 8
+                                        hours for your earnings to
+                                        be reflected in your bank account or mobile wallet.
+                                    </p>
+                                    <% } %>
                             </div>
 
                             <div class="card">

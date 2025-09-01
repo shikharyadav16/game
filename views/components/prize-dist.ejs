@@ -208,6 +208,7 @@
             margin-right: 10px;
             color: var(--success);
         }
+
         .position-prize {
             color: black;
         }
@@ -348,72 +349,72 @@
 
 <body>
     <div class="prize-card-wrapper">
-    <div class="prize-card">
-        <div class="card-decoration"></div>
-        <div class="card-decoration"></div>
-        <div class="card-decoration"></div>
+        <div class="prize-card">
+            <div class="card-decoration"></div>
+            <div class="card-decoration"></div>
+            <div class="card-decoration"></div>
 
-        <div class="card-header">
-            <h2><i class="fas fa-trophy"></i> Prize Distribution</h2>
-            <button class="close-btn pulse">
-                <i class="fas fa-times"></i>
-            </button>
+            <div class="card-header">
+                <h2><i class="fas fa-trophy"></i> Prize Distribution</h2>
+                <button class="close-btn pulse">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="card-body">
+                <div class="prize-formula">
+                    <h3><i class="fas fa-calculator"></i> Prize Pool Formula</h3>
+                    <div class="formula">
+                        Total Prize = Kill Prize + Position Prize
+                    </div>
+                    <div class="prize-breakdown">
+                        <div class="breakdown-item">
+                            <div class="breakdown-value" id="kill-prize">Rs 9999</div>
+                            <div class="breakdown-label">Per Kill</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <div class="breakdown-value">+</div>
+                            <div class="breakdown-label">Plus</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <div class="breakdown-value">Position</div>
+                            <div class="breakdown-label">Prize</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="position-prizes">
+                    <h3><i class="fas fa-crown"></i> Top 5 Position Prizes</h3>
+                    <div class="prize-grid">
+                        <div class="prize-item">
+                            <div class="position">1st</div>
+                            <div class="position-prize" id="first-prize">Rs 0</div>
+                        </div>
+                        <div class="prize-item">
+                            <div class="position">2nd</div>
+                            <div class="position-prize" id="second-prize">Rs 0</div>
+                        </div>
+                        <div class="prize-item">
+                            <div class="position">3rd</div>
+                            <div class="position-prize" id="third-prize">Rs 0</div>
+                        </div>
+                        <div class="prize-item">
+                            <div class="position">4th</div>
+                            <div class="position-prize">Rs 0</div>
+                        </div>
+                        <div class="prize-item">
+                            <div class="position">5th</div>
+                            <div class="position-prize">Rs 0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note">
+                    Note: Every player is eligible for kill rewards. Rewards from position and kills are added together.
+                </div>
+            </div>
+
         </div>
-
-        <div class="card-body">
-            <div class="prize-formula">
-                <h3><i class="fas fa-calculator"></i> Prize Pool Formula</h3>
-                <div class="formula">
-                    Total Prize = Kill Prize + Position Prize
-                </div>
-                <div class="prize-breakdown">
-                    <div class="breakdown-item">
-                        <div class="breakdown-value" id="kill-prize">Rs 9999</div>
-                        <div class="breakdown-label">Per Kill</div>
-                    </div>
-                    <div class="breakdown-item">
-                        <div class="breakdown-value">+</div>
-                        <div class="breakdown-label">Plus</div>
-                    </div>
-                    <div class="breakdown-item">
-                        <div class="breakdown-value">Position</div>
-                        <div class="breakdown-label">Prize</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="position-prizes">
-                <h3><i class="fas fa-crown"></i> Top 5 Position Prizes</h3>
-                <div class="prize-grid">
-                    <div class="prize-item">
-                        <div class="position">1st</div>
-                        <div class="position-prize" id="first-prize">Rs 999</div>
-                    </div>
-                    <div class="prize-item">
-                        <div class="position">2nd</div>
-                        <div class="position-prize" id="second-prize">Rs 999</div>
-                    </div>
-                    <div class="prize-item">
-                        <div class="position">3rd</div>
-                        <div class="position-prize">Rs 0</div>
-                    </div>
-                    <div class="prize-item">
-                        <div class="position">4th</div>
-                        <div class="position-prize">Rs 0</div>
-                    </div>
-                    <div class="prize-item">
-                        <div class="position">5th</div>
-                        <div class="position-prize">Rs 0</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="note">
-                Note: Every player is eligible for kill rewards. Rewards from position and kills are added together.
-            </div>
-        </div>
-
-    </div>
     </div>
 
     <script>
@@ -441,10 +442,12 @@
             const killPrize = document.getElementById("kill-prize");
             const firstPrize = document.getElementById("first-prize");
             const secondPrize = document.getElementById("second-prize");
+            const thirdPrize = document.getElementById("third-prize");
 
             killPrize.innerHTML = `Rs ${kill}`;
-            firstPrize.innerHTML = `Rs ${Math.floor(2 * pos / 3)}`;
-            secondPrize.innerHTML = `Rs ${Math.floor(1 * pos / 3)}`;
+            firstPrize.innerHTML = `Rs ${Math.floor(pos / 2)}`;
+            secondPrize.innerHTML = `Rs ${Math.floor(3 * pos / 10)}`;
+            thirdPrize.innerHTML = `Rs ${Math.floor(2 * pos / 10)}`
 
             const card = document.querySelector('.prize-card');
             const wrapper = document.querySelector('.prize-card-wrapper');

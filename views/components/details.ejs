@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Rules Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .rules-card-overlay {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            padding-top: 25px;
+            background-color: rgba(0, 0, 0, 0.227);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            position: fixed;
+            overflow: hidden;
+            z-index: 99;
+        }
+
+        .rules-card {
+            --primary: #bf9e60;
+            --primary-dark: #8e7443;
+            width: 100%;
+            height: 530px;
+            max-width: 500px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            z-index: 100;
+            animation: cardEntrance 0.6s cubic-bezier(0.23, 1, 0.32, 1) 0.2s forwards;
+        }
+
+        @keyframes cardEntrance {
+            0% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .card-header h2 {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            font-size: 1.3rem;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .card-body {
+            padding: 10px;
+        }
+
+        .rules-list {
+            list-style-type: none;
+            counter-reset: rule-counter;
+        }
+
+        .rules-list li {
+            position: relative;
+            padding: 10px 0 15px 50px;
+            border-bottom: 1px solid #eee;
+            counter-increment: rule-counter;
+            line-height: 1.5;
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+
+        .rules-list li:last-child {
+            border-bottom: none;
+        }
+
+        .rules-list li::before {
+            content: counter(rule-counter);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 6px rgba(191, 158, 96, 0.2);
+        }
+
+        .rules-list li:hover {
+            transform: translateX(5px);
+        }
+
+        .rules-list li:hover::before {
+            background: var(--primary-dark);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .card-footer {
+            padding: 15px 30px;
+            background: var(--light);
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #eee;
+        }
+
+        .accept-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .accept-btn:hover {
+            background: #00a382;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 184, 148, 0.4);
+        }
+
+        .accept-btn:active {
+            transform: translateY(0);
+        }
+
+        .highlight {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .card-decoration {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .card-decoration:nth-child(2) {
+            top: 20%;
+            left: -30px;
+            background: var(--warning);
+            width: 60px;
+            height: 60px;
+        }
+
+        .card-decoration:nth-child(3) {
+            bottom: 40px;
+            right: 30px;
+            background: var(--danger);
+            width: 40px;
+            height: 40px;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rules-card-overlay" style="display: none;">
+        <div class="rules-card">
+            <div class="card-decoration"></div>
+            <div class="card-decoration"></div>
+            <div class="card-decoration"></div>
+
+            <div class="card-header">
+                <h2><i class="fas fa-scroll"></i>&nbsp;&nbsp; Community Guidelines</h2>
+                <button class="close-btn pulse">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="card-body">
+                <ul class="rules-list">
+                    <li><span class="highlight">Room Credentials Timing:</span> ID & Password will be shared 10 mins
+                        before
+                        match.</li>
+                    <li><span class="highlight">No Illegal Tools:</span> Third-party apps, cheats, or hacks are banned.
+                    </li>
+                    <li><span class="highlight">Mandatory Recording:</span> Keep full screen recording as proof against
+                        hackers.</li>
+                    <li><span class="highlight">Device & Network Fair Play:</span> Only mobile devices allowed; no
+                        emulators.</li>
+                    <li><span class="highlight">Sportsmanship & Discipline:</span> No toxicity, teaming, or abusive
+                        behavior.</li>
+                </ul>
+            </div>
+
+            <div class="card-footer">
+                <button class="accept-btn" id="rules-checked-btn">
+                    I Accept <i class="fas fa-check-circle"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const closeBtn = document.querySelector('.close-btn');
+        const rulesOverlay = document.querySelector(".rules-card-overlay");
+        const card = document.querySelector('.rules-card');
+        const rulesBtn = document.getElementById("rules-checked-btn")
+
+        // Close button functionality
+        document.addEventListener('click', function (e) {
+            if (e.target !== closeBtn && e.target !== rulesBtn) return;
+            card.style.transform = 'translateY(20px)';
+            card.style.opacity = '0';
+            document.body.style.overflow = "hidden"
+            rulesOverlay.style.display = 'none';
+        });
+
+        const rules = document.querySelectorAll('.rules-list li');
+        rules.forEach(rule => {
+            rule.addEventListener('mouseenter', function () {
+                this.style.backgroundColor = 'rgba(191, 158, 96, 0.05)';
+            });
+
+            rule.addEventListener('mouseleave', function () {
+                this.style.backgroundColor = 'transparent';
+            });
+        });
+    </script>
+</body>
+
+</html>
