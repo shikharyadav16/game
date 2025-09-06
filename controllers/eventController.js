@@ -19,8 +19,7 @@ async function handleGetGames(req, res) {
 
 async function handleGetFilteredGames(req, res) {
   const { size = "solo" } = req.params;
-  const { game } = req.user;
-  const { _id } = req.body;
+  const { game, _id } = req.user;
 
   try {
     const wallet = (await User.findById(_id)).wallet;

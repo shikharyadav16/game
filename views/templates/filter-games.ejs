@@ -148,7 +148,7 @@
                 makeCard(data.games);
             }
         } catch (err) {
-            sendNotification("error", data.message, "Filter error!")
+            console.log("Error:", err)
         }
     }
 
