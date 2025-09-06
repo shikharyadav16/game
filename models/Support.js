@@ -6,6 +6,10 @@ const supportSchema = mongoose.Schema({
     },
     role: {
         type: String
+    },
+    seen: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

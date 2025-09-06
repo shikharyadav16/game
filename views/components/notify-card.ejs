@@ -1,144 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alert Notification System</title>
+    <title>Animated Notification System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .alert-container {
+
+        :root {
+            --primary: #ffe69b;
+            --primary-dark: rgb(149, 123, 74);
+            --color-dark: #161616;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --light: #f7f9fc;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+            --nav-height: 80px;
+        }
+
+        .notification-container {
             position: fixed;
             top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 600px;
+            right: 20px;
+            width: 350px;
+            max-width: 90%;
             z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        .alert {
-            padding: 16px 20px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            color: white;
-            background-color: rgb(29, 29, 29);
-            font-weight: 500;
+        .notification-container .notification {
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            animation: slideIn 0.3s ease forwards;
+            align-items: flex-start;
+            gap: 15px;
+            transform: translateX(400px);
             opacity: 0;
-            transform: translateY(-100%);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            position: relative;
+            overflow: hidden;
         }
 
-        .alert.success {
-            background: linear-gradient(to right, #2ecc71, #27ae60);
-            border-left: 5px solid #1e8449;
+        .notification-container .notification.show {
+            transform: translateX(0);
+            opacity: 1;
         }
 
-        .alert.error {
-            background: linear-gradient(to right, #e74c3c, #c0392b);
-            border-left: 5px solid #922b21;
+        .notification-container .notification.hide {
+            transform: translateX(400px);
+            opacity: 0;
         }
 
-        .alert.warning {
-            background: linear-gradient(to right, #f39c12, #e67e22);
-            border-left: 5px solid #b45a12;
-            color: #2c3e50;
+        .notification-container .notification.success {
+            background: linear-gradient(135deg, var(--success), #00a085);
+            color: white;
         }
 
-        .alert-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .notification-container .notification.error {
+            background: linear-gradient(135deg, var(--danger), #c8553a);
+            color: white;
         }
 
-        .alert-icon {
-            font-size: 1.5rem;
+        .notification-container .notification.info {
+            background: linear-gradient(135deg, var(--secondary), #00a9a6);
+            color: white;
         }
 
-        .close-btn {
+        .notification-container .notification.warning {
+            background: linear-gradient(135deg, var(--warning), #f0b64c);
+            color: var(--dark);
+        }
+
+        .notification-container .notification-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .notification-container .notification-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .notification-container .notification-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .notification-container .notification-message {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .notification-container .notification-close {
             background: none;
             border: none;
-            color: white;
-            font-size: 1.2rem;
+            color: inherit;
             cursor: pointer;
-            padding: 0;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.3s;
+            font-size: 18px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            flex-shrink: 0;
         }
 
-        .warning .close-btn {
-            color: #2c3e50;
+        .notification-container .notification-close:hover {
+            opacity: 1;
         }
 
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .notification-container .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            overflow: hidden;
         }
 
-        @keyframes slideIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        .notification-container .progress {
+            height: 100%;
+            width: 100%;
+            background: var(--primary);
+            animation: progress 2.5s linear forwards;
+            transform-origin: left;
+        }
+
+        @keyframes progress {
+            0% {
+                transform: scaleX(1);
+            }
+            100% {
+                transform: scaleX(0);
             }
         }
 
-        @keyframes slideOut {
-            to {
-                opacity: 0;
-                transform: translateY(-100%);
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 15px rgba(255, 230, 155, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 25px rgba(255, 230, 155, 0.8), 0 0 35px rgba(255, 230, 155, 0.6);
+            }
+        }
+
+        .notification-container .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .notification-container .instructions h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .notification-container .instructions p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .notification-container .code {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .notification-container {
+                width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .notification-container {
+                right: 10px;
+                width: calc(100% - 20px);
+            }
+            
+            .notification {
+                padding: 15px;
             }
         }
     </style>
 </head>
-
 <body>
-
-    <div class="alert-container" id="alertContainer"></div>
+    
+    <div class="notification-container" id="notificationContainer"></div>
 
     <script>
-        function showAlert(type, message) {
-            // Create alert element
-            const alert = document.createElement('div');
-            alert.className = `alert ${type}`;
-
+        // Function to show notification
+        function sendNotification(type, message, title) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
             // Set icon based on type
-            let icon = '✅';
-            if (type.includes("error")) icon = '❌';
-            if (type.includes('warning')) icon = '⚠️';
-
-            // Alert content
-            alert.innerHTML = `
-                <div class="alert-content">
-                    <span class="alert-icon">${icon}</span>
-                    <span>${message}</span>
+            let icon = '';
+            switch(type) {
+                case 'success':
+                    icon = 'fa-check-circle';
+                    break;
+                case 'error':
+                    icon = 'fa-exclamation-circle';
+                    break;
+                case 'warning':
+                    icon = 'fa-exclamation-triangle';
+                    break;
+                case 'info':
+                default:
+                    icon = 'fa-info-circle';
+                    break;
+            }
+            
+            // Set title if not provided
+            if (!title) {
+                title = type.charAt(0).toUpperCase() + type.slice(1);
+            }
+            
+            // Create notification content
+            notification.innerHTML = `
+                <i class="fas ${icon} notification-icon"></i>
+                <div class="notification-content">
+                    <div class="notification-title">${title}</div>
+                    <div class="notification-message">${message}</div>
                 </div>
-                <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+                <button class="notification-close">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
             `;
-
+            
             // Add to container
-            const container = document.getElementById('alertContainer');
-            container.appendChild(alert);
-
-            // Trigger animation
+            const container = document.getElementById('notificationContainer');
+            container.appendChild(notification);
+            
+            // Force reflow to ensure initial state is rendered
+            void notification.offsetWidth;
+            
+            // Show notification with animation
+            notification.classList.add('show');
+            
+            // Add event listener to close button
+            const closeBtn = notification.querySelector('.notification-close');
+            closeBtn.addEventListener('click', () => {
+                closeNotification(notification);
+            });
+            
+            // Auto close after 2.5 seconds
             setTimeout(() => {
-                alert.style.animation = 'slideOut 0.3s ease forwards';
-            }, 2200);
-
-            // Remove after 2.5 seconds
-            setTimeout(() => {
-                if (alert.parentElement) {
-                    alert.remove();
-                }
+                closeNotification(notification);
             }, 2500);
+        }
+        
+        // Function to close notification
+        function closeNotification(notification) {
+            notification.classList.remove('show');
+            notification.classList.add('hide');
+            
+            // Remove from DOM after animation completes
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 500);
         }
     </script>
 </body>
-
 </html>

@@ -57,7 +57,7 @@ async function handleRegPayment(req, res) {
         }
 
         // Wallet check
-        const totalCost = event.eventEntry + 1; // 1 for handling fee?
+        const totalCost = event.eventEntry; // 1 for handling fee?
         if (user.wallet < totalCost) {
             return res.status(400).json({ success: false, message: "Insufficient balance" });
         }

@@ -227,14 +227,14 @@ body {
     font-size: 0.9rem;
 }
 
-.progress-bar {
+.match-progress-bar {
     height: 10px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     overflow: hidden;
 }
 
-.progress-fill {
+.match-progress-bar .progress-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--primary), var(--warning));
     border-radius: 5px;
@@ -268,8 +268,8 @@ body {
 }
 
 .entry-fee {
-    background: rgba(0, 206, 201, 0.1);
-    color: var(--secondary);
+    background: rgba(0, 206, 201, 0.4);
+    color: #efefef;
     padding: 8px 15px;
     border-radius: 30px;
     text-align: center;

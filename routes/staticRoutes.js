@@ -1,5 +1,5 @@
 const express = require("express");
-const { handleGetGames, handleGetFilteredGames, handleGetMyGames } = require("../controllers/eventController");
+const { handleGetGames, handleGetFilteredGames, handleGetMyGames, handleGetMyIdp } = require("../controllers/eventController");
 const { handleGetWallet } = require("../controllers/walletController");
 const { handleGetProfile, handleUpdateProfile } = require("../controllers/profileController");
 const { handleGetHistory } = require("../controllers/historyController")
@@ -10,6 +10,7 @@ router.get("/games", handleGetGames);
 router.get("/games/:size", handleGetFilteredGames);
 
 router.get("/my-games", handleGetMyGames)
+router.post("/idp", handleGetMyIdp)
 
 router.get("/profile", handleGetProfile);
 router.patch("/profile", handleUpdateProfile);

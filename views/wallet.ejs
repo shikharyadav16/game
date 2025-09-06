@@ -292,7 +292,7 @@
                                         redirectTarget: "_self"
                                     });
                                 } else {
-                                    alert(data.message);
+                                    sendNotification("error", data.message, "Topup error!");
                                     location.reload()
                                 }
                             }
@@ -309,7 +309,7 @@
                                     if (res.ok) {
                                         location.reload();
                                     } else {
-                                        alert(data.message)
+                                        sendNotification("error", data.message, "Withdraw error!")
                                         location.reload();
                                     }
                                     console.log("Withdraw Response:", data);

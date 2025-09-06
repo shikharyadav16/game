@@ -104,6 +104,18 @@
             />
           </div>
           <div class="input-area">
+            <div class="input-heading">Game</div>
+            <div class="select-game">
+              <% if (user.game === "ff") { %>
+                <div data-game="bgmi" class="game-type">BGMI</div>
+                <div data-game="ff" class="active game-type">Free-Fire</div>
+                <% } else { %>
+                  <div data-game="bgmi" class="active game-type">BGMI</div>
+                  <div data-game="ff" class="game-type">Free-Fire</div>
+             <%}%>
+            </div>
+          </div>
+          <div class="input-area">
             <div class="input-heading">Phone number</div>
             <input
               type="text"
@@ -175,10 +187,25 @@
         updateBtn.style.display = "block";
       }
 
+      const gameDivs = document.querySelectorAll(".game-type");
+      gameDivs.forEach((div) => {
+        div.addEventListener("click", () => {
+          gameDivs.forEach((d) => d.classList.remove("active"));
+          div.classList.add("active");
+        });
+      });
+
+      function getActiveGame() {
+        const activeDiv = document.querySelector(".game-type.active");
+        return activeDiv.dataset.game;
+      }
+
       async function handleUpdateData() {
         const username = document.getElementById("username").value;
-        const ign = document.getElementById("ign").value;
+        const ign = document.getElementById("ign").value.trim();
         const upi = document.getElementById("upi").value;
+        if (ign.length === 0) return sendNotification("error", "In game name is required.", "Value error!")
+        const game = getActiveGame();
         newState();
 
         try {
@@ -187,11 +214,16 @@
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ username, ign, upi }),
+            body: JSON.stringify({ username, ign, upi, game }),
           });
 
+          const data = await res.json();
+
           if (res.ok) {
-            setCardTimeout("Success!", "Changes have been made successfully.");
+            // setCardTimeout("Success!", "Changes have been made successfully.");
+            sendNotification("success", data.message, "Updated successfully!")
+          } else {
+            sendNotification("error", data.message, "Updation error!")
           }
         } catch (err) {
           console.log("Error:", err);

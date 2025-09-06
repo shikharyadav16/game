@@ -1,21 +1,14 @@
 const axios = require("axios");
-const path = require("path")
-const Wallet = require("../models/Wallet")
-const crypto = require("crypto")
 const Withdraw = require("../models/Withdraw");
-const fs = require("fs");
 const User = require("../models/User")
+require("dotenv").config();
 const { handleUpdateWallet, handleUpdateUser } = require("./walletController");
 
 // PG (Add Money)
-const PG_BASE = "https://sandbox.cashfree.com/pg";
-const PG_CLIENT_ID = "TEST430329ae80e0f32e41a393d78b923034";
-const PG_CLIENT_SECRET = "TESTaf195616268bd6202eeb3bf8dc458956e7192a85";
+const PG_BASE = process.env.PG_BASE;
+const PG_CLIENT_ID = process.env.PG_CLIENT_ID;
+const PG_CLIENT_SECRET = process.env.PG_CLIENT_SECRET;
 
-// Payout (Withdraw)
-const PAYOUT_BASE = "https://payout-gamma.cashfree.com";
-const PAYOUT_CLIENT_ID = "CF10729621D2L099T3LO7C73A1M7LG";
-const PAYOUT_CLIENT_SECRET = "cfsk_ma_test_5375e6fbf5833b1a511962bf5ee7eb99_74c72ef5";
 
 // 1️⃣ Add Money
 const handleAddMoney = async (req, res) => {
@@ -115,52 +108,6 @@ const handleSuccessPayment = async (req, res) => {
     res.status(500).json({ error: err.response?.data || err.message });
   }
 }
-
-// // 3️⃣ Get Payout Token
-// async function getPayoutToken() {
-//   // const signature = generateSignature();
-//   const res = await axios.post(
-//     `${PAYOUT_BASE}/payout/v1/authorize`,
-//     {},
-//     {
-//       headers: {
-//         "X-Client-Id": PAYOUT_CLIENT_ID,
-//         "X-Client-Secret": PAYOUT_CLIENT_SECRET,
-//         "Content-Type": "application/json",
-//       },
-//     }
-//   );
-
-//   console.log(res.data)
-//   if (res.data?.status === "SUCCESS") {
-//     return res.data.data.token;
-//   } else {
-//     throw new Error(res.data.message || "Failed to generate token");
-//   }
-// }
-
-// // 4️⃣ Withdraw Money
-// const handleWithdrawMoney = async (req, res) => {
-//   const { amount } = req.body;
-
-//   try {
-//     const token = await getPayoutToken();
-//     const response = await axios.post(
-//       `https://sandbox.cashfree.com/payout/v2/requestTransfer`,
-//       {
-//         beneId: "user123_wallet",
-//         amount,
-//         transferId: "txn_" + Date.now(),
-//       },
-//       { headers: { Authorization: `Bearer ${token}` } }
-//     );
-
-//     res.json(response.data);
-//   } catch (err) {
-//     res.status(500).json({ error: err.response?.data || err.message });
-//   }
-// }
-
 
 async function handleWithdrawMoney(req, res) {
   const { email, _id } = req.user;

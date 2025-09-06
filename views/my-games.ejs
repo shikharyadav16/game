@@ -1,275 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Tournaments | GameHub</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/my-games.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/my-games.css" />
+  </head>
 
-<body>
-    <%- include('./components/navbars/navbar-my-games.ejs') %>
-        <%- include('./components/notify-card.ejs') %>
-            <%- include('./components/details.ejs') %>
+  <body>
+    <%- include('./components/navbars/navbar-my-games.ejs') %> <%-
+    include('./components/notify-card.ejs') %> <%-
+    include('./components/details.ejs') %> <%- include('./components/idp-card')
+    %>
 
-                <section class="hero">
-                    <div class="hero-content">
-                        <h2>My Tournaments</h2>
-                        <p>View and manage all tournaments you've joined. Check upcoming match details, and track
-                            your progress in
-                            ongoing competitions.</p>
+    <section class="hero">
+      <div class="hero-content">
+        <h2>My Tournaments</h2>
+        <p>
+          View and manage all tournaments you've joined. Check upcoming match
+          details, and track your progress in ongoing competitions.
+        </p>
 
-                        <div class="stats-container">
-                            <div class="stat-card">
-                                <div class="stat-value">
-                                    <%= eventsJoined %>
-                                </div>
-                                <div class="stat-label">Tournaments Joined</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">
-                                    <%= myEvents.length %>
-                                </div>
-                                <div class="stat-label">Active Now</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">Rs <%= totalWin %>
-                                </div>
-                                <div class="stat-label">Total Winnings</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">Rs <%= maxWin %>
-                                </div>
-                                <div class="stat-label">Max Winnings</div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-value"><%= eventsJoined %></div>
+            <div class="stat-label">Tournaments Joined</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value"><%= myEvents.length %></div>
+            <div class="stat-label">Active Now</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">Rs <%= totalWin %></div>
+            <div class="stat-label">Total Winnings</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">Rs <%= maxWin %></div>
+            <div class="stat-label">Max Winnings</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                <div class="container">
-                    <div class="section-title">
-                        <h3><i class="fas fa-trophy"></i> Your Active Tournaments</h3>
-                    </div>
+    <div class="container">
+      <div class="section-title">
+        <h3><i class="fas fa-trophy"></i> Your Active Tournaments</h3>
+      </div>
 
-                    <div class="tournament-cards">
-                        <!-- Tournament Card 1 -->
-                        <div class="card">
-                            <div class="badge-joined">Joined</div>
-                            <div class="card-img">
-                                <img src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80"
-                                    alt="VALORANT Tournament">
-                                <div class="game-name">VALORANT</div>
-                            </div>
-                            <div class="card-content">
-                                <h3 class="tournament-name">Epic VALORANT Showdown</h3>
+      <div class="tournament-cards">
+        <!-- Tournament Card 1 -->
 
-                                <div class="details">
-                                    <div class="detail-item">
-                                        <i class="fas fa-users"></i>
-                                        <div class="detail-text">
-                                            <span class="detail-label">Team Size</span>
-                                            <span class="detail-value">1</span>
-                                        </div>
-                                    </div>
-                                    <div class="detail-item">
-                                        <i class="fas fa-calendar"></i>
-                                        <div class="detail-text">
-                                            <span class="detail-label">Time</span>
-                                            <span class="detail-value"></span>
-                                        </div>
-                                    </div>
-                                    <div class="detail-item">
-                                        <i class="fas fa-trophy"></i>
-                                        <div class="detail-text">
-                                            <span class="detail-label">Prize Pool</span>
-                                            <span class="detail-value">Rs 10,000</span>
-                                        </div>
-                                    </div>
-                                    <div class="detail-item">
-                                        <i class="fas fa-user-check"></i>
-                                        <div class="detail-text">
-                                            <span class="detail-label">Your Team</span>
-                                            <span class="detail-value">Phoenix Force</span>
-                                        </div>
-                                    </div>
-                                </div>
+        <% myEvents.forEach(event=> { %>
+        <div class="card">
+          <div class="badge-joined">Joined</div>
+          <div class="card-img">
+            <img
+              src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80"
+              alt="<%= event.eventName %> Tournament"
+            />
+            <div class="game-name" style="text-transform: uppercase">
+              <%= event.eventType %>
+            </div>
+          </div>
 
-                                <div class="progress-container">
-                                    <div class="progress-label">
-                                        <span>Teams Registered</span>
-                                        <span>42/64</span>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: 65%"></div>
-                                    </div>
-                                </div>
+          <div class="card-content">
+            <h3 class="tournament-name"><%= event.eventName %></h3>
 
-                                <div class="prizes">
-                                    <div class="prize-item">
-                                        <div class="prize-label">Per Kill</div>
-                                        <div class="prize-amount">$50</div>
-                                    </div>
-                                    <div class="prize-item">
-                                        <div class="prize-label">1st Place</div>
-                                        <div class="prize-amount">$5,000</div>
-                                    </div>
-                                    <div class="prize-item">
-                                        <div class="prize-label">Your Rank</div>
-                                        <div class="prize-amount">#24 (Gold)</div>
-                                    </div>
-                                </div>
-                                <div class="entry-fee">
-                                    <i class="fas fa-ticket-alt"></i> Entry Fee: Rs 25 (Paid)
-                                </div>
-                                <div class="idp-info">
-                                    ID and Password will come before 10 minutes of starting Time.
-                                </div>
-
-
-                                <div class="card-actions">
-                                    <button class="btn btn-details">
-                                        <i class="fas fa-info-circle"></i> Details
-                                    </button>
-                                    <button class="btn btn-register">
-                                        <i class="fas fa-id-card"></i> ID and Password
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <% myEvents.forEach(event=> { %>
-                            <div class="card">
-                                <div class="badge-joined">Joined</div>
-                                <div class="card-img">
-                                    <img src='https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80'
-                                        alt="<%= event.eventName %> Tournament">
-                                    <div class="game-name" style="text-transform: uppercase;">
-                                        <%= event.eventType %>
-                                    </div>
-                                </div>
-
-                                <div class="card-content">
-                                    <h3 class="tournament-name">
-                                        <%= event.eventName %>
-                                    </h3>
-
-                                    <div class="details">
-                                        <div class="detail-item">
-                                            <i class="fas fa-users"></i>
-                                            <div class="detail-text">
-                                                <span class="detail-label">Team Size</span>
-                                                <span class="detail-value" style="text-transform: capitalize;">
-                                                    <%= event.eventTeamSize %>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="detail-item">
-                                            <i class="fas fa-calendar"></i>
-                                            <div class="detail-text">
-                                                <span class="detail-label">Time</span>
-                                                <span class="detail-value">
-                                                    <%= event.eventDate %> - <%= event.eventTime %>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="detail-item">
-                                            <i class="fas fa-trophy"></i>
-                                            <div class="detail-text">
-                                                <span class="detail-label">Prize Pool</span>
-                                                <span class="detail-value">Rs <%= event.eventKillPrize +
-                                                        event.eventPosPrize %></span>
-                                            </div>
-                                        </div>
-                                        <% if (event.userTeamName) { %>
-                                            <div class="detail-item">
-                                                <i class="fas fa-user-check"></i>
-                                                <div class="detail-text">
-                                                    <span class="detail-label">Your Team</span>
-                                                    <span class="detail-value">
-                                                        <%= event.userTeamName %>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <% } %>
-                                    </div>
-
-                                    <div class="progress-container">
-                                        <div class="progress-label">
-                                            <span>Teams Registered</span>
-                                            <span>
-                                                <%= event.eventArray.length %>/<%= event.eventSize %>
-                                            </span>
-                                        </div>
-                                        <div class="progress-bar">
-                                            <div class="progress-fill"
-                                                style="width: <%= (event.eventArray.length / event.eventSize) * 100 %>%">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="prizes">
-                                        <div class="prize-item">
-                                            <div class="prize-label">Per Kill</div>
-                                            <div class="prize-amount">Rs <%= event.eventKillPrize %>
-                                            </div>
-                                        </div>
-                                        <div class="prize-item">
-                                            <div class="prize-label">1st Place</div>
-                                            <div class="prize-amount">Rs <%= event.eventPosPrize %>
-                                            </div>
-                                        </div>
-                                        <% if (event.userRank) { %>
-                                            <div class="prize-item">
-                                                <div class="prize-label">Your Rank</div>
-                                                <div class="prize-amount">#</div>
-                                            </div>
-                                            <% } %>
-                                    </div>
-
-                                    <div class="entry-fee">
-                                        <i class="fas fa-ticket-alt"></i> Entry Fee: Rs <%= event.eventEntry %>
-                                    </div>
-                                    <div class="idp-info">
-                                        ID and Password will come <strong>10 minutes</strong> before the starting Time.
-                                        Make sure to check on
-                                        time, otherwise you may miss the event.
-                                    </div>
-
-                                    <div class="card-actions">
-                                        <button class="btn btn-details" onclick="showRules()">
-                                            <i class="fas fa-info-circle"></i> Details
-                                        </button>
-                                        <button class="btn btn-register">
-                                            <i class="fas fa-id-card"></i> ID and Password
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <% }) %>
-
-                    </div>
+            <div class="details">
+              <div class="detail-item">
+                <i class="fas fa-users"></i>
+                <div class="detail-text">
+                  <span class="detail-label">Team Size</span>
+                  <span class="detail-value" style="text-transform: capitalize">
+                    <%= event.eventTeamSize %>
+                  </span>
                 </div>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <div class="detail-text">
+                  <span class="detail-label">Time</span>
+                  <span class="detail-value">
+                    <%= event.eventDate %> - <%= event.eventTime %>
+                  </span>
+                </div>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-trophy"></i>
+                <div class="detail-text">
+                  <span class="detail-label">Prize Pool</span>
+                  <span class="detail-value"
+                    >Rs <%= event.eventKillPrize + event.eventPosPrize %></span
+                  >
+                </div>
+              </div>
+              <% if (event.userTeamName) { %>
+              <div class="detail-item">
+                <i class="fas fa-user-check"></i>
+                <div class="detail-text">
+                  <span class="detail-label">Your Team</span>
+                  <span class="detail-value"> <%= event.userTeamName %> </span>
+                </div>
+              </div>
+              <% } %>
+            </div>
 
-                <footer>
-                    <p>© 2025 NextScrimz. All rights reserved. | Elevate your competitive gaming experience</p>
-                </footer>
+            <div class="progress-container">
+              <div class="progress-label">
+                <span>Teams Registered</span>
+                <span>
+                  <%= event.eventArray.length %>/<%= event.eventSize %>
+                </span>
+              </div>
+              <div class="progress-bar">
+                <div
+                  class="progress-fill"
+                  style="
+                    width: <%= (event.eventArray.length / event.eventSize) * 100
+                      %>%;
+                  "
+                ></div>
+              </div>
+            </div>
 
-                <script>
+            <div class="prizes">
+              <div class="prize-item">
+                <div class="prize-label">Per Kill</div>
+                <div class="prize-amount">Rs <%= event.eventKillPrize %></div>
+              </div>
+              <div class="prize-item">
+                <div class="prize-label">1st Place</div>
+                <div class="prize-amount">Rs <%= event.eventPosPrize %></div>
+              </div>
+              <% if (event.userRank) { %>
+              <div class="prize-item">
+                <div class="prize-label">Your Rank</div>
+                <div class="prize-amount">#</div>
+              </div>
+              <% } %>
+            </div>
 
-                    function showRules() {
-                        document.querySelector(".rules-card-overlay").style.display = "flex"
-                        document.body.style.overflow = "hidden"
-                    }
+            <div class="entry-fee">
+              <i class="fas fa-ticket-alt"></i> Entry Fee: Rs <%=
+              event.eventEntry %>
+            </div>
+            <div class="idp-info">
+              ID and Password will come <strong>10 minutes</strong> before the
+              starting Time. Make sure to check on time, otherwise you may miss
+              the event.
+            </div>
+
+            <div class="card-actions">
+              <button class="btn btn-details" onclick="showRules()">
+                <i class="fas fa-info-circle"></i> Details
+              </button>
+              <button class="btn btn-register" data-id="<%= event.eventId %>" onclick="showIdp(this.dataset.id)">
+                <i class="fas fa-id-card"></i> ID and Password
+              </button>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        © 2025 NextScrimz. All rights reserved. | Elevate your competitive
+        gaming experience
+      </p>
+    </footer>
+
+    <script>
+      async function showIdp(id) {
+
+        try {
+            const res = await fetch("idp", {
+                method: "POST", 
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: JSON.stringify({ id })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                document.getElementById("idInput").value = data.id;
+                document.getElementById("passwordInput").value = data.password;
+                document.getElementsByClassName("idp-card-wrapper")[0].style.display =
+                  "block";
+                document.getElementsByClassName("idp-card-container")[0].style.display =
+                  "block";
+                  document.body.style.overflow = "hidden";
+            } else {
+                sendNotification("error", data.message, "IDP error!")
+            }
+            
+        } catch (err) {
+            sendNotification("error", data.message, "IDP error!")
+        }
+
+        }
 
 
+        function closeIdp() {
+            document.getElementsByClassName("idp-card-wrapper")[0].style.display =
+            "none";
+            document.getElementsByClassName("idp-card-container")[0].style.display =
+            "none";
+            document.body.style.overflow = "scroll"
+      }
 
-                </script>
-</body>
-
+      function showRules() {
+        document.querySelector(".rules-card-overlay").style.display = "flex";
+        document.body.style.overflow = "hidden";
+      }
+    </script>
+  </body>
 </html>

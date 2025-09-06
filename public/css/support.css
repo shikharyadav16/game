@@ -274,7 +274,7 @@ body {
 
   .chat-input-container {
     padding: 10px;
-    margin-bottom: 70px;
+    margin-bottom: 120px;
   }
 
   .send-button {
@@ -301,7 +301,7 @@ body {
   }
 }
 
-/* Loading animation for messages */
+
 .loading::after {
   content: "";
   position: absolute;
