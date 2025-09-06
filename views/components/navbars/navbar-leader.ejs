@@ -24,22 +24,22 @@
       </div>
       <nav class="navbar">
         <ul class="large-nav">
-          <li><a href="/games" class="active">Games</a></li>
+          <li><a href="/games">Games</a></li>
           <li><a href="/my-games">My Games</a></li>
-          <li><a href="/leaderboard">Leaderboard</a></li>
+          <li><a href="/leaderboard" class="active">Leaderboard</a></li>
           <li><a href="/hostory">History</a></li>
           <li><a href="/profile">Profile</a></li>
           <li><a href="/support">Support</a></li>
         </ul>
         <ul class="small-nav">
           <li>
-            <a href="/games" class="active"><i class="ph ph-house"></i></a>
+            <a href="/games"><i class="ph ph-house"></i></a>
           </li>
           <li>
             <a href="/my-games"><i class="ph ph-game-controller"></i></a>
           </li>
           <li>
-            <a href="/leaderboard"><i class="ph ph-trophy"></i></a>
+            <a href="/leaderboard" class="active"><i class="ph ph-trophy"></i></a>
           </li>
           <li>
             <a href="/history"><i class="ph ph-clock-counter-clockwise"></i></a>
@@ -63,22 +63,22 @@
     <nav class="downbar">
       <ul class="nav-list">
         <li class="nav-item">
-          <a data-link="games" class="nav-link">
+          <a data-link="games" class="nav-link active">
             <i class="ph ph-house nav-icon"></i>
             <span class="nav-label">Home</span>
-            <span class="active-indicator"></span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a data-link="my-games" class="nav-link">
+        </a>
+    </li>
+    <li class="nav-item">
+        <a data-link="my-games" class="nav-link">
             <i class="ph ph-game-controller nav-icon"></i>
             <span class="nav-label">Lobby</span>
           </a>
         </li>
         <li class="nav-item">
-          <a data-link="leaderboard" class="nav-link">
-            <i class="ph ph-trophy nav-icon"></i>
-            <span class="nav-label">Leaderboard</span>
+            <a data-link="leaderboard" class="nav-link">
+                <i class="ph ph-trophy nav-icon"></i>
+                <span class="nav-label">Leaderboard</span>
+                <span class="active-indicator"></span>
           </a>
         </li>
         <li class="nav-item">
@@ -141,18 +141,6 @@
           }, 600);
         });
       });
-
-      document.addEventListener("DOMContentLoaded", ()=> {
-          const currentPath = window.location.pathname;
-          const navLinks = document.querySelectorAll(".nav-item");
-    
-          navLinks.forEach((link) => {
-            if (link.getAttribute("href") === currentPath) {
-              link.classList.add("active");
-            }
-          });
-
-      })
 
       // Add ripple animation to CSS
       const style = document.createElement("style");

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esports Custom Matches History</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/history.css">
+</head>
+<body>
+    <!-- Header -->
+    <%- include('./components/navbars/navbar-history.ejs', { wallet: wallet }) %>
+        <%- include('./components/notify-card.ejs') %>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="page-header">
+            <h1>History</h1>
+            <p>Track your performance, analyze statistics, and review all your custom esports matches in one place.</p>
+        </div>
+
+        <!-- Stats Summary -->
+        <div class="stats-summary">
+            <div class="stat-card">
+                <i class="fas fa-calendar-check stat-icon" style="color: var(--secondary);"></i>
+                <div class="stat-value">142</div>
+                <div class="stat-title">Matches Played</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-trophy stat-icon" style="color: var(--primary);"></i>
+                <div class="stat-value">87</div>
+                <div class="stat-title">Matches Won</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-coins stat-icon" style="color: var(--success);"></i>
+                <div class="stat-value">Rs 8,425</div>
+                <div class="stat-title">Total Earnings</div>
+            </div>
+            <div class="stat-card">
+                <i class="ph ph-trend-up stat-icon" style="color: var(--warning); font-size: 52px;"></i>
+                <div class="stat-value">Rs 15</div>
+                <div class="stat-title">Most Earned in a Match</div>
+            </div>
+        </div>
+
+        <!-- Matches Table -->
+        <div class="matches-container">
+            <div class="matches-header">
+                <h2><i class="fas fa-history"></i> Recent Matches</h2>
+            </div>
+            <table class="matches-table">
+                <thead>
+                    <tr>
+                        <th>Game</th>
+                        <th>Date & Time</th>
+                        <th>Team Size</th>
+                        <th>Entry Fee</th>
+                        <th>Prize Earned</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="game-cell">
+                                <div class="game-icon" style="background: rgba(249, 58, 59, 0.2); color: #F93A3B;">
+                                    <i class="fab fa-critical-role"></i>
+                                </div>
+                                Valorant
+                            </div>
+                        </td>
+                        <td>Aug 15, 2025 • 19:30</td>
+                        <td><span class="team-size">5v5</span></td>
+                        <td class="entry-fee">$25.00</td>
+                        <td class="prize-earned">$350.00</td>
+                        <td><span class="match-status status-won">WON</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="game-cell">
+                                <div class="game-icon" style="background: rgba(157, 45, 38, 0.2); color: #9D2D26;">
+                                    <i class="fas fa-crosshairs"></i>
+                                </div>
+                                CS:GO
+                            </div>
+                        </td>
+                        <td>Aug 14, 2025 • 21:15</td>
+                        <td><span class="team-size">5v5</span></td>
+                        <td class="entry-fee">$20.00</td>
+                        <td class="prize-earned">$0.00</td>
+                        <td><span class="match-status status-lost">LOST</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="game-cell">
+                                <div class="game-icon" style="background: rgba(0, 112, 186, 0.2); color: #0070BA;">
+                                    <i class="fab fa-wizards-of-the-coast"></i>
+                                </div>
+                                Dota 2
+                            </div>
+                        </td>
+                        <td>Aug 13, 2025 • 18:45</td>
+                        <td><span class="team-size">5v5</span></td>
+                        <td class="entry-fee">$30.00</td>
+                        <td class="prize-earned">$450.00</td>
+                        <td><span class="match-status status-won">WON</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="game-cell">
+                                <div class="game-icon" style="background: rgba(1, 152, 117, 0.2); color: #019875;">
+                                    <i class="fab fa-empire"></i>
+                                </div>
+                                League of Legends
+                            </div>
+                        </td>
+                        <td>Aug 12, 2025 • 20:00</td>
+                        <td><span class="team-size">5v5</span></td>
+                        <td class="entry-fee">$15.00</td>
+                        <td class="prize-earned">$225.00</td>
+                        <td><span class="match-status status-won">WON</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="game-cell">
+                                <div class="game-icon" style="background: rgba(255, 127, 0, 0.2); color: #FF7F00;">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                Overwatch 2
+                            </div>
+                        </td>
+                        <td>Aug 11, 2025 • 17:30</td>
+                        <td><span class="team-size">6v6</span></td>
+                        <td class="entry-fee">$10.00</td>
+                        <td class="prize-earned">$0.00</td>
+                        <td><span class="match-status status-lost">LOST</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="game-cell">
+                                <div class="game-icon" style="background: rgba(0, 112, 186, 0.2); color: #0070BA;">
+                                    <i class="fab fa-wizards-of-the-coast"></i>
+                                </div>
+                                Dota 2
+                            </div>
+                        </td>
+                        <td>Aug 10, 2025 • 22:00</td>
+                        <td><span class="team-size">5v5</span></td>
+                        <td class="entry-fee">$50.00</td>
+                        <td class="prize-earned">$750.00</td>
+                        <td><span class="match-status status-won">WON</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>NEXTSCRIMZ</h3>
+                <p>Professional esports platform for competitive gamers. Join tournaments, track stats, and compete with the best.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-home"></i> Games</a></li>
+                    <li><a href="#"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+                    <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    <li><a href="#"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
+                    <li><a href="#"><i class="fas fa-lock"></i> Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 NextScrimz. All rights reserved. Designed for competitive gamers.
+        </div>
+    </footer>
+</body>
+</html>

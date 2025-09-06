@@ -22,6 +22,11 @@ async function sendOTP(req, res) {
 }
 
 async function verifyOTP(req, res) {
+
+
+    const playerAvatar = ["https://static.vecteezy.com/system/resources/thumbnails/054/555/561/small/a-man-wearing-headphones-and-sunglasses-is-wearing-a-hoodie-free-vector.jpg"]
+
+
     const { email, otp, userGame, userIgn, userPassword, userPhone } = req.body;
     if (checkOTP(otp, email)) {
         try {

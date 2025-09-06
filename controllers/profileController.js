@@ -5,7 +5,8 @@ async function handleGetProfile(req, res) {
 
     try {
         const user = await User.findOne({ email: email });
-        return res.status(200).render("profile", { user });
+        const wallet = user.wallet
+        return res.status(200).render("profile", { user, wallet });
 
     } catch (err) {
         return res.status(500).json({ msg: "Internal server error!" })

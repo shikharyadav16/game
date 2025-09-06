@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameSupport Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/support.css">
+</head>
+<body>
+  <%- include('./components/navbars/navbar-support.ejs') %>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1><span class="status-indicator status-online"></span>NextScrimz Supports</h1>
+            <p>We're here to help you with any gaming issues!</p>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message support">
+                Hello! Thank you for contacting GameSupport. How can we help you today?
+                <span class="message-time">10:00 AM</span>
+            </div>
+            
+            <div class="game-notification">
+                Connecting to game server... ✅
+            </div>
+            
+            <div class="message customer">
+                Hi, I'm having issues with the game crashing during multiplayer matches.
+                <span class="message-time">10:02 AM</span>
+            </div>
+            
+            <div class="message support">
+                I'm sorry to hear that. Let's try to solve this issue together. Which game are you playing?
+                <span class="message-time">10:03 AM</span>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" id="messageInput" placeholder="Type your message here...">
+            <button class="send-button" id="sendButton">Send</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageInput = document.getElementById('messageInput');
+            const sendButton = document.getElementById('sendButton');
+            const typingIndicator = document.getElementById('typingIndicator');
+            
+            // Focus input on load
+            messageInput.focus();
+            
+            // Sample support responses
+            const supportResponses = [
+                "I understand the issue. Let me check that for you.",
+                "Thanks for providing that information. I'm looking into it now.",
+                "Could you try restarting the game and see if that helps?",
+                "I've found a potential solution for this issue.",
+                "Let me transfer you to our specialist for further assistance.",
+                "Is there anything else I can help you with today?",
+                "We're aware of this issue and working on a fix.",
+                "Please make sure your game is updated to the latest version.",
+                "Try verifying the game files through the launcher.",
+                "This might be related to your graphics drivers. Are they up to date?"
+            ];
+            
+            // Game issues for sample conversation
+            const gameIssues = [
+                "My game keeps freezing during cutscenes",
+                "I'm experiencing lag in multiplayer matches",
+                "The game won't save my progress",
+                "I can't connect to the online servers",
+                "My character keeps falling through the map",
+                "The textures are not loading properly"
+            ];
+            
+            // Add message to chat
+            function addMessage(text, isCustomer = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(isCustomer ? 'customer' : 'support');
+                
+                // Get current time
+                const now = new Date();
+                const timeString = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+                
+                messageDiv.innerHTML = text + '<span class="message-time">' + timeString + '</span>';
+                chatMessages.appendChild(messageDiv);
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Add animation
+                messageDiv.style.animation = 'messagePop 0.3s ease-out';
+            }
+            
+            // Show typing indicator
+            function showTypingIndicator() {
+                typingIndicator.style.display = 'block';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Hide typing indicator
+            function hideTypingIndicator() {
+                typingIndicator.style.display = 'none';
+            }
+            
+            // Simulate support response
+            function simulateSupportResponse() {
+                showTypingIndicator();
+                
+                // Random response time between 1-3 seconds
+                const responseTime = Math.floor(Math.random() * 2000) + 1000;
+                
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    
+                    // Select random response
+                    const randomResponse = supportResponses[Math.floor(Math.random() * supportResponses.length)];
+                    addMessage(randomResponse, false);
+                }, responseTime);
+            }
+            
+            // Send message function
+            function sendMessage() {
+                const message = messageInput.value.trim();
+                
+                if (message !== '') {
+                    addMessage(message, true);
+                    messageInput.value = '';
+                    
+                    // Simulate support response after a short delay
+                    setTimeout(simulateSupportResponse, 1000);
+                }
+            }
+            
+            // Event listeners
+            sendButton.addEventListener('click', sendMessage);
+            
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Add initial loading animation and sample conversation
+            setTimeout(() => {
+                const notification = document.createElement('div');
+                notification.classList.add('game-notification');
+                notification.textContent = 'Agent Alex is now assisting you';
+                chatMessages.appendChild(notification);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1500);
+            
+            // Simulate additional conversation after delay
+            setTimeout(() => {
+                addMessage(gameIssues[Math.floor(Math.random() * gameIssues.length)], true);
+                setTimeout(simulateSupportResponse, 1500);
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

@@ -12,8 +12,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"
     />
-    <link rel="stylesheet" href="/css/navbar.css">
-    
+    <link rel="stylesheet" href="/css/navbar.css" />
   </head>
 
   <body>
@@ -24,16 +23,16 @@
       </div>
       <nav class="navbar">
         <ul class="large-nav">
-          <li><a href="/games" class="active">Games</a></li>
+          <li><a href="/games">Games</a></li>
           <li><a href="/my-games">My Games</a></li>
           <li><a href="/leaderboard">Leaderboard</a></li>
-          <li><a href="/hostory">History</a></li>
+          <li><a href="/hostory" class="active">History</a></li>
           <li><a href="/profile">Profile</a></li>
           <li><a href="/support">Support</a></li>
         </ul>
         <ul class="small-nav">
           <li>
-            <a href="/games" class="active"><i class="ph ph-house"></i></a>
+            <a href="/games"><i class="ph ph-house"></i></a>
           </li>
           <li>
             <a href="/my-games"><i class="ph ph-game-controller"></i></a>
@@ -42,7 +41,9 @@
             <a href="/leaderboard"><i class="ph ph-trophy"></i></a>
           </li>
           <li>
-            <a href="/history"><i class="ph ph-clock-counter-clockwise"></i></a>
+            <a href="/history" class="active"
+              ><i class="ph ph-clock-counter-clockwise"></i
+            ></a>
           </li>
           <li>
             <a href="/profile"><i class="ph ph-user"></i></a>
@@ -66,7 +67,6 @@
           <a data-link="games" class="nav-link">
             <i class="ph ph-house nav-icon"></i>
             <span class="nav-label">Home</span>
-            <span class="active-indicator"></span>
           </a>
         </li>
         <li class="nav-item">
@@ -82,9 +82,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a data-link="history" class="nav-link">
+          <a data-link="history" class="nav-link active">
             <i class="ph ph-clock-counter-clockwise nav-icon"></i>
             <span class="nav-label">History</span>
+            <span class="active-indicator"></span>
           </a>
         </li>
         <li class="nav-item">
@@ -141,18 +142,6 @@
           }, 600);
         });
       });
-
-      document.addEventListener("DOMContentLoaded", ()=> {
-          const currentPath = window.location.pathname;
-          const navLinks = document.querySelectorAll(".nav-item");
-    
-          navLinks.forEach((link) => {
-            if (link.getAttribute("href") === currentPath) {
-              link.classList.add("active");
-            }
-          });
-
-      })
 
       // Add ripple animation to CSS
       const style = document.createElement("style");
