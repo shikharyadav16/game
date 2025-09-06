@@ -31,7 +31,7 @@ const handleAddMoney = async (req, res) => {
           customer_phone: phone,
         },
         order_meta: {
-          return_url: `http://localhost:3000/payment-success?order_id={order_id}`
+          return_url: `https://nextscrimz.onrender.com/payment-success?order_id={order_id}`
         },
       },
       {
