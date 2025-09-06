@@ -1,4 +1,6 @@
-:root {
+
+
+* {
     --primary: #ffe69b;
     --primary-dark: rgb(149, 123, 74);
     --color-dark: #161616;
@@ -9,9 +11,6 @@
     --warning: #fdcb6e;
     --danger: #e17055;
     --nav-height: 80px;
-}
-
-* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
