@@ -30,11 +30,17 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "landing.html"));
 });
 
+
 app.use("/", authRoutes);
 app.use("/", restrictToLogin, regRoutes);
 app.use("/", restrictToLogin, cashfreeRoutes);
 app.use("/", restrictToLogin, staticRoutes);
 app.use("/", supportRoutes, staticRoutes);
+
+app.use((req, res)=> {
+  res.status(404).render("404")
+})
+
 
 const PORT = 3000 || process.env.PORT;
 app.listen(PORT, () => {

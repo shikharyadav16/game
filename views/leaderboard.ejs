@@ -257,8 +257,12 @@
           if (res.ok) {
             console.log(data.usersList);
             makeList(data.usersList);
+            
+          } else {
+            sendNotification("error", data.message, "Filter error!")
           }
         } catch (err) {
+          sendNotification("error", "Server error, please reload the page", "Server error!")
           console.log("Error:", err);
         }
       }

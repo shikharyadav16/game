@@ -17,23 +17,25 @@ async function handleGetSupport(req, res) {
 
   } catch (err) {
     console.log("Error:", err);
+    return res.status(500).json({success: false, message: err.message})
   }
 }
 
 async function handleSendMessages(req, res) {
   const { text } = req.body;
   const { _id } = req.user;
-
+  
   try {
     await Support.create({
       text: text,
       role: _id
     });
-
+    
     return res.status(200).json({success: true, message: "Your message has been sent successfully. Our admin team will review it and respond shortly."});
-
+    
   } catch (err) {
     console.log("Error:", err);
+    return res.status(500).json({success: false, message: err.message})
   }
 }
 

@@ -49,7 +49,7 @@ const handleAddMoney = async (req, res) => {
       payment_session_id: response.data.payment_session_id,
     });
   } catch (err) {
-    res.status(500).json({ error: err.response?.data || err.message });
+    res.status(500).json({ success: false, message: err.response?.data || err.message });
   }
 }
 
@@ -81,7 +81,7 @@ const handleSuccessPayment = async (req, res) => {
     let balanceAfter;
 
     switch (status) {
-      case "PAID":   // ✅ Success
+      case "PAID":   
       case "SUCCESS":
 
         //Wallet updation

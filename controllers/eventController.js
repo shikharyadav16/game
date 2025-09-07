@@ -13,7 +13,7 @@ async function handleGetGames(req, res) {
     res.render("games.ejs", { games: games, wallet: wallet });
   } catch (err) {
     console.error("Error:", err);
-    return res.status(500).render("server_error.ejs");
+    return res.status(500).json({success: false, message: err.message});
   }
 }
 
@@ -44,7 +44,7 @@ async function handleGetFilteredGames(req, res) {
     res.render("games.ejs", { games: games, wallet });
   } catch (err) {
     console.error("Error:", err);
-    return res.status(500).render("server_error.ejs");
+    return res.status(500).json({success: false, message: err.message});
   }
 }
 
@@ -68,6 +68,7 @@ async function handleGetMyGames(req, res) {
     });
   } catch (err) {
     console.log("Error:", err);
+    return res.status(500).json({success: false, message: err.message})
   }
 }
 
@@ -78,7 +79,7 @@ async function handleGetMyIdp(req, res) {
   const id = Number(sId);
 
   if (Number.isNaN(id) || !id) {
-    return res.status(403).json({ message: "Some error occured!" });
+    return res.status(403).json({success: false, message: "Some error occured!" });
   }
 
   const _id = req.body._id;
@@ -115,6 +116,7 @@ async function handleGetMyIdp(req, res) {
     }
   } catch (err) {
     console.log("Error:", err);
+    return res.status(500).json({success: false, message: err.message})
   }
 }
 

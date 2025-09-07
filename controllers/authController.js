@@ -17,7 +17,7 @@ async function sendOTP(req, res) {
 
     } catch (err) {
         console.log("Error:", err);
-        return res.render("server_error.ejs");
+        return res.status(500).json({success: false, description: err.message, name: "Singup error!"})
     }
 }
 
@@ -53,11 +53,12 @@ async function verifyOTP(req, res) {
 
         } catch (err) {
             console.log("Error:", err);
-            return res.json(501).render("server_error.ejs")
+        return res.status(500).json({success: false, description: err.message, name: "Singup error!"})
         }
+
         return res.status(200).json({ redirected: `/games` });
     } else {
-        return res.status(400).json({ success: false, description: "Invalid OTP for this email.", name: "Verification error!" });
+        return res.status(403).json({ success: false, description: "Invalid OTP for this email.", name: "Verification error!" });
     }
 }
 
@@ -84,10 +85,12 @@ async function checkLogin(req, res) {
             httpOnly: true,
             secure: false,
         });
+
         return res.status(200).json({ success: true, redirected: `/games` });
+
     } catch (err) {
         console.log("Error:", err);
-        return res.status(500).render("server_error.ejs")
+        return res.status(500).json({success: false, description: err.message, name: "Login error!"})
     }
 }
 

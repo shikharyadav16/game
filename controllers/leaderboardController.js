@@ -74,6 +74,7 @@ async function handleGetLeaderboard(req, res) {
     return res.render("leaderboard.ejs", { wallet, usersList });
   } catch (err) {
     console.log("Error:", err);
+    return res.status(500).json({success: false, message: err.message})
   }
 }
 
@@ -88,7 +89,7 @@ async function handleGetFilteredLeadeBoard(req, res) {
     } else if (game === "ff") {
       query.game = "ff";
     } else if (game === "all-games"){ } else {
-        return res.status(404).json({ Error: "Invalid game type" });
+        return res.status(404).json({success: false, message: "Invalid game type" });
     }
 
     const users = await User.find(query)
@@ -166,6 +167,7 @@ async function handleGetFilteredLeadeBoard(req, res) {
 
   } catch (err) {
     console.log("Error:", err);
+    return res.status(500).json({success: false, message: err.message})
   }
 }
 

@@ -16,17 +16,17 @@ async function handleGetEventRegister(req, res) {
         if (!user) return res.redirect("/login");
 
         const event = await Event.findOne({ eventId });
-        if (!event) return res.status(404).send("Event not found");
+        if (!event) return res.status(404).json({success: false, message: "Event not found"});
 
         if (event.eventArray.includes(_id)) {
-            return res.status(400).send("Already joined in this event");
+            return res.status(403).json({success: false, message: "Already joined in this event"});
         }
 
         const { wallet, ign } = user;
         return res.render("payment.ejs", { event, wallet, ign });
     } catch (err) {
         console.error("Error:", err);
-        return res.status(500).send("Server error");
+        return res.status(500).json({success: false, message: err.message});
     }
 }
 
@@ -123,6 +123,7 @@ async function updateTransactions(_id, entryFee) {
 
     } catch (err) {
         console.log("Error:", err);
+        return res.status(500).json({success: false, message: err.message})
     }
 }
 

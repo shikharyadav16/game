@@ -24,7 +24,7 @@ async function handleUpdateProfile(req, res) {
     if (ign) {
       query.ign = ign;
     } else {
-      return res.json({ status: false, message: "In game name is required." });
+      return res.status(403).json({ status: false, message: "In game name is required." });
     }
     if (upi) {
       query.upi = upi;
@@ -34,7 +34,7 @@ async function handleUpdateProfile(req, res) {
     }
 
     if (game !== "ff" && game !== "bgmi") {
-      return res.json({ Error: "Invalid game type" });
+      return res.status(403).json({ Error: "Invalid game type" });
     }
     
     const user = await User.findOneAndUpdate({email}, query, {
@@ -43,7 +43,7 @@ async function handleUpdateProfile(req, res) {
     });
 
     if (!user) {
-      return res.status(401).send({
+      return res.status(404).send({
         success: false,
         message: "User not found.",
       });
@@ -55,7 +55,7 @@ async function handleUpdateProfile(req, res) {
     });
   } catch (err) {
     console.log("Error:", err);
-    return res.status(501).render("server_error.ejs");
+    return res.status(501).json({success: false, message: err.message});
   }
 }
 
