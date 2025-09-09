@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextScrimz - Navigation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+         :root {
+            --primary: #ffe69b;
+            --primary-dark: rgb(149, 123, 74);
+            --color-dark: #161616;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --light: #f7f9fc;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+            --nav-height: 80px;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+       /* * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark), #1a1a2e);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        } */
+
+        .navbar {
+            background-color: rgba(22, 22, 22, 0.95);
+            height: var(--nav-height);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--box-shadow);
+            backdrop-filter: blur(3px);
+            border-bottom: 1px solid rgba(233, 170, 33, 0.174);
+        }
+
+        nav .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.8rem;
+            transition: var(--transition);
+        }
+
+        nav .logo:hover {
+            color: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        nav .logo-icon {
+            color: var(--secondary);
+            font-size: 2.2rem;
+        }
+
+        nav .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav .nav-link:hover {
+            color: var(--primary);
+        }
+
+        nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        nav .nav-link:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+
+        nav .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+        }
+
+        nav .hamburger span {
+            width: 30px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        nav .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        nav .content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        nav .content p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: var(--light);
+        }
+
+        nav .btn {
+            padding: 1rem 2rem;
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+        }
+
+        nav .btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--color-dark);
+            color: var(--light);
+            margin-top: auto;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 900px) {
+            nav .hamburger {
+                display: flex;
+            }
+
+            nav .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: var(--nav-height);
+                flex-direction: column;
+                background-color: var(--color-dark);
+                width: 100%;
+                text-align: center;
+                transition: var(--transition);
+                box-shadow: var(--box-shadow);
+                padding: 2rem 0;
+                gap: 1.5rem;
+            }
+
+            nav .nav-menu.active {
+                left: 0;
+            }
+
+            nav .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+
+            nav .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            nav .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+
+            nav .content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            nav .logo {
+                font-size: 1.5rem;
+            }
+            
+            nav .logo-icon {
+                font-size: 1.8rem;
+            }
+            
+            nav .content h1 {
+                font-size: 2rem;
+            }
+            
+            nav .content p {
+                font-size: 1rem;
+            }
+            
+            nav .btn {
+                padding: 0.8rem 1.6rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <i class="fas fa-gamepad logo-icon"></i>
+            NextScrimz
+        </a>
+        
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/about" class="nav-link">About</a></li>
+            <li><a href="/contact" class="nav-link">Contact</a></li>
+            <li><a href="/help" class="nav-link">Help</a></li>
+            <li><a href="/faq" class="nav-link">FAQ</a></li>
+            <li><a href="/report" class="nav-link">Report</a></li>
+        </ul>
+        
+        <button class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+    
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

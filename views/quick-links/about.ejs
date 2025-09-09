@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - NextScrimz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oxanium:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ffe69b;
+            --primary-dark: rgb(149, 123, 74);
+            --color-dark: #161616;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --light: #f7f9fc;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+            --nav-height: 80px;
+            --border-radius: 10px;
+            --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            --bg-dark: #121212;
+            --card-dark: #1e1e1e;
+            --text-light: #e0e0e0;
+            --text-muted: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Oxanium', cursive;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(143, 115, 65, 0.15) 0%, rgba(18, 18, 18, 1) 70%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 0.3s;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 0.5s;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .section-title.animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        /* Mission Section */
+        .mission-content {
+            background: var(--card-dark);
+            padding: 50px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .mission-content.animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .mission-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 206, 201, 0.05), transparent);
+            transform: rotate(-45deg);
+            z-index: 0;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mission-card {
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            border: 1px solid rgba(149, 123, 74, 0.1);
+        }
+
+        .mission-card.animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .mission-card:nth-child(1) { animation-delay: 0.2s; }
+        .mission-card:nth-child(2) { animation-delay: 0.4s; }
+        .mission-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(149, 123, 74, 0.3);
+        }
+
+        .mission-icon {
+            font-size: 2.8rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: all 0.4s ease;
+        }
+
+        .mission-card:hover .mission-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Features Section */
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            border: 1px solid rgba(149, 123, 74, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card.animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.2s; }
+        .feature-card:nth-child(2) { animation-delay: 0.4s; }
+        .feature-card:nth-child(3) { animation-delay: 0.6s; }
+        .feature-card:nth-child(4) { animation-delay: 0.8s; }
+        .feature-card:nth-child(5) { animation-delay: 1s; }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--secondary);
+            transition: height 0.6s ease;
+        }
+
+        .feature-card:hover::before {
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(149, 123, 74, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            color: var(--secondary);
+        }
+
+        /* Why Section */
+        .why-content {
+            background: var(--card-dark);
+            padding: 50px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .why-content.animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .why-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .why-card {
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            border: 1px solid rgba(149, 123, 74, 0.1);
+        }
+
+        .why-card.animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .why-card:nth-child(1) { animation-delay: 0.2s; }
+        .why-card:nth-child(2) { animation-delay: 0.4s; }
+        .why-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .why-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(149, 123, 74, 0.3);
+        }
+
+        .why-icon {
+            font-size: 2.5rem;
+            color: var(--danger);
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .why-card:hover .why-icon {
+            transform: scale(1.1);
+        }
+
+        /* Vision Section */
+        .vision-content {
+            position: relative;
+            padding: 60px 40px;
+            background: linear-gradient(45deg, var(--primary-dark), var(--secondary));
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .vision-content.animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .vision-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.05"><text x="50%" y="50%" font-size="50" text-anchor="middle" dominant-baseline="middle" fill="white">⚡</text></svg>');
+            opacity: 0.1;
+        }
+
+        .vision-content h3 {
+            color: var(--color-dark);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .vision-content p {
+            color: var(--color-dark);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        /* Team Section */
+        .team-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .team-card {
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            padding: 40px 30px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            border: 1px solid rgba(149, 123, 74, 0.1);
+        }
+
+        .team-card.animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .team-card:nth-child(1) { animation-delay: 0.2s; }
+        .team-card:nth-child(2) { animation-delay: 0.4s; }
+        .team-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(149, 123, 74, 0.3);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--color-dark);
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover .team-avatar {
+            transform: scale(1.1);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 100px 0;
+            background: linear-gradient(to right, var(--card-dark), #252525);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin: 40px 0;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .cta-section.animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 45px;
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: var(--color-dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .mission-grid,
+            .features-container,
+            .why-container,
+            .team-container {
+                grid-template-columns: 1fr;
+            }
+            
+            
+            .mission-content, 
+            .why-content,
+            .vision-content {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('./header-footer/header') %>
+
+    <div class="container">
+        <section class="hero">
+            <h1>About NextScrimz</h1>
+            <p>Welcome to NextScrimz, the ultimate platform for battle royale scrims and tournaments. Built for gamers, by gamers — our goal is to create a fair, fun, and competitive space where players and teams can showcase their skills.</p>
+        </section>
+
+        <section class="section" id="mission">
+            <h2 class="section-title">Our Mission</h2>
+            <div class="mission-content">
+                <p>To make hosting and joining scrims simple, transparent, and rewarding, while providing players with a platform to grow, compete, and connect with the gaming community.</p>
+                
+                <div class="mission-grid">
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>Competitive</h3>
+                        <p>Providing a platform for gamers to test their skills in fair competition</p>
+                    </div>
+                    
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Secure</h3>
+                        <p>Ensuring safe transactions and fair play for all participants</p>
+                    </div>
+                    
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Community</h3>
+                        <p>Building a thriving ecosystem of passionate gamers</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="features">
+            <h2 class="section-title">What We Offer</h2>
+            <div class="features-container">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3>Easy Registrations</h3>
+                    <p>Join tournaments with just a few clicks</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Secure Payments</h3>
+                    <p>Powered by Razorpay, ensuring safe entry fees and prize payouts</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-scale-balanced"></i>
+                    </div>
+                    <h3>Fair Competition</h3>
+                    <p>Anti-cheat rules, strict monitoring, and quick dispute handling</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Live Results & Leaderboards</h3>
+                    <p>Track your performance instantly after each scrim</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Community-Driven</h3>
+                    <p>Connect with like-minded gamers through our Discord/Telegram channels</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="why">
+            <h2 class="section-title">Why NextScrimz?</h2>
+            <div class="why-content">
+                <p>We know the struggles gamers face: unfair tournaments, late or missing prize payouts, and lack of proper result tracking. NextScrimz was created to fix that. Our platform ensures trust, fairness, and professionalism in every scrim you play.</p>
+            </div>
+            <div class="why-container">
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h3>No Unfair Play</h3>
+                    <p>Strict anti-cheat measures and vigilant monitoring</p>
+                </div>
+                
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Timely Payouts</h3>
+                    <p>Guaranteed prize distribution within 24-48 hours</p>
+                </div>
+                
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Transparent Results</h3>
+                    <p>Real-time leaderboards and detailed match analytics</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="vision">
+            <h2 class="section-title">Our Vision</h2>
+            <div class="vision-content">
+                <h3>The Future of Mobile Esports</h3>
+                <p>We aim to become the go-to hub for competitive mobile gaming, expanding into cross-game tournaments (BGMI, Free Fire, CODM, PUBG: New State, and more), automated score capturing and match analytics, and larger esports events with sponsors & prize pools.</p>
+            </div>
+        </section>
+
+        <section class="section" id="team">
+            <h2 class="section-title">Who We Are</h2>
+            <p>NextScrimz is built by passionate gamers and developers who understand both the thrill of competition and the need for reliable tournament platforms.</p>
+            
+            <div class="team-container">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Developers</h3>
+                    <p>Tech enthusiasts building robust platforms</p>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Gamers</h3>
+                    <p>Competitive players who understand the community</p>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Moderators</h3>
+                    <p>Ensuring fair play and resolving disputes</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Join the NextScrimz Community</h2>
+            <p>Whether you're a casual player looking for practice, or a competitive squad chasing glory — NextScrimz is your arena.</p>
+            <p>Let's build the future of mobile esports, together.</p>
+            <a href="#" class="cta-button pulse">Get Started</a>
+        </section>
+    </div>
+
+    <%- include('./header-footer/footer') %>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate elements on scroll
+            const animatedElements = document.querySelectorAll('.section-title, .mission-content, .mission-card, .feature-card, .why-content, .why-card, .vision-content, .team-card, .cta-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Add animation to hero section
+            const hero = document.querySelector('.hero');
+            hero.classList.add('animated');
+            
+            // Add hover effects to all cards
+            const cards = document.querySelectorAll('.mission-card, .feature-card, .why-card, .team-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

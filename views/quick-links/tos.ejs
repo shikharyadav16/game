@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - NextScrimz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ffe69b;
+            --primary-dark: rgb(149, 123, 74);
+            --color-dark: #161616;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --light: #f7f9fc;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+            --nav-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 0;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--color-dark);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .tos-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .toc-sidebar {
+            background: var(--light);
+            padding: 25px;
+            border-right: 1px solid #eee;
+        }
+
+        .toc-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--color-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-item {
+            margin-bottom: 12px;
+        }
+
+        .toc-link {
+            color: var(--dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .toc-link:hover {
+            background: var(--primary);
+            color: var(--color-dark);
+        }
+
+        .toc-link.active {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .tos-content {
+            padding: 30px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            scroll-margin-top: 20px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--color-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-content {
+            color: #444;
+        }
+
+        .section-content p {
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            background: var(--primary);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 992px) {
+            .tos-container {
+                display: flex;
+            }
+            
+            .toc-sidebar {
+                width: 300px;
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .toc-sidebar {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        .tos-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .tos-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .tos-content::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+
+        .tos-content::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        .effective-date {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-dark);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+        <%- include('./header-footer/header') %>
+
+
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">Terms of Service</h1>
+            <p class="effective-date">Effective Date: [Insert Date]</p>
+            
+            <div class="tos-container">
+                <div class="toc-sidebar">
+                    <h2 class="toc-title"><i class="fas fa-list"></i> Table of Contents</h2>
+                    <ul class="toc-list">
+                        <li class="toc-item"><a href="#section1" class="toc-link active"><i class="fas fa-check-circle"></i> Acceptance of Terms</a></li>
+                        <li class="toc-item"><a href="#section2" class="toc-link"><i class="fas fa-user-check"></i> Eligibility</a></li>
+                        <li class="toc-item"><a href="#section3" class="toc-link"><i class="fas fa-user-circle"></i> User Accounts</a></li>
+                        <li class="toc-item"><a href="#section4" class="toc-link"><i class="fas fa-gamepad"></i> Scrims & Tournaments</a></li>
+                        <li class="toc-item"><a href="#section5" class="toc-link"><i class="fas fa-credit-card"></i> Payments & Refunds</a></li>
+                        <li class="toc-item"><a href="#section6" class="toc-link"><i class="fas fa-trophy"></i> Winnings & Rewards</a></li>
+                        <li class="toc-item"><a href="#section7" class="toc-link"><i class="fas fa-users"></i> User Conduct</a></li>
+                        <li class="toc-item"><a href="#section8" class="toc-link"><i class="fas fa-copyright"></i> Intellectual Property</a></li>
+                        <li class="toc-item"><a href="#section9" class="toc-link"><i class="fas fa-exclamation-triangle"></i> Liability Disclaimer</a></li>
+                        <li class="toc-item"><a href="#section10" class="toc-link"><i class="fas fa-ban"></i> Termination of Accounts</a></li>
+                        <li class="toc-item"><a href="#section11" class="toc-link"><i class="fas fa-shield-alt"></i> Privacy & Data Protection</a></li>
+                        <li class="toc-item"><a href="#section12" class="toc-link"><i class="fas fa-sync-alt"></i> Changes to Terms</a></li>
+                        <li class="toc-item"><a href="#section13" class="toc-link"><i class="fas fa-balance-scale"></i> Governing Law</a></li>
+                        <li class="toc-item"><a href="#section14" class="toc-link"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="tos-content">
+                    <section id="section1" class="section">
+                        <h2 class="section-title"><i class="fas fa-check-circle"></i> 1. Acceptance of Terms</h2>
+                        <div class="section-content">
+                            <p>By registering, logging in, or participating in scrims/tournaments on NextScrimz, you agree to these Terms. If you do not agree, you may not use our services.</p>
+                            <p>These Terms of Service constitute a legally binding agreement between you and NextScrimz regarding your use of the platform and services.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section2" class="section">
+                        <h2 class="section-title"><i class="fas fa-user-check"></i> 2. Eligibility</h2>
+                        <div class="section-content">
+                            <p>You must be at least 13 years old (or the minimum age required by your country's law) to use NextScrimz.</p>
+                            <p>Players under 18 must have parental/guardian consent to participate in tournaments and use our services.</p>
+                            <p>You must provide accurate and complete information when creating an account. Providing false information may result in account termination.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section3" class="section">
+                        <h2 class="section-title"><i class="fas fa-user-circle"></i> 3. User Accounts</h2>
+                        <div class="section-content">
+                            <p>You are responsible for maintaining the confidentiality of your login credentials and for all activities that occur under your account.</p>
+                            <p>You agree not to share your account with others. Each account is for individual use only.</p>
+                            <p>Any suspicious activity must be reported immediately to our support team. NextScrimz will not be liable for any losses resulting from unauthorized access to your account.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section4" class="section">
+                        <h2 class="section-title"><i class="fas fa-gamepad"></i> 4. Scrims & Tournaments</h2>
+                        <div class="section-content">
+                            <p>Match rules, scoring formats, and eligibility requirements will be posted on each event page. It is your responsibility to review these rules before participating.</p>
+                            <p>NextScrimz reserves the right to disqualify players/teams using cheats, hacks, or engaging in unfair practices. This includes but is not limited to exploiting bugs, smurfing, or collusion.</p>
+                            <p>Decisions by organizers or admins are final in case of disputes. While we strive for fairness, all rulings are at the discretion of our tournament officials.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section5" class="section">
+                        <h2 class="section-title"><i class="fas fa-credit-card"></i> 5. Payments & Refunds</h2>
+                        <div class="section-content">
+                            <p>Entry fees are processed securely via Razorpay or other third-party providers. NextScrimz does not store your payment information.</p>
+                            <p>Refunds will only be issued if a tournament/scrim is canceled before it starts. No refunds will be provided for no-shows, disqualifications, or incomplete participation.</p>
+                            <p>All payments are final unless otherwise stated in the specific tournament rules. Chargebacks may result in permanent account suspension.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section6" class="section">
+                        <h2 class="section-title"><i class="fas fa-trophy"></i> 6. Winnings & Rewards</h2>
+                        <div class="section-content">
+                            <p>Prize distributions will be made within 24–48 hours after result verification. Delays may occur in cases requiring additional verification.</p>
+                            <p>Users are responsible for providing accurate payment details for prize distribution. Incorrect information may delay prize delivery.</p>
+                            <p>Any fraudulent claims will result in disqualification and possible account ban. NextScrimz reserves the right to withhold prizes pending investigation.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section7" class="section">
+                        <h2 class="section-title"><i class="fas fa-users"></i> 7. User Conduct</h2>
+                        <div class="section-content">
+                            <p>You agree not to:</p>
+                            <ul>
+                                <li>Use cheats, hacks, or unauthorized third-party tools</li>
+                                <li>Abuse, harass, or threaten other users</li>
+                                <li>Post or share offensive, illegal, or harmful content</li>
+                                <li>Attempt to hack, disrupt, or exploit NextScrimz systems</li>
+                                <li>Impersonate NextScrimz staff or other users</li>
+                                <li>Engage in any activity that violates applicable laws</li>
+                            </ul>
+                            <p>Violation of these conduct rules may result in immediate account termination.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section8" class="section">
+                        <h2 class="section-title"><i class="fas fa-copyright"></i> 8. Intellectual Property</h2>
+                        <div class="section-content">
+                            <p>All content, branding, and software on NextScrimz belong to us or our licensors. This includes but is not limited to logos, designs, text, graphics, and code.</p>
+                            <p>You may not copy, modify, distribute, or resell any part of our platform without written permission. Unauthorized use may result in legal action.</p>
+                            <p>User-generated content remains your property, but you grant NextScrimz a license to use it for platform operation and promotion.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section9" class="section">
+                        <h2 class="section-title"><i class="fas fa-exclamation-triangle"></i> 9. Liability Disclaimer</h2>
+                        <div class="section-content">
+                            <p>NextScrimz is not responsible for internet failures, technical errors, or game server outages that may affect tournament participation.</p>
+                            <p>We are not liable for losses resulting from user mistakes, disconnections, or rule violations. Participation in events is at your own risk.</p>
+                            <p>NextScrimz provides the platform "as is" without warranties of any kind, either express or implied.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section10" class="section">
+                        <h2 class="section-title"><i class="fas fa-ban"></i> 10. Termination of Accounts</h2>
+                        <div class="section-content">
+                            <p>We reserve the right to suspend or terminate accounts that violate these Terms. Serious violations may result in immediate termination.</p>
+                            <p>Bans may be temporary or permanent, depending on the severity of violations. Terminated accounts may not participate in any future events.</p>
+                            <p>You may appeal account termination by contacting our support team with relevant evidence.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section11" class="section">
+                        <h2 class="section-title"><i class="fas fa-shield-alt"></i> 11. Privacy & Data Protection</h2>
+                        <div class="section-content">
+                            <p>Your personal information is handled according to our <a href="#" style="color: var(--secondary);">Privacy Policy</a>. We recommend reviewing it to understand our data practices.</p>
+                            <p>Payments are secured by third-party providers; we do not store sensitive card/bank details on our servers.</p>
+                            <p>We implement industry-standard security measures to protect your data, but no system is completely secure.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section12" class="section">
+                        <h2 class="section-title"><i class="fas fa-sync-alt"></i> 12. Changes to Terms</h2>
+                        <div class="section-content">
+                            <p>We may update these Terms from time to time to reflect changes in our practices or legal requirements.</p>
+                            <p>Continued use of the platform after updates means you accept the new Terms. We will notify users of significant changes via email or platform notifications.</p>
+                            <p>The "Effective Date" at the top of this page indicates when these Terms were last revised.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section13" class="section">
+                        <h2 class="section-title"><i class="fas fa-balance-scale"></i> 13. Governing Law</h2>
+                        <div class="section-content">
+                            <p>These Terms are governed by the laws of [Insert your country/state, e.g., India]. Any legal actions must be brought in the courts located in [Insert jurisdiction].</p>
+                            <p>International users agree to comply with all local laws regarding online conduct and acceptable content.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="section14" class="section">
+                        <h2 class="section-title"><i class="fas fa-envelope"></i> 14. Contact Us</h2>
+                        <div class="section-content">
+                            <p>For any questions regarding these Terms, please contact us:</p>
+                            <p>📧 Email: <a href="mailto:support@nextscrimz.com" style="color: var(--secondary);">support@nextscrimz.com</a></p>
+                            <p>🌐 Website: <a href="https://www.nextscrimz.com" style="color: var(--secondary);">www.nextscrimz.com</a></p>
+                            <p>We typically respond to inquiries within 24-48 hours during business days.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+        <%- include('./header-footer/footer') %>
+
+
+    <script>
+        // Simple script to highlight the current section in TOC
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            
+            // Remove active class from all links
+            function removeActiveClasses() {
+                tocLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+            }
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                tocLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // Smooth scrolling for TOC links
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

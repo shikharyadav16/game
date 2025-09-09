@@ -10,6 +10,7 @@ const staticRoutes = require("./routes/staticRoutes");
 const cashfreeRoutes = require("./routes/cashfreeRoutes")
 const regRoutes = require("./routes/regRoutes");
 const supportRoutes = require("./routes/supportRoutes")
+const quickRoutes = require("./routes/quickRoutes");
 
 const { connectToDb } = require("./Connection");
 const { restrictToLogin } = require("./middlewares/auth")
@@ -30,7 +31,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "landing.html"));
 });
 
-
+app.use("/", quickRoutes);
 app.use("/", authRoutes);
 app.use("/", restrictToLogin, regRoutes);
 app.use("/", restrictToLogin, cashfreeRoutes);

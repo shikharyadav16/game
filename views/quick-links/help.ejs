@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - NextScrimz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ffe69b;
+            --primary-dark: rgb(149, 123, 74);
+            --color-dark: #161616;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --light: #f7f9fc;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+            --nav-height: 80px;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --bg-dark: #121212;
+            --card-dark: #1e1e1e;
+            --text-light: #e0e0e0;
+            --text-muted: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(to right, var(--card-dark), #252525);
+            margin: 20px 0;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 30px auto;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 15px 20px;
+            background-color: var(--card-dark);
+            border: 2px solid var(--primary-dark);
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            color: var(--text-light);
+        }
+
+        .search-container input:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 206, 201, 0.3);
+        }
+
+        .search-container input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-container button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .search-container button:hover {
+            background: var(--primary);
+        }
+
+        /* FAQ Categories */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .category-btn {
+            padding: 12px 25px;
+            background: var(--card-dark);
+            border: 2px solid var(--primary-dark);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: var(--text-light);
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary);
+            color: var(--color-dark);
+        }
+
+        /* FAQ Sections */
+        .faq-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary-dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .faq-container {
+            background: var(--card-dark);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #333;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: var(--text-light);
+        }
+
+        .faq-question:hover {
+            background: rgba(149, 123, 74, 0.2);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+            color: var(--secondary);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-light);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 20px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--card-dark);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .contact-section h2 {
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .contact-method {
+            flex: 1;
+            min-width: 250px;
+            padding: 25px;
+            background: var(--bg-dark);
+            border-radius: var(--border-radius);
+            transition: all 0.3s;
+            border: 1px solid #333;
+        }
+
+        .contact-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--secondary);
+        }
+
+        .contact-method i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .contact-method h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .contact-method p {
+            color: var(--text-light);
+        }
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .contact-methods {
+                flex-direction: column;
+            }
+            
+            .search-container button {
+                position: relative;
+                width: 100%;
+                margin-top: 10px;
+                border-radius: var(--border-radius);
+            }
+        }
+    </style>
+</head>
+<body>
+
+        <%- include('./header-footer/header') %>
+
+
+    <div class="container">
+        <section class="hero">
+            <h1>NextScrimz Help Center</h1>
+            <p>Below are the most common questions and answers to help you use our platform.</p>
+            
+            <div class="search-container">
+                <input type="text" placeholder="Search for help...">
+                <button>Search</button>
+            </div>
+        </section>
+
+        <div class="categories">
+            <button class="category-btn active">All Topics</button>
+            <button class="category-btn">Getting Started</button>
+            <button class="category-btn">Account & Profile</button>
+            <button class="category-btn">Scrims & Tournaments</button>
+            <button class="category-btn">Payments & Rewards</button>
+            <button class="category-btn">Technical Issues</button>
+        </div>
+
+        <section class="faq-section">
+            <h2 class="section-title"><i class="fas fa-play-circle"></i> Getting Started</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I create an account?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Go to the Sign Up page, enter your name, email, password, and verify your account. Once done, you can log in and start joining scrims.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I join a scrim/tournament?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Browse available scrims on the homepage, click Join, pay the entry fee (if required), and you'll get the room ID & password before the match starts.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I create or manage a team?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Go to My Teams → Create Team, invite your teammates by their game ID, and set a team name. As captain, you can also edit or remove members anytime.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I verify my game ID?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Enter your correct in-game ID while registering. If needed, our moderators may ask for proof (screenshot of profile) before allowing entry into events.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2 class="section-title"><i class="fas fa-user-circle"></i> Account & Profile</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I update my profile details?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Go to Profile Settings → edit name, email, game ID, or password → click Save.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        I forgot my password, what should I do?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Click Forgot Password on the login page, enter your email, and follow the reset link.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I manage notifications?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 In Settings, you can enable/disable email or app notifications for match alerts, updates, and results.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2 class="section-title"><i class="fas fa-trophy"></i> Scrims & Tournaments</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I join a scrim room?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Once registered, you'll receive the Room ID & Password in your dashboard or email before the match starts.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What are the rules for fair play?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 No hacks, cheats, or third-party tools. Any unfair advantage will result in a ban. Play fair and respect other players.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How does scoring work?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Scoring is based on kills + placement points. Detailed scoring rules are shown on each scrim's page.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How can I view results/leaderboards?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 After the match ends, go to Results → select your tournament → view rankings and scores.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I report a cheater?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Use the Report button in your dashboard or contact support with match proof (screenshot/video). Our team will review it.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2 class="section-title"><i class="fas fa-credit-card"></i> Payments & Rewards</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I pay entry fees?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Payments are processed securely through Razorpay. You can use UPI, wallets, debit/credit cards, or net banking.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What if my payment fails?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 If money is deducted but you don't get confirmation, wait a few minutes. If not resolved, contact support with transaction ID.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do you offer refunds?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Yes. Refunds are provided if a scrim is canceled before it begins. No refunds for no-shows or disqualifications due to rule violations.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I claim winnings?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Prize money is automatically credited to your registered account/wallet within 24–48 hours after results are verified.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2 class="section-title"><i class="fas fa-laptop-code"></i> Technical Issues</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        I can't log in. What should I do?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Double-check your email & password. If forgotten, use Forgot Password. If still blocked, contact support.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Room ID or Password is not working.
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Ensure you're entering the correct details without spaces. If it still fails, refresh and check updates — sometimes new IDs are issued.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        The website/app isn't loading properly.
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Clear your cache/cookies, ensure a stable internet connection, or try opening in another browser/device.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2 class="section-title"><i class="fas fa-shield-alt"></i> Privacy & Security</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is my data safe on NextScrimz?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Yes. We use encryption and secure hosting to protect your data. Payments are handled by trusted gateways like Razorpay.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What if I see suspicious activity?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Change your password immediately and report it to our support team.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2 class="section-title"><i class="fas fa-users"></i> Community Guidelines</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What behavior is expected from players?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Respect all players, avoid abusive language, and follow the rules of the event.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What happens if I break the rules?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>👉 Depending on the violation, penalties can range from warnings to permanent bans. Cheating will lead to immediate disqualification.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h2>Still stuck? We're here to help.</h2>
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Support</h3>
+                    <p>support@nextscrimz.com</p>
+                </div>
+                
+                <div class="contact-method">
+                    <i class="fas fa-comment-dots"></i>
+                    <h3>Live Chat</h3>
+                    <p>Available 24/7 for premium users</p>
+                </div>
+                
+                <div class="contact-method">
+                    <i class="fab fa-discord"></i>
+                    <h3>Discord Community</h3>
+                    <p>Join 50,000+ gamers</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <%- include('./header-footer/footer') %>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+            
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Here you would normally filter the FAQs based on category
+                    // For this example, we'll just show all
+                    const allSections = document.querySelectorAll('.faq-section');
+                    allSections.forEach(section => {
+                        section.style.display = 'block';
+                    });
+                });
+            });
+            
+            const searchInput = document.querySelector('.search-container input');
+            const searchButton = document.querySelector('.search-container button');
+            
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                if (searchTerm.trim() === '') {
+                    // If search is empty, show all questions
+                    const allQuestions = document.querySelectorAll('.faq-item');
+                    allQuestions.forEach(item => {
+                        item.style.display = 'block';
+                    });
+                    
+                    const allSections = document.querySelectorAll('.faq-section');
+                    allSections.forEach(section => {
+                        section.style.display = 'block';
+                    });
+                    
+                    return;
+                }
+                
+                // Search through questions and answers
+                const allQuestions = document.querySelectorAll('.faq-item');
+                let hasMatches = false;
+                
+                allQuestions.forEach(item => {
+                    const questionText = item.querySelector('.faq-question').textContent.toLowerCase();
+                    const answerText = item.querySelector('.faq-answer').textContent.toLowerCase();
+                    
+                    if (questionText.includes(searchTerm) || answerText.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        item.classList.add('active'); // Expand matching results
+                        hasMatches = true;
+                        
+                        // Show the parent section
+                        const parentSection = item.closest('.faq-section');
+                        if (parentSection) {
+                            parentSection.style.display = 'block';
+                        }
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Hide sections with no visible questions
+                const allSections = document.querySelectorAll('.faq-section');
+                allSections.forEach(section => {
+                    const visibleItems = section.querySelectorAll('.faq-item[style="display: block"]');
+                    if (visibleItems.length === 0) {
+                        section.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Back to top button
+            const backToTopButton = document.querySelector('.back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.style.display = 'flex';
+                } else {
+                    backToTopButton.style.display = 'none';
+                }
+            });
+            
+            backToTopButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

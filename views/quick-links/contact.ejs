@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - NextScrimz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ffe69b;
+            --primary-dark: rgb(149, 123, 74);
+            --color-dark: #161616;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --light: #f7f9fc;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+            --nav-height: 80px;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+
+        /* Hero Section */
+        .contact-hero {
+            background: linear-gradient(135deg, var(--color-dark) 0%, #2a2a3a 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contact-hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .contact-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .contact-content {
+            padding: 2rem 0 4rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-form {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .contact-form h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-form h3 i {
+            margin-right: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .file-upload {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .file-upload label {
+            background-color: var(--primary);
+            color: var(--color-dark);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 0;
+        }
+
+        .file-upload label:hover {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .contact-info h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info h3 i {
+            margin-right: 10px;
+        }
+
+        .support-channel {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .support-channel:last-child {
+            border-bottom: none;
+        }
+
+        .support-channel h4 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .support-channel h4 i {
+            margin-right: 10px;
+            color: var(--primary-dark);
+        }
+
+        .support-channel p {
+            margin-bottom: 0.5rem;
+        }
+
+        .response-time {
+            display: inline-block;
+            background-color: rgba(0, 184, 148, 0.2);
+            color: var(--success);
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(0, 206, 201, 0.2);
+            color: var(--secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        .status-badge i {
+            margin-right: 5px;
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .quick-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .quick-links a:hover {
+            color: var(--primary-dark);
+        }
+
+        .quick-links a i {
+            margin-right: 8px;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-top: 3rem;
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .map-section h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .map-section h3 i {
+            margin-right: 10px;
+        }
+
+        .map-placeholder {
+            background-color: #f1f2f6;
+            height: 300px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .office-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .office-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+        }
+
+        .office-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 968px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+            
+            .contact-hero h2 {
+                font-size: 2rem;
+            }
+            
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .contact-hero {
+                padding: 2rem 0;
+            }
+            
+            .contact-hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .contact-form, .contact-info {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <%- include('./header-footer/header') %>
+
+    <section class="contact-hero">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>We'd love to hear from you! Whether you have a question about scrims, payments, rules, or anything else, our team is ready to help.</p>
+        </div>
+    </section>
+
+    <section class="contact-content">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <h3><i class="fas fa-envelope"></i> Send us a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" placeholder="Enter your name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="general">General Query</option>
+                                <option value="payment">Payment Issue</option>
+                                <option value="account">Account Help</option>
+                                <option value="tournament">Tournament Rules</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" placeholder="How can we help you?" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Attach File (Optional)</label>
+                            <div class="file-upload">
+                                <label for="file"><i class="fas fa-paperclip"></i> Choose File</label>
+                                <input type="file" id="file">
+                                <span id="file-name" style="margin-left: 10px;">No file chosen</span>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="contact-info">
+                    <h3><i class="fas fa-life-ring"></i> Support Channels</h3>
+                    
+                    <div class="support-channel">
+                        <h4><i class="fas fa-envelope"></i> Email Support</h4>
+                        <p>Reach us at: <a href="mailto:support@nextscrimz.com">support@nextscrimz.com</a></p>
+                        <span class="response-time">Response time: 24–48 hours</span>
+                        <div class="status-badge">
+                            <i class="fas fa-bolt"></i> Average response time: 12 hrs
+                        </div>
+                    </div>
+                    
+                    <div class="support-channel">
+                        <h4><i class="fas fa-comments"></i> Live Chat</h4>
+                        <p>Chat with our team directly during working hours.</p>
+                        <div class="status-badge">
+                            <i class="fas fa-clock"></i> Available 9AM-6PM (GMT)
+                        </div>
+                    </div>
+                    
+                    <div class="support-channel">
+                        <h4><i class="fas fa-users"></i> Community Support</h4>
+                        <p>Join our Discord/Telegram groups for quick updates and peer help.</p>
+                    </div>
+                    
+                    <div class="support-channel">
+                        <h4><i class="fas fa-handshake"></i> Business/Partnership Inquiries</h4>
+                        <p>For sponsorships, collaborations, or hosting large-scale tournaments:</p>
+                        <p><a href="mailto:business@nextscrimz.com">business@nextscrimz.com</a></p>
+                    </div>
+                    
+                    <div class="quick-links">
+                        <a href="#"><i class="fas fa-question-circle"></i> Help Center</a>
+                        <a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+                        <a href="#"><i class="fas fa-cookie-bite"></i> Cookie Policy</a>
+                        <a href="#"><i class="fas fa-file-contract"></i> Terms & Conditions</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="map-section">
+                <h3><i class="fas fa-map-marker-alt"></i> Our Office</h3>
+                
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt" style="font-size: 2rem; margin-right: 10px;"></i>
+                    Google Maps Embed - NextScrimz Headquarters
+                </div>
+                
+                <div class="office-info">
+                    <div class="office-card">
+                        <h4>Company Name</h4>
+                        <p>NextScrimz Inc.</p>
+                    </div>
+                    
+                    <div class="office-card">
+                        <h4>Location</h4>
+                        <p>123 Gaming Street, Esports City</p>
+                        <p>EC1 9SW, United Kingdom</p>
+                    </div>
+                    
+                    <div class="office-card">
+                        <h4>Operating Hours</h4>
+                        <p>Monday-Friday: 9AM-6PM (GMT)</p>
+                        <p>Weekends: 10AM-4PM (GMT)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <%- include('./header-footer/footer') %>
+
+    <script>
+        // Simple JavaScript to show the selected file name
+        document.getElementById('file').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+            document.getElementById('file-name').textContent = fileName;
+        });
+    </script>
+</body>
+</html>

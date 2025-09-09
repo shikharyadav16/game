@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookie Policy - NextScrimz</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #ffe69b;
+        --primary-dark: rgb(149, 123, 74);
+        --color-dark: #161616;
+        --secondary: #00cec9;
+        --dark: #2d3436;
+        --light: #f7f9fc;
+        --success: #00b894;
+        --warning: #fdcb6e;
+        --danger: #e17055;
+        --nav-height: 80px;
+        --border-radius: 8px;
+        --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background-color: var(--light);
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      /* Main Content Styles */
+      .cookie-hero {
+        background: linear-gradient(135deg, var(--color-dark) 0%, #2a2a3a 100%);
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .cookie-hero h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .cookie-hero p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+        opacity: 0.9;
+      }
+
+      .cookie-content {
+        padding: 2rem 0 4rem;
+      }
+
+      .policy-section {
+        background-color: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--box-shadow);
+        transition: var(--transition);
+      }
+
+      .policy-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .policy-section h3 {
+        color: var(--primary-dark);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .policy-section h3 span {
+        margin-right: 10px;
+        background-color: var(--primary);
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+      }
+
+      .policy-section p,
+      .policy-section ul {
+        margin-bottom: 1rem;
+      }
+
+      .policy-section ul {
+        padding-left: 1.5rem;
+      }
+
+      .policy-section li {
+        margin-bottom: 0.5rem;
+      }
+
+      .cookie-types {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .cookie-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        box-shadow: var(--box-shadow);
+        border-top: 4px solid var(--primary);
+        transition: var(--transition);
+      }
+
+      .cookie-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .cookie-card h4 {
+        color: var(--primary-dark);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .cookie-card h4 i {
+        margin-right: 10px;
+        color: var(--primary-dark);
+      }
+
+      .cookie-card.essential {
+        border-top-color: var(--success);
+      }
+
+      .cookie-card.performance {
+        border-top-color: var(--secondary);
+      }
+
+      .cookie-card.preference {
+        border-top-color: var(--warning);
+      }
+
+      .cookie-card.advertising {
+        border-top-color: var(--danger);
+      }
+
+      .highlight {
+        background-color: var(--primary);
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-weight: 500;
+      }
+
+      .note-box {
+        background-color: rgba(253, 203, 110, 0.2);
+        border-left: 4px solid var(--warning);
+        padding: 1rem;
+        margin: 1.5rem 0;
+        border-radius: 4px;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        nav ul {
+          margin-top: 1rem;
+          justify-content: center;
+        }
+
+        nav ul li {
+          margin: 0 0.5rem;
+        }
+
+        .cookie-hero h2 {
+          font-size: 2rem;
+        }
+
+        .cookie-types {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .logo h1 {
+          font-size: 1.5rem;
+        }
+
+        .cookie-hero {
+          padding: 2rem 0;
+        }
+
+        .cookie-hero h2 {
+          font-size: 1.8rem;
+        }
+
+        .policy-section {
+          padding: 1.5rem;
+        }
+
+        .policy-section h3 {
+          font-size: 1.3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('./header-footer/header') %>
+
+    <section class="cookie-hero">
+      <div class="container">
+        <h2>Cookie Policy</h2>
+        <p>
+          This policy explains how NextScrimz uses cookies and similar
+          technologies to enhance your experience.
+        </p>
+      </div>
+    </section>
+
+    <section class="cookie-content">
+      <div class="container">
+        <div class="policy-section">
+          <h3><span>1</span> What Are Cookies?</h3>
+          <p>
+            Cookies are small text files that are placed on your device when you
+            visit a website. They help us recognize your device, remember your
+            preferences, and improve your experience.
+          </p>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>2</span> Types of Cookies We Use</h3>
+          <p>We use different types of cookies for various purposes:</p>
+
+          <div class="cookie-types">
+            <div class="cookie-card essential">
+              <h4><i class="fas fa-shield-alt"></i> Essential Cookies</h4>
+              <p>
+                Required for the website to function (e.g., login, account
+                authentication, security features). Without these, some services
+                cannot be provided.
+              </p>
+            </div>
+
+            <div class="cookie-card performance">
+              <h4>
+                <i class="fas fa-chart-line"></i> Performance & Analytics
+                Cookies
+              </h4>
+              <p>
+                Help us understand how users interact with NextScrimz by
+                collecting information such as page visits, time spent, and
+                error reports.
+              </p>
+            </div>
+
+            <div class="cookie-card preference">
+              <h4><i class="fas fa-cog"></i> Preference Cookies</h4>
+              <p>
+                Store your settings (e.g., language, dark/light theme, room
+                filters) so you don't have to reset them each time you visit.
+              </p>
+            </div>
+
+            <div class="cookie-card advertising">
+              <h4><i class="fas fa-ad"></i> Advertising & Marketing Cookies</h4>
+              <p>
+                May be used to show relevant promotions or tournament offers.
+                These will only be enabled with your consent.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>3</span> How We Use Cookies</h3>
+          <p>We use cookies to:</p>
+          <ul>
+            <li>Keep you logged in securely.</li>
+            <li>Save your preferences and custom settings.</li>
+            <li>Analyze site traffic and improve performance.</li>
+            <li>Detect and prevent fraudulent activities.</li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>4</span> Third-Party Cookies</h3>
+          <p>
+            Some cookies may be set by third-party services integrated into
+            NextScrimz, such as:
+          </p>
+          <ul>
+            <li>
+              Payment providers (e.g., Razorpay) to ensure secure transactions.
+            </li>
+            <li>
+              Analytics tools (e.g., Google Analytics) for performance tracking.
+            </li>
+            <li>
+              Hosting/CDN services for faster and secure content delivery.
+            </li>
+          </ul>
+          <div class="note-box">
+            <p>
+              We do not control third-party cookies and recommend reviewing
+              their policies.
+            </p>
+          </div>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>5</span> Managing Cookies</h3>
+          <p>
+            You can control or disable cookies through your browser settings.
+            However, please note:
+          </p>
+          <ul>
+            <li>
+              Disabling essential cookies may affect the functionality of
+              NextScrimz.
+            </li>
+            <li>
+              You may not be able to participate in events or log in properly if
+              cookies are blocked.
+            </li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>6</span> Updates to This Policy</h3>
+          <p>
+            We may update this Cookie Policy occasionally. Any changes will be
+            posted on this page with a new effective date.
+          </p>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>7</span> Contact Us</h3>
+          <p>
+            If you have any questions about our use of cookies, please contact
+            us:
+          </p>
+          <div class="contact-info">
+            <i class="fas fa-envelope"></i>
+            <span>Email: support@nextscrimz.com</span>
+          </div>
+          <div class="contact-info">
+            <i class="fas fa-globe"></i>
+            <span>Website: nextscrimz.com</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%- include('./header-footer/footer') %>
+  </body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules & Regulations - NextScrimz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ffe69b;
+            --primary-dark: rgb(149, 123, 74);
+            --color-dark: #161616;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --light: #f7f9fc;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+            --nav-height: 80px;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .rules-hero {
+            background: linear-gradient(135deg, var(--color-dark) 0%, #2a2a3a 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .rules-hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .rules-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .rules-content {
+            padding: 2rem 0 4rem;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .rule-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+            height: 100%;
+        }
+
+        .rule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .rule-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .rule-card h3 span {
+            margin-right: 10px;
+            background-color: var(--primary);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .rule-card ul {
+            padding-left: 1.5rem;
+        }
+
+        .rule-card li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .rule-card li:before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .rule-card.warning {
+            border-top-color: var(--warning);
+        }
+
+        .rule-card.danger {
+            border-top-color: var(--danger);
+        }
+
+        .rule-card.success {
+            border-top-color: var(--success);
+        }
+
+        .rule-card.secondary {
+            border-top-color: var(--secondary);
+        }
+
+        .important-note {
+            background-color: rgba(253, 203, 110, 0.2);
+            border-left: 4px solid var(--warning);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .important-note h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .important-note h4 i {
+            margin-right: 10px;
+            color: var(--warning);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            
+            .rules-hero h2 {
+                font-size: 2rem;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .rules-hero {
+                padding: 2rem 0;
+            }
+            
+            .rules-hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .rule-card {
+                padding: 1.5rem;
+            }
+            
+            .rule-card h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+        <%- include('./header-footer/header') %>
+
+
+    <section class="rules-hero">
+        <div class="container">
+            <h2>Rules & Regulations</h2>
+            <p>Welcome to NextScrimz! To ensure fair competition and a fun experience for everyone, all players and teams must follow these rules and regulations.</p>
+        </div>
+    </section>
+
+    <section class="rules-content">
+        <div class="container">
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <h3><span>1</span> General Rules</h3>
+                    <ul>
+                        <li>All participants must register with their correct in-game ID.</li>
+                        <li>Players must join the match on time; late entries will not be allowed.</li>
+                        <li>Match Room ID & Password will be shared only with registered users.</li>
+                        <li>Any violation of these rules may lead to disqualification.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card warning">
+                    <h3><span>2</span> Fair Play Rules</h3>
+                    <ul>
+                        <li>No Cheats or Hacks – The use of aimbots, wallhacks, scripts, or third-party software is strictly prohibited.</li>
+                        <li>No Emulator (if mobile-only events) – Unless specified, only mobile devices are allowed.</li>
+                        <li>No Teaming – Players from different squads cannot team up against others.</li>
+                        <li>No Bug Exploits – Abusing glitches/bugs in the game is not allowed.</li>
+                        <li>Respect Opponents – No abusive language, threats, or harassment.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card secondary">
+                    <h3><span>3</span> Match Rules</h3>
+                    <ul>
+                        <li>Players must enter the match using the Room ID & Password provided.</li>
+                        <li>Once eliminated, players cannot rejoin or request a restart.</li>
+                        <li>Organizers reserve the right to restart a match in case of server issues or major technical errors.</li>
+                        <li>The use of in-game voice chat must follow respectful communication.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card success">
+                    <h3><span>4</span> Scoring System</h3>
+                    <ul>
+                        <li>Points are awarded based on kills + placement.</li>
+                        <li>Detailed scoring for each tournament will be displayed on its event page.</li>
+                        <li>Tiebreakers will be decided based on highest kills, then placement.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card danger">
+                    <h3><span>5</span> Disqualification Rules</h3>
+                    <ul>
+                        <li>Using cheats, hacks, or modified clients.</li>
+                        <li>Sharing room details with non-registered players.</li>
+                        <li>Playing with unregistered accounts.</li>
+                        <li>Offensive behavior, harassment, or toxic conduct.</li>
+                        <li>Payment fraud or misuse of the platform.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card">
+                    <h3><span>6</span> Technical Issues</h3>
+                    <ul>
+                        <li>NextScrimz is not responsible for player-side issues like lag, disconnection, or device crashes.</li>
+                        <li>If the game server crashes for all players, the match may be rescheduled.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card success">
+                    <h3><span>7</span> Rewards & Prizes</h3>
+                    <ul>
+                        <li>Winnings will be distributed within 24–48 hours after result verification.</li>
+                        <li>Users must ensure their UPI/Wallet details are correct.</li>
+                        <li>Fraudulent claims may result in permanent bans.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card secondary">
+                    <h3><span>8</span> Reporting & Disputes</h3>
+                    <ul>
+                        <li>Players can report cheaters by submitting screenshots or video proof.</li>
+                        <li>Disputes must be raised within 1 hour of match completion.</li>
+                        <li>The decision of NextScrimz admins is final and binding.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card warning">
+                    <h3><span>9</span> Code of Conduct</h3>
+                    <ul>
+                        <li>Play fair, respect the community.</li>
+                        <li>Offensive, discriminatory, or toxic behavior will not be tolerated.</li>
+                        <li>Repeated violations may result in permanent bans from NextScrimz.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card">
+                    <h3><span>10</span> Updates to Rules</h3>
+                    <ul>
+                        <li>NextScrimz may update these rules anytime.</li>
+                        <li>Players will be informed before major tournaments if rules change.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="important-note">
+                <h4><i class="fas fa-exclamation-circle"></i> Important Notice</h4>
+                <p>By participating in any NextScrimz tournament or scrim, you agree to abide by these rules and regulations. Failure to comply may result in penalties, including temporary or permanent bans from the platform. If you have any questions about these rules, please contact our support team before registering for any events.</p>
+            </div>
+        </div>
+    </section>
+
+        <%- include('./header-footer/footer') %>
+
+</body>
+</html>

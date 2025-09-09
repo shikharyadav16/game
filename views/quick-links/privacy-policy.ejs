@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy - NextScrimz</title>
+    <style>
+      :root {
+        --primary: #ffe69b;
+        --primary-dark: rgb(149, 123, 74);
+        --color-dark: #161616;
+        --secondary: #00cec9;
+        --dark: #2d3436;
+        --light: #f7f9fc;
+        --success: #00b894;
+        --warning: #fdcb6e;
+        --danger: #e17055;
+        --nav-height: 80px;
+        --border-radius: 8px;
+        --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background-color: var(--light);
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Main Content Styles */
+      .privacy-hero {
+        background: linear-gradient(135deg, var(--color-dark) 0%, #2a2a3a 100%);
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .privacy-hero h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .privacy-hero p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+        opacity: 0.9;
+      }
+
+      .privacy-content {
+        padding: 2rem 0 4rem;
+      }
+
+      .policy-section {
+        background-color: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--box-shadow);
+        transition: var(--transition);
+      }
+
+      .policy-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .policy-section h3 {
+        color: var(--primary-dark);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .policy-section h3 span {
+        margin-right: 10px;
+        background-color: var(--primary);
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+      }
+
+      .policy-section p,
+      .policy-section ul {
+        margin-bottom: 1rem;
+      }
+
+      .policy-section ul {
+        padding-left: 1.5rem;
+      }
+
+      .policy-section li {
+        margin-bottom: 0.5rem;
+      }
+
+      .highlight {
+        background-color: var(--primary);
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-weight: 500;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        nav ul {
+          margin-top: 1rem;
+          justify-content: center;
+        }
+
+        nav ul li {
+          margin: 0 0.5rem;
+        }
+
+        .privacy-hero h2 {
+          font-size: 2rem;
+        }
+
+        .footer-section {
+          padding-right: 0;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .logo h1 {
+          font-size: 1.5rem;
+        }
+
+        .privacy-hero {
+          padding: 2rem 0;
+        }
+
+        .privacy-hero h2 {
+          font-size: 1.8rem;
+        }
+
+        .policy-section {
+          padding: 1.5rem;
+        }
+
+        .policy-section h3 {
+          font-size: 1.3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('./header-footer/header') %>
+
+    <section class="privacy-hero">
+      <div class="container">
+        <h2>Privacy Policy</h2>
+        <p>
+          Your privacy is important to us. This policy explains how we collect,
+          use, and protect your information.
+        </p>
+      </div>
+    </section>
+
+    <section class="privacy-content">
+      <div class="container">
+        <div class="policy-section">
+          <h3><span>1</span> Information We Collect</h3>
+          <p>
+            We may collect the following information when you register,
+            participate in events, or use our services:
+          </p>
+          <ul>
+            <li>
+              <span class="highlight">Personal Information:</span> Name, email
+              address, phone number, and password.
+            </li>
+            <li>
+              <span class="highlight">Gaming Information:</span> In-game IDs,
+              team details, match participation history.
+            </li>
+            <li>
+              <span class="highlight">Payment Information:</span> Transaction
+              details (processed securely via third-party payment gateways like
+              Razorpay; we do not store full card/bank details).
+            </li>
+            <li>
+              <span class="highlight">Technical Data:</span> IP address, device
+              information, browser type, usage logs, and cookies.
+            </li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>2</span> How We Use Your Information</h3>
+          <p>Your data may be used to:</p>
+          <ul>
+            <li>Register and authenticate users.</li>
+            <li>Organize and manage scrims, tournaments, and events.</li>
+            <li>Process secure payments and distribute winnings.</li>
+            <li>
+              Communicate important updates, results, and promotional offers.
+            </li>
+            <li>
+              Improve our platform's performance, features, and user experience.
+            </li>
+            <li>Ensure fair gameplay and prevent fraud or misuse.</li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>3</span> Sharing of Information</h3>
+          <p>
+            We do not sell your data. However, we may share information with:
+          </p>
+          <ul>
+            <li>
+              <span class="highlight">Service Providers:</span> Payment
+              processors (e.g., Razorpay), hosting services (e.g., Koyeb, Google
+              Cloud).
+            </li>
+            <li>
+              <span class="highlight">Legal Authorities:</span> If required by
+              law or to enforce our Terms & Conditions.
+            </li>
+            <li>
+              <span class="highlight">Event Organizers:</span> To verify
+              participation and ensure fair competition.
+            </li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>4</span> Data Security</h3>
+          <p>
+            Your personal information is protected using industry-standard
+            encryption and security practices.
+          </p>
+          <ul>
+            <li>
+              Payment details are handled through secure third-party payment
+              gateways.
+            </li>
+            <li>
+              We regularly monitor systems to prevent unauthorized access.
+            </li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>5</span> Cookies & Tracking</h3>
+          <p>
+            We use cookies to enhance your browsing experience, remember
+            preferences, and analyze traffic.
+          </p>
+          <p>
+            You may disable cookies in your browser, but some features may not
+            function properly.
+          </p>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>6</span> Your Rights</h3>
+          <p>Depending on your location, you may have the right to:</p>
+          <ul>
+            <li>Access the personal information we hold about you.</li>
+            <li>Request correction or deletion of your data.</li>
+            <li>Withdraw consent for certain data processing.</li>
+            <li>Contact us for any privacy-related concerns.</li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>7</span> Children's Privacy</h3>
+          <p>
+            NextScrimz is not intended for children under 13. We do not
+            knowingly collect information from minors. If we discover such data,
+            it will be deleted promptly.
+          </p>
+        </div>
+
+        <div class="policy-section">
+          <h3><span>8</span> Changes to This Policy</h3>
+          <p>
+            We may update this Privacy Policy from time to time. Changes will be
+            posted here with the updated effective date.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <%- include('./header-footer/footer') %>
+  </body>
+</html>
