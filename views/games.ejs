@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="tournament-cards">
-                        <% if (!games || games===null) { %>
+                        <% if (!games || games === null || games.length === 0) { %>
                             <div class="no-card">
                                 <i class="ph ph-calendar-x"></i>
                                 <div>No upcoming tournaments — check back later</div>

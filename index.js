@@ -5,6 +5,7 @@ const cors = require('cors');
 const path = require("path");
 const app = express();
 
+
 const authRoutes = require("./routes/authRoutes");
 const staticRoutes = require("./routes/staticRoutes");
 const cashfreeRoutes = require("./routes/cashfreeRoutes")
@@ -43,7 +44,7 @@ app.use((req, res)=> {
 })
 
 
-const PORT = 3000 || process.env.PORT;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+const port = 3000 || process.env.PORT;
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
 });
