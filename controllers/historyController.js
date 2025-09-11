@@ -1,22 +1,21 @@
 const User = require("../models/User");
-const Event = require("../models/Event");
 const Result = require("../models/Result");
 
 async function handleGetHistory(req, res) {
   const { _id } = req.user;
 
-   try {
+  try {
     const user = await User.findById(_id);
     const wallet = user.wallet;
 
-    const results = await Result.find({user: _id});
+    const results = await Result.find({ user: _id });
+    console.log(results);
 
-    return res.status(200).render("history.ejs", {results, wallet});
-
+    return res.status(200).render("history.ejs", { results, wallet });
   } catch (err) {
     console.log("Error:", err);
-    res.status(500).json({success: false, message: err.message});
+    res.status(500).json({ success: false, message: err.message });
   }
 }
 
-module.exports = { handleGetHistory }
+module.exports = { handleGetHistory };

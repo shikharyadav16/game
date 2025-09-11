@@ -68,7 +68,7 @@ body {
 }
 
 .stat-card {
-    background: linear-gradient(145deg, rgba(45, 52, 54, 0.7), rgba(22, 22, 22, 0.8));
+    background: linear-gradient(145deg, rgba(53, 54, 45, 0.3), rgba(53, 54, 45, 0.5));
     border-radius: 12px;
     padding: 25px;
     display: flex;
@@ -76,7 +76,7 @@ body {
     align-items: center;
     text-align: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(191, 158, 96, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
     font-family: "Nunito", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
@@ -84,17 +84,17 @@ body {
 
 .stat-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-    border-color: rgba(191, 158, 96, 0.3);
+    box-shadow: 0 8px 25px  rgba(0, 0, 0, 0.42) ;
+    border-color: rgba(157, 235, 255, 0.3);
 }
 
 .stat-icon {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 15px;
 }
 
 .stat-value {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 5px;
 }
@@ -107,26 +107,26 @@ body {
 /* Matches table */
 .matches-container {
     background: rgba(45, 52, 54, 0.6);
-    border-radius: 12px;
+    border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     font-family: "Nunito", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: 1px solid rgba(191, 158, 96, 0.2);
+    border: 1px solid rgba(247, 247, 247, 0.4);
 }
 
 .matches-header {
     padding: 20px 25px;
     background: rgba(22, 22, 22, 0.7);
-    border-bottom: 1px solid rgba(191, 158, 96, 0.2);
+    border-bottom: 1px solid rgba(247, 247, 247, 0.4);
 }
 
 .matches-header h2 {
     color: var(--primary);
-    font-size: 1.8rem;
+    font-size: 1.4rem;
 }
 
 .matches-header i {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     margin-right: 20px;
 }
 
@@ -142,7 +142,7 @@ body {
     color: var(--primary);
     font-weight: 600;
     font-size: 1.1rem;
-    border-bottom: 1px solid rgba(191, 158, 96, 0.2);
+    border-bottom: 1px solid rgba(247, 247, 247, 0.4);
     font-family: "Nunito", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 }
@@ -151,7 +151,7 @@ body {
     padding: 18px 25px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     font-family: "Nunito", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
+    min-width: 125px;
 }
 
 .matches-table tr:last-child td {
@@ -173,6 +173,8 @@ body {
     height: 40px;
     border-radius: 8px;
     background: var(--dark);
+    background-color: #ffe69b43;
+    color: #ffe69b;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -180,8 +182,8 @@ body {
 }
 
 .team-size {
-    background: rgba(0, 206, 201, 0.1);
-    color: var(--secondary);
+    background: rgba(0, 255, 251, 0.2);
+    color: var(--light);
     padding: 5px 12px;
     border-radius: 20px;
     font-size: 0.9rem;
@@ -191,12 +193,12 @@ body {
 }
 
 .entry-fee {
-    color: var(--danger);
+    color: rgb(255, 88, 88);
     font-weight: 500;
 }
 
 .prize-earned {
-    color: var(--success);
+    color: rgba(0, 255, 251, 0.9);
     font-weight: 700;
 }
 
@@ -209,18 +211,13 @@ body {
 }
 
 .status-won {
-    background: rgba(0, 184, 148, 0.15);
-    color: var(--success);
+    background: rgba(0, 184, 148, 0.35);
+    color: rgb(80, 255, 220);
 }
 
 .status-lost {
-    background: rgba(225, 112, 85, 0.15);
-    color: var(--danger);
-}
-
-.status-pending {
-    background: rgba(253, 203, 110, 0.15);
-    color: var(--warning);
+    background: rgba(189, 47, 12, 0.35);
+    color: rgb(255, 144, 117);
 }
 
 /* Footer */

@@ -51,110 +51,81 @@
             <div class="matches-header">
                 <h2><i class="fas fa-history"></i> Recent Matches</h2>
             </div>
+
+
             <table class="matches-table">
-                <thead>
-                    <tr>
-                        <th>Game</th>
-                        <th>Date & Time</th>
-                        <th>Team Size</th>
-                        <th>Entry Fee</th>
-                        <th>Prize Earned</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="game-cell">
-                                <div class="game-icon" style="background: rgba(249, 58, 59, 0.2); color: #F93A3B;">
-                                    <i class="fab fa-critical-role"></i>
-                                </div>
-                                Valorant
-                            </div>
-                        </td>
-                        <td>Aug 15, 2025 • 19:30</td>
-                        <td><span class="team-size">5v5</span></td>
-                        <td class="entry-fee">$25.00</td>
-                        <td class="prize-earned">$350.00</td>
-                        <td><span class="match-status status-won">WON</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="game-cell">
-                                <div class="game-icon" style="background: rgba(157, 45, 38, 0.2); color: #9D2D26;">
-                                    <i class="fas fa-crosshairs"></i>
-                                </div>
-                                CS:GO
-                            </div>
-                        </td>
-                        <td>Aug 14, 2025 • 21:15</td>
-                        <td><span class="team-size">5v5</span></td>
-                        <td class="entry-fee">$20.00</td>
-                        <td class="prize-earned">$0.00</td>
-                        <td><span class="match-status status-lost">LOST</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="game-cell">
-                                <div class="game-icon" style="background: rgba(0, 112, 186, 0.2); color: #0070BA;">
-                                    <i class="fab fa-wizards-of-the-coast"></i>
-                                </div>
-                                Dota 2
-                            </div>
-                        </td>
-                        <td>Aug 13, 2025 • 18:45</td>
-                        <td><span class="team-size">5v5</span></td>
-                        <td class="entry-fee">$30.00</td>
-                        <td class="prize-earned">$450.00</td>
-                        <td><span class="match-status status-won">WON</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="game-cell">
-                                <div class="game-icon" style="background: rgba(1, 152, 117, 0.2); color: #019875;">
-                                    <i class="fab fa-empire"></i>
-                                </div>
-                                League of Legends
-                            </div>
-                        </td>
-                        <td>Aug 12, 2025 • 20:00</td>
-                        <td><span class="team-size">5v5</span></td>
-                        <td class="entry-fee">$15.00</td>
-                        <td class="prize-earned">$225.00</td>
-                        <td><span class="match-status status-won">WON</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="game-cell">
-                                <div class="game-icon" style="background: rgba(255, 127, 0, 0.2); color: #FF7F00;">
-                                    <i class="fas fa-shield-alt"></i>
-                                </div>
-                                Overwatch 2
-                            </div>
-                        </td>
-                        <td>Aug 11, 2025 • 17:30</td>
-                        <td><span class="team-size">6v6</span></td>
-                        <td class="entry-fee">$10.00</td>
-                        <td class="prize-earned">$0.00</td>
-                        <td><span class="match-status status-lost">LOST</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="game-cell">
-                                <div class="game-icon" style="background: rgba(0, 112, 186, 0.2); color: #0070BA;">
-                                    <i class="fab fa-wizards-of-the-coast"></i>
-                                </div>
-                                Dota 2
-                            </div>
-                        </td>
-                        <td>Aug 10, 2025 • 22:00</td>
-                        <td><span class="team-size">5v5</span></td>
-                        <td class="entry-fee">$50.00</td>
-                        <td class="prize-earned">$750.00</td>
-                        <td><span class="match-status status-won">WON</span></td>
-                    </tr>
-                </tbody>
-            </table>
+  <thead>
+    <tr>
+      <th>Game</th>
+      <th>Date & Time</th>
+      <th>Team Size</th>
+      <th>Entry Fee</th>
+      <th>Prize Earned</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (results && results.length > 0) { %>
+      <% results.forEach(result => { %>
+        <tr>
+          <td>
+            <div class="game-cell">
+              <!-- Example icon + color mapping (you can expand this) -->
+              <% 
+                let iconClass = "";
+                let bgColor = "";
+                let textColor = "";
+                switch (result.game.toLowerCase()) {
+                  case "bgmi":
+                    iconClass = "fas fa-crosshairs";
+                    bgColor = "rgba(157, 45, 38, 0.2)";
+                    textColor = "#9D2D26";
+                    break;
+                  case "ff":
+                    iconClass = "fab fa-critical-role";
+                    bgColor = "rgba(249, 58, 59, 0.2)";
+                    textColor = "#F93A3B";
+                    break;
+                  default:
+                    iconClass = "fas fa-gamepad";
+                    bgColor = "rgba(100, 100, 100, 0.2)";
+                    textColor = "#666";
+                }
+              %>
+              <div class="game-icon" ">
+                <i class="<%= iconClass %>"></i>
+              </div>
+              <div style="text-transform: uppercase;"><%= result.game %></div>
+            </div>
+          </td>
+          <td>
+            <!-- style="background:<%= bgColor %>; color:<%= textColor %>; -->
+            <% 
+              // format date & time from schema
+              let formattedDate = new Date(result.date + "T" + (result.time || "00:00")).toLocaleString("en-US", { 
+                month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" 
+              });
+            %>
+            <%= formattedDate %>
+          </td>
+          <td><span class="team-size"><%= result.size || "-" %></span></td>
+          <td class="entry-fee">Rs <%= result.entryFee.toFixed(2) %></td>
+          <td class="prize-earned">Rs <%= result.prizeEarned.toFixed(2) %></td>
+          <td>
+            <span class="match-status <%= result.status === "WON" ? "status-won" : "status-lost" %>">
+              <%= result.status %>
+            </span>
+          </td>
+        </tr>
+      <% }) %>
+    <% } else { %>
+      <tr>
+        <td colspan="6" style="text-align:center;">No match results available</td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
         </div>
     </div>
 
@@ -178,7 +149,7 @@
                 <ul class="footer-links">
                     <li><a href="/help"><i class="fas fa-question-circle"></i> Help Center</a></li>
                     <li><a href="/contact"><i class="fas fa-envelope"></i> Contact Us</a></li>
-                    <li><a href="/tos"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
+                    <li><a href="/terms-of-service"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
                     <li><a href="/privacy-policy"><i class="fas fa-lock"></i> Privacy Policy</a></li>
                 </ul>
             </div>
