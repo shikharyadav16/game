@@ -42,6 +42,7 @@ header {
   font-weight: 700;
   background: linear-gradient(to right, #ffe69b, var(--warning));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -144,7 +145,7 @@ header {
 
 /* Wallet States */
 .wallet-pulse {
-  animation: pulse 2s infinite;
+  animation: pulse-nav 2s infinite;
 }
 
 .downbar {
@@ -289,7 +290,7 @@ header {
   }
 }
 
-@keyframes pulse {
+@keyframes pulse-nav {
   0% {
     box-shadow: 0 0 0 0 rgba(191, 158, 96, 0.4);
   }

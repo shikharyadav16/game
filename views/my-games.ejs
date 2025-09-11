@@ -65,8 +65,12 @@
 
       <div class="tournament-cards">
         <!-- Tournament Card 1 -->
-
-        <% myEvents.forEach(event=> { %>
+        <% if (myEvents.length === 0 || !myEvents || myEvents === null) { %>
+        <div class="no-card">
+          <i class="ph ph-calendar-x"></i>
+          <div>No joined Events — First join the Events to play</div>
+        </div>
+        <% } %> <% myEvents.forEach(event=> { %>
         <div class="card">
           <div class="badge-joined">Joined</div>
           <div class="card-img">
@@ -170,7 +174,11 @@
               <button class="btn btn-details" onclick="showRules()">
                 <i class="fas fa-info-circle"></i> Details
               </button>
-              <button class="btn btn-register" data-id="<%= event.eventId %>" onclick="showIdp(this.dataset.id)">
+              <button
+                class="btn btn-register"
+                data-id="<%= event.eventId %>"
+                onclick="showIdp(this.dataset.id)"
+              >
                 <i class="fas fa-id-card"></i> ID and Password
               </button>
             </div>
@@ -189,44 +197,42 @@
 
     <script>
       async function showIdp(id) {
-
         try {
-            const res = await fetch("idp", {
-                method: "POST", 
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-Requested-With": "XMLHttpRequest"
-                },
-                body: JSON.stringify({ id })
-            });
+          const res = await fetch("idp", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+            body: JSON.stringify({ id }),
+          });
 
-            const data = await res.json();
+          const data = await res.json();
 
-            if (res.ok) {
-                document.getElementById("idInput").value = data.id;
-                document.getElementById("passwordInput").value = data.password;
-                document.getElementsByClassName("idp-card-wrapper")[0].style.display =
-                  "block";
-                document.getElementsByClassName("idp-card-container")[0].style.display =
-                  "block";
-                  document.body.style.overflow = "hidden";
-            } else {
-                sendNotification("error", data.message, "IDP error!")
-            }
-            
+          if (res.ok) {
+            document.getElementById("idInput").value = data.id;
+            document.getElementById("passwordInput").value = data.password;
+            document.getElementsByClassName(
+              "idp-card-wrapper"
+            )[0].style.display = "block";
+            document.getElementsByClassName(
+              "idp-card-container"
+            )[0].style.display = "block";
+            document.body.style.overflow = "hidden";
+          } else {
+            sendNotification("error", data.message, "IDP error!");
+          }
         } catch (err) {
-            sendNotification("error", data.message, "IDP error!")
+          sendNotification("error", data.message, "IDP error!");
         }
+      }
 
-        }
-
-
-        function closeIdp() {
-            document.getElementsByClassName("idp-card-wrapper")[0].style.display =
-            "none";
-            document.getElementsByClassName("idp-card-container")[0].style.display =
-            "none";
-            document.body.style.overflow = "scroll"
+      function closeIdp() {
+        document.getElementsByClassName("idp-card-wrapper")[0].style.display =
+          "none";
+        document.getElementsByClassName("idp-card-container")[0].style.display =
+          "none";
+        document.body.style.overflow = "scroll";
       }
 
       function showRules() {

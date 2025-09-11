@@ -253,7 +253,7 @@
       .idp-card-container .security-badge i {
         color: var(--success);
         font-size: 20px;
-        animation: pulse 2s infinite;
+        animation: pulse-idp 2s infinite;
       }
 
       .idp-card-container .security-badge span {
@@ -283,7 +283,7 @@
         }
       }
 
-      @keyframes pulse {
+      @keyframes pulse-idp {
         0% {
           transform: scale(1);
         }
@@ -376,9 +376,9 @@
           card.style.transform = "translateY(50px) rotateX(-15deg)";
           card.style.opacity = "0";
 
-          setTimeout(() => {
-            alert("Card closed. Refresh page to see it again.");
-          }, 500);
+          // setTimeout(() => {
+          //   alert("Card closed. Refresh page to see it again.");
+          // }, 500);
         });
 
         // Copy to clipboard
