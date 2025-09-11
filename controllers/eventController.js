@@ -2,15 +2,19 @@ const Event = require("../models/Event");
 const User = require("../models/User");
 
 async function handleGetGames(req, res) {
-  const { game, email } = req.user;
+  const { email } = req.user;
   try {
+
+    const game = (await User.findOne({email})).game;
+
     const games = await Event.find({
       eventType: game,
     });
     const user = await User.findOne({ email });
     const wallet = await user.wallet;
 
-    res.render("games.ejs", { games: games, wallet: wallet });
+    return res.render("games.ejs", { games: games, wallet: wallet });
+
   } catch (err) {
     console.error("Error:", err);
     return res.status(500).json({success: false, message: err.message});
@@ -19,11 +23,12 @@ async function handleGetGames(req, res) {
 
 async function handleGetFilteredGames(req, res) {
   const { size = "solo" } = req.params;
-  const { game, _id } = req.user;
+  const { _id } = req.user;
 
   try {
-    const wallet = (await User.findById(_id)).wallet;
 
+    const { wallet, game } = await User.findById(_id);
+    
     let games;
 
     if (size === "all-games") {
@@ -74,7 +79,6 @@ async function handleGetMyGames(req, res) {
 
 async function handleGetMyIdp(req, res) {
   const sId = req.body?.id;
-  console.log(sId)
 
   const id = Number(sId);
 

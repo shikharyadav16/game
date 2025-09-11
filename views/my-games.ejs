@@ -211,7 +211,7 @@
 
           if (res.ok) {
             document.getElementById("idInput").value = data.id;
-            document.getElementById("passwordInput").value = data.password;
+            document.getElementById("passwordInput").value = data.pass;
             document.getElementsByClassName(
               "idp-card-wrapper"
             )[0].style.display = "block";
@@ -227,7 +227,16 @@
         }
       }
 
-      function closeIdp() {
+
+        const closeBtnIdp = document.querySelector(".close-btn-idp");
+        const confirmIdp = document.getElementById("confirm-idp");
+        closeBtnIdp.addEventListener("click", closeIdp);
+        confirmIdp.addEventListener("click", closeIdp);
+        
+        function closeIdp() {
+        const card = document.querySelector(".credentials-card");
+        card.style.transform = "translateY(50px) rotateX(-15deg)";
+        card.style.opacity = "0";
         document.getElementsByClassName("idp-card-wrapper")[0].style.display =
           "none";
         document.getElementsByClassName("idp-card-container")[0].style.display =

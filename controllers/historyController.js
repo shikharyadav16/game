@@ -9,7 +9,6 @@ async function handleGetHistory(req, res) {
     const wallet = user.wallet;
 
     const results = await Result.find({ user: _id });
-    console.log(results);
 
     return res.status(200).render("history.ejs", { results, wallet });
   } catch (err) {

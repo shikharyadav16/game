@@ -36,6 +36,7 @@ async function handleUpdateProfile(req, res) {
     if (game !== "ff" && game !== "bgmi") {
       return res.status(403).json({ Error: "Invalid game type" });
     }
+    req.user.game = game
     
     const user = await User.findOneAndUpdate({email}, query, {
         new: true,

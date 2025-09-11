@@ -10,8 +10,6 @@
     />
     <style>
       :root {
-        --primary: #bf9e60;
-        --primary-dark: #8e7443;
         --color-dark: #161616;
         --secondary: #00cec9;
         --dark: #2d3436;
@@ -21,7 +19,7 @@
         --danger: #e17055;
         --nav-height: 80px;
       }
-
+      
       .idp-card-wrapper {
         height: 100vh;
         z-index: 100;
@@ -34,19 +32,23 @@
         align-items: center;
         justify-content: center;
       }
-
+      .idp-card-container * {
+        --primary: #bf9e60;
+        --primary-dark: #8e7443;
+      }
+      
       .idp-card-container {
         perspective: 1000px;
         width: 400px;
         position: fixed;
         left: calc(50vw - 200px);
-        top: 80px;
+        top: 100px;
         z-index: 101;
       }
 
       .idp-card-container .credentials-card {
         background: white;
-        border-radius: 16px;
+        border-radius: 5px;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
         padding: 32px;
         position: relative;
@@ -90,10 +92,11 @@
       .idp-card-container .card-title i {
         background: linear-gradient(45deg, var(--primary), var(--primary-dark));
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
       }
 
-      .idp-card-container .close-btn {
+      .idp-card-container .close-btn-idp {
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -109,7 +112,7 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
       }
 
-      .idp-card-container .close-btn:hover {
+      .idp-card-container .close-btn-idp:hover {
         background: var(--danger);
         color: white;
         transform: rotate(90deg) scale(1.1);
@@ -315,7 +318,7 @@
             <h2 class="card-title">
               <i class="fas fa-key"></i> Access Room Info
             </h2>
-            <button class="close-btn">
+            <button class="close-btn-idp">
               <i class="fas fa-times"></i>
             </button>
           </div>
@@ -358,7 +361,7 @@
             <button class="btn btn-secondary">
               <i class="fas fa-download"></i> Details
             </button>
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" id="confirm-idp">
               <i class="fas fa-check"></i> Confirm
             </button>
           </div>
@@ -368,18 +371,7 @@
       </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Close button functionality
-        const closeBtn = document.querySelector(".close-btn");
-        closeBtn.addEventListener("click", function () {
-          const card = document.querySelector(".credentials-card");
-          card.style.transform = "translateY(50px) rotateX(-15deg)";
-          card.style.opacity = "0";
-
-          // setTimeout(() => {
-          //   alert("Card closed. Refresh page to see it again.");
-          // }, 500);
-        });
+      document.addEventListener("DOMContentLoaded", function () {        
 
         // Copy to clipboard
         const copyBtns = document.querySelectorAll(".copy-btn");
