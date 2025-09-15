@@ -26,22 +26,22 @@
         <div class="stats-summary">
             <div class="stat-card">
                 <i class="fas fa-calendar-check stat-icon" style="color: var(--secondary);"></i>
-                <div class="stat-value">142</div>
+                <div class="stat-value"><%= matchesPlayed %></div>
                 <div class="stat-title">Matches Played</div>
             </div>
             <div class="stat-card">
-                <i class="fas fa-trophy stat-icon" style="color: var(--primary);"></i>
-                <div class="stat-value">87</div>
-                <div class="stat-title">Matches Won</div>
+                <i class="fas fa-crown stat-icon" style="color: var(--primary);"></i>
+                <div class="stat-value"><%= rank %></div>
+                <div class="stat-title">Global Ranking</div>
             </div>
             <div class="stat-card">
-                <i class="fas fa-coins stat-icon" style="color: var(--success);"></i>
-                <div class="stat-value">Rs 8,425</div>
+                <i class="fas fa-coins stat-icon" style="color: var(--warning);"></i>
+                <div class="stat-value">Rs <%= totalWin %></div>
                 <div class="stat-title">Total Earnings</div>
             </div>
             <div class="stat-card">
-                <i class="ph ph-trend-up stat-icon" style="color: var(--warning); font-size: 52px;"></i>
-                <div class="stat-value">Rs 15</div>
+                <i class="ph ph-trend-up stat-icon" style="color: var(--danger); font-size: 52px;"></i>
+                <div class="stat-value">Rs <%= maxWin %></div>
                 <div class="stat-title">Most Earned in a Match</div>
             </div>
         </div>
