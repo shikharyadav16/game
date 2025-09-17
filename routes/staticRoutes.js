@@ -1,5 +1,5 @@
 const express = require("express");
-const { handleGetGames, handleGetFilteredGames, handleGetMyGames, handleGetMyIdp } = require("../controllers/eventController");
+const { handleGetGames, handleGetFilteredGames, handleGetMyGames, handleGetMyIdp, handleGetDetails } = require("../controllers/eventController");
 const { handleGetWallet } = require("../controllers/walletController");
 const { handleGetProfile, handleUpdateProfile } = require("../controllers/profileController");
 const { handleGetHistory } = require("../controllers/historyController")
@@ -21,5 +21,7 @@ router.get("/history", handleGetHistory);
 
 router.get("/leaderboard", handleGetLeaderboard);
 router.get("/leaderboard/:game", handleGetFilteredLeadeBoard);
+
+router.post("/details", handleGetDetails);
 
 module.exports = router;

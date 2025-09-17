@@ -5,7 +5,6 @@ const cors = require('cors');
 const path = require("path");
 const app = express();
 
-
 const authRoutes = require("./routes/authRoutes");
 const staticRoutes = require("./routes/staticRoutes");
 const cashfreeRoutes = require("./routes/cashfreeRoutes")
@@ -15,6 +14,7 @@ const quickRoutes = require("./routes/quickRoutes");
 
 const { connectToDb } = require("./Connection");
 const { restrictToLogin } = require("./middlewares/auth")
+const limiter = require("./middlewares/limiter");
 
 connectToDb();
 
@@ -24,6 +24,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(limiter);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));

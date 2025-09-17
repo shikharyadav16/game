@@ -57,15 +57,18 @@
         </div>
         <% } else { %>
         <!-- Tournament Card 1 -->
-        <% games.forEach(game=> { %> <% let
-        pp=game.eventSize*game.eventKillPrize; let
+        <% games.forEach(game=> { %> <% let totalPrize = 0;
+        game.eventPosPrize.forEach((prize)=> { totalPrize += prize.prize }) %>
+        <% let pp=game.eventSize*game.eventKillPrize + totalPrize; let
         regPlayers=game.eventArray.length; %>
         <div class="card">
           <div class="card-img">
             <img
-              src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80"
+            
+              src="<%= game.eventImage ? game.eventImage : 'https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80' %>"
               alt="BGMI Tournament"
             />
+
             <div class="game-name"><%= game.eventType %></div>
           </div>
           <div class="card-content">
@@ -76,7 +79,7 @@
                 <i class="fas fa-users"></i>
                 <div class="detail-text">
                   <span class="detail-label">Team Size</span>
-                  <span class="detail-value"> <%= game.eventTeamSize %> </span>
+                  <span class="detail-value" style="text-transform: capitalize;"> <%= game.eventTeamSize %> </span>
                 </div>
               </div>
               <div class="detail-item">
@@ -84,7 +87,12 @@
                 <div class="detail-text">
                   <span class="detail-label">Date & Time</span>
                   <span class="detail-value">
-                    <%= game.eventDate %> | <%= game.eventTime %>
+                    <% function convertTo12Hour(time24) { let [hours, minutes] =
+                    time24.split(":").map(Number); let period = hours >= 12 ?
+                    "PM" : "AM"; hours = hours % 12 || 12; let formattedHours =
+                    hours.toString().padStart(2, "0"); let formattedMinutes =
+                    minutes.toString().padStart(2, "0"); return `${formattedHours}:${formattedMinutes} ${period}`; } %>
+                    <%= game.eventDate %> | <%= convertTo12Hour(game.eventTime) %>
                   </span>
                 </div>
               </div>
@@ -125,10 +133,8 @@
                 <div class="prize-amount">Rs <%= game.eventKillPrize %></div>
               </div>
               <div class="prize-item">
-                <div class="prize-label">1st Place</div>
-                <div class="prize-amount pos-prize">
-                  Rs <%= game.eventPosPrize %>
-                </div>
+                <div class="prize-label">Position Prize</div>
+                <div class="prize-amount pos-prize">Rs <%= totalPrize %></div>
               </div>
             </div>
 
@@ -138,13 +144,7 @@
             </div>
 
             <div class="card-actions">
-              <button
-                class="btn-details"
-                data-entry="<%= game.eventEntry %>"
-                data-pos="<%= game.eventPosPrize %>"
-                data-kill="<%= game.eventKillPrize %>"
-                data-size="<%= game.eventSize %>"
-              >
+              <button class="btn-details" data-id="<%= game.eventId %>">
                 <i class="fas fa-info-circle"></i> Details
               </button>
               <button
@@ -173,14 +173,26 @@
       const register = document.querySelectorAll(".btn-register");
 
       details.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
+        btn.addEventListener("click", async (e) => {
           e.preventDefault();
           const clickedBtn = e.target;
-          const entryFee = Number(clickedBtn.dataset.entry);
-          const posPrize = Number(clickedBtn.dataset.pos);
-          const killPrize = Number(clickedBtn.dataset.kill);
-          const eventSize = Number(clickedBtn.dataset.size);
-          showDetails(entryFee, posPrize, killPrize, eventSize);
+
+          const res = await fetch("/details", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: clickedBtn.dataset.id }),
+          });
+
+          const data = await res.json();
+          // console.log(data)
+
+          if (res.ok) {
+            await showDetails(data);
+          } else {
+            alert("Error", data.message);
+          }
         });
       });
 

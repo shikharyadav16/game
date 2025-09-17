@@ -70,13 +70,13 @@
           <i class="ph ph-calendar-x"></i>
           <div>No joined Events — First join the Events to play</div>
         </div>
-        <% } %> <% myEvents.forEach(event=> { %>
+        <% } %> <% myEvents.forEach((event, index)=> { %>
         <div class="card">
           <div class="badge-joined">Joined</div>
           <div class="card-img">
             <img
-              src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80"
-              alt="<%= event.eventName %> Tournament"
+              src="<%= event?.eventImage ? event.eventImage : 'https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80' %>"
+              alt="<%= event.eventName %> match"
             />
             <div class="game-name" style="text-transform: uppercase">
               <%= event.eventType %>
@@ -101,7 +101,12 @@
                 <div class="detail-text">
                   <span class="detail-label">Time</span>
                   <span class="detail-value">
-                    <%= event.eventDate %> - <%= event.eventTime %>
+                    <% function convertTo12Hour(time24) { let [hours, minutes] =
+                    time24.split(":").map(Number); let period = hours >= 12 ?
+                    "PM" : "AM"; hours = hours % 12 || 12; let formattedHours =
+                    hours.toString().padStart(2, "0"); let formattedMinutes =
+                    minutes.toString().padStart(2, "0"); return `${formattedHours}:${formattedMinutes} ${period}`; } %>
+                    <%= event.eventDate %> | <%= convertTo12Hour(event.eventTime) %>
                   </span>
                 </div>
               </div>
@@ -109,8 +114,10 @@
                 <i class="fas fa-trophy"></i>
                 <div class="detail-text">
                   <span class="detail-label">Prize Pool</span>
+                  <% let totalPrize = 0; event.eventPosPrize.forEach((prize)=> {
+                  totalPrize += prize.prize }) %>
                   <span class="detail-value"
-                    >Rs <%= event.eventKillPrize + event.eventPosPrize %></span
+                    >Rs <%= event.eventKillPrize + totalPrize %></span
                   >
                 </div>
               </div>
@@ -150,7 +157,7 @@
               </div>
               <div class="prize-item">
                 <div class="prize-label">1st Place</div>
-                <div class="prize-amount">Rs <%= event.eventPosPrize %></div>
+                <div class="prize-amount">Rs <%= totalPrize %></div>
               </div>
               <% if (event.userRank) { %>
               <div class="prize-item">
@@ -227,13 +234,12 @@
         }
       }
 
+      const closeBtnIdp = document.querySelector(".close-btn-idp");
+      const confirmIdp = document.getElementById("confirm-idp");
+      closeBtnIdp.addEventListener("click", closeIdp);
+      confirmIdp.addEventListener("click", closeIdp);
 
-        const closeBtnIdp = document.querySelector(".close-btn-idp");
-        const confirmIdp = document.getElementById("confirm-idp");
-        closeBtnIdp.addEventListener("click", closeIdp);
-        confirmIdp.addEventListener("click", closeIdp);
-        
-        function closeIdp() {
+      function closeIdp() {
         const card = document.querySelector(".credentials-card");
         card.style.transform = "translateY(50px) rotateX(-15deg)";
         card.style.opacity = "0";

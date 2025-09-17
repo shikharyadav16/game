@@ -12,8 +12,13 @@
         }
 
         games.forEach(game => {
-            let pp = game.eventSize * game.eventKillPrize;
             let regPlayers = game.eventArray.length;
+            
+            let totalPosPrize = 0
+            game.eventPosPrize.forEach((prize)=> {
+                totalPosPrize += prize.prize
+            })
+            let pp = game.eventSize * game.eventKillPrize + totalPosPrize;
 
             const cardHTML = `
             <div class="card">
@@ -30,7 +35,7 @@
                             <i class="fas fa-users"></i>
                             <div class="detail-text">
                                 <span class="detail-label">Team Size</span>
-                                <span class="detail-value">${game.eventTeamSize}</span>
+                                <span class="detail-value"  style="text-transform: capitalize;">${game.eventTeamSize}</span>
                             </div>
                         </div>
                         <div class="detail-item">
@@ -73,7 +78,7 @@
                         </div>
                         <div class="prize-item">
                             <div class="prize-label">1st Place</div>
-                            <div class="prize-amount">Rs ${game.eventPosPrize}</div>
+                            <div class="prize-amount">Rs ${totalPosPrize}</div>
                         </div>
                     </div>
 

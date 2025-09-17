@@ -124,4 +124,27 @@ async function handleGetMyIdp(req, res) {
   }
 }
 
-module.exports = { handleGetGames, handleGetFilteredGames, handleGetMyGames, handleGetMyIdp };
+async function handleGetDetails(req, res) {
+  const id = req.body.id;
+
+  try {
+    if (Number.isNaN(id) || !id) {
+      return res.status(403).json({success: false, message: "Some error occured!" });
+    }
+    
+    const event = await Event.findOne({ eventId: id });
+
+    if (!event) {
+      return res
+        .status(404)
+        .json({ status: false, message: "Invalid id, event not found!" });
+    }
+
+    return res.status(200).json({ success: true, event })
+
+  } catch (err) {
+    console.log("Error:", err);
+  }
+}
+
+module.exports = { handleGetGames, handleGetFilteredGames, handleGetMyGames, handleGetMyIdp, handleGetDetails };

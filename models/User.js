@@ -45,7 +45,7 @@ const userSchema = mongoose.Schema({
         default: "active"
     },
     totalWin: {
-        type: String,
+        type: Number,
         default: 0
     },
     maxWin: {

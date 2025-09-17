@@ -96,6 +96,8 @@ async function handleGetFilteredLeadeBoard(req, res) {
       .sort({ totalWin: -1 })
       .limit(20);
 
+    // console.log(u)
+
     let usersList = [];
 
     users.forEach((user) => {

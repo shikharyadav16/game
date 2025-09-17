@@ -9,6 +9,9 @@ const eventSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    eventImage: {
+        type: String
+    },
     eventType: {
         type: String,
         enum: ["bgmi", "ff"],
@@ -16,7 +19,8 @@ const eventSchema = mongoose.Schema({
     },
     eventTeamSize: {
         type: String,
-        required: true
+        required: true,
+        enum: ["solo", "duo", "squad"]
     },
     eventTime: {
         type: String,
@@ -34,10 +38,14 @@ const eventSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    eventPosPrize: {
-        type: Number,
-        required: true
-    },
+    eventPosPrize: [{
+        position: {
+            type: Number,
+        },
+        prize: {
+            type: Number,
+        }
+    }],
     eventEntry: {
         type: Number,
         required: true
@@ -55,8 +63,16 @@ const eventSchema = mongoose.Schema({
     },
     eventArray: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'users'
+            owner: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'users'
+            },
+            team: {
+                type: String
+            },
+            players: [{
+                type: String
+            }]
         }
     ]
 }, {
