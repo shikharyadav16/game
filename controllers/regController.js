@@ -100,7 +100,6 @@ async function handleRegPayment(req, res) {
         teamName,
         players
       }
-      console.log(obj)
       event.eventArray.push(obj);
     }
 
