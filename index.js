@@ -24,8 +24,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(limiter);
 
+app.set("trust proxy", 1);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -33,6 +33,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "landing.html"));
 });
 
+app.use(limiter);
 app.use("/", quickRoutes);
 app.use("/", authRoutes);
 app.use("/", restrictToLogin, regRoutes);
