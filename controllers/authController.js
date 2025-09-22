@@ -23,10 +23,6 @@ async function sendOTP(req, res) {
 
 async function verifyOTP(req, res) {
 
-
-    const playerAvatar = ["https://static.vecteezy.com/system/resources/thumbnails/054/555/561/small/a-man-wearing-headphones-and-sunglasses-is-wearing-a-hoodie-free-vector.jpg"]
-
-
     const { email, otp, userGame, userIgn, userPassword, userPhone } = req.body;
     if (checkOTP(otp, email)) {
         try {
@@ -50,13 +46,13 @@ async function verifyOTP(req, res) {
                 httpOnly: true,
                 secure: false,
             });
-
+            return res.status(200).json({ redirected: `/profile-image` });
+            
         } catch (err) {
             console.log("Error:", err);
-        return res.status(500).json({success: false, description: err.message, name: "Singup error!"})
+            return res.status(500).json({success: false, description: err.message, name: "Singup error!"})
         }
 
-        return res.status(200).json({ redirected: `/games` });
     } else {
         return res.status(403).json({ success: false, description: "Invalid OTP for this email.", name: "Verification error!" });
     }
@@ -94,4 +90,37 @@ async function checkLogin(req, res) {
     }
 }
 
-module.exports = { sendOTP, verifyOTP, checkLogin };
+async function handleSetImage(req, res) {
+    const image = req.body.image.trim();
+    const { _id } = req.user;
+
+    try {
+        const user = await User.findById(_id);
+
+        if (!user) {
+            return res.status(200).json({ success: false, redirectedTo: "/login"})
+        }
+
+        let flag = false;
+
+        for (let i=0; i<14; i++) {
+            if (image === `profile-${i+1}`) {
+                flag = 1
+            }
+        }
+
+        if (flag) {
+            user.profileImage = image
+            await user.save()
+            return res.status(201).json({success: true, redirectedTo: "/games"})
+
+        } else {
+            return res.status(403).json({ success: false , message: "Invalid Profile Image selected!"})
+        }
+
+    } catch (err) {
+        console.log("Error:", err)
+    }
+}
+
+module.exports = { sendOTP, verifyOTP, checkLogin, handleSetImage };

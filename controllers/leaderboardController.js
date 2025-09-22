@@ -14,6 +14,7 @@ async function handleGetLeaderboard(req, res) {
       let matchesPlayed = user.registeredArray.length;
       let playload = {
         ign: user.ign,
+        profileImage: user.profileImage,
         game: user.game,
         earnings: user.totalWin,
         maxWin: user.maxWin,
@@ -28,6 +29,7 @@ async function handleGetLeaderboard(req, res) {
       {
         ign: "Phantom",
         game: "bgmi",
+        profileImage: "profile-2",
         earnings: 0,
         maxWin: 0,
         matchesPlayed: 0,
@@ -36,6 +38,7 @@ async function handleGetLeaderboard(req, res) {
       {
         ign: "Valkyrie",
         game: "ff",
+        profileImage: "profile-3",
         earnings: 0,
         maxWin: 0,
         matchesPlayed: 0,
@@ -44,6 +47,7 @@ async function handleGetLeaderboard(req, res) {
       {
         ign: "Valkyrie",
         game: "ff",
+        profileImage: "profile-4",
         earnings: 0,
         maxWin: 0,
         matchesPlayed: 0,
@@ -52,6 +56,7 @@ async function handleGetLeaderboard(req, res) {
       {
         ign: "Valkyrie",
         game: "ff",
+        profileImage: "profile-5",
         earnings: 0,
         maxWin: 0,
         matchesPlayed: 0,
@@ -60,6 +65,7 @@ async function handleGetLeaderboard(req, res) {
       {
         ign: "Reaper",
         game: "bgmi",
+        profileImage: "profile-6",
         earnings: 0,
         maxWin: 0,
         matchesPlayed: 0,
@@ -104,6 +110,7 @@ async function handleGetFilteredLeadeBoard(req, res) {
       let matchesPlayed = user.registeredArray.length;
       let playload = {
         ign: user.ign,
+        profileImage: user.profileImage,
         game: user.game,
         earnings: user.totalWin,
         maxWin: user.maxWin,
@@ -118,6 +125,7 @@ async function handleGetFilteredLeadeBoard(req, res) {
       {
         ign: "Phantom",
         game: "bgmi",
+        profileImage: "profile-2",
         earnings: 0,
         maxWin: 0,
         matchesPlayed: 0,
@@ -126,6 +134,7 @@ async function handleGetFilteredLeadeBoard(req, res) {
       {
         ign: "Valkyrie",
         game: "ff",
+        profileImage: "profile-3",
         earnings: 0,
         maxWin: 0,
         matchesPlayed: 0,
@@ -134,6 +143,7 @@ async function handleGetFilteredLeadeBoard(req, res) {
       {
         ign: "Valkyrie",
         game: "ff",
+        profileImage: "profile-4",
         earnings: 0,
         maxWin: 0,
         matchesPlayed: 0,
@@ -142,6 +152,7 @@ async function handleGetFilteredLeadeBoard(req, res) {
       {
         ign: "Valkyrie",
         game: "ff",
+        profileImage: "profile-5",
         earnings: 0,
         maxWin: 0,
         matchesPlayed: 0,
@@ -150,6 +161,7 @@ async function handleGetFilteredLeadeBoard(req, res) {
       {
         ign: "Reaper",
         game: "bgmi",
+        profileImage: "profile-6",
         earnings: 0,
         maxWin: 0,
         matchesPlayed: 0,

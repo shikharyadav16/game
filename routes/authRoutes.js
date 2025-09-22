@@ -1,6 +1,5 @@
 const express = require('express');
-const { sendOTP, verifyOTP, checkLogin } = require('../controllers/authController');
-const path = require("path");
+const { sendOTP, verifyOTP, checkLogin} = require('../controllers/authController');
 const router = express.Router();
 
 router.post('/send-otp', sendOTP);
@@ -13,6 +12,7 @@ router.get('/login', (req, res) => {
 router.get('/signup', (req, res) => {
   return res.render("signup.ejs")
 })
+
 router.get('/otp-verification', (req, res) => {
   return res.render("otp-verification.ejs");
 })

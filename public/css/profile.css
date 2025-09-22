@@ -1,15 +1,15 @@
 :root {
---primary: #f6ca73;
+  --primary: #f6ca73;
   --primary-dark: #bc913b;
-    --profile-dark-cnt: rgb(197, 148, 79);
-    --color-dark: #161616;
-    --secondary: #00cec9;
-    --dark: #2d3436;
-    --light: #f7f9fc;
-    --success: #00b894;
-    --warning: #fdcb6e;
-    --danger: #e17055;
-    --nav-height: 80px;
+  --profile-dark-cnt: rgb(197, 148, 79);
+  --color-dark: #161616;
+  --secondary: #00cec9;
+  --dark: #2d3436;
+  --light: #f7f9fc;
+  --success: #00b894;
+  --warning: #fdcb6e;
+  --danger: #e17055;
+  --nav-height: 80px;
 }
 
 body {
@@ -23,6 +23,19 @@ body {
   width: 90vw;
   margin-left: 5vw;
   padding-bottom: 80px;
+}
+
+.top-header {
+  display: flex;
+}
+
+.profile-image {
+  margin-top: 20px;
+  width: 250px;
+  height: 250px;
+  margin-left: 25px;
+  border: 4px solid var(--primary);
+  border-radius: 100%;
 }
 
 .container .heading {
@@ -187,6 +200,11 @@ body {
   .container .heading {
     margin-top: 30px;
     font-size: 34px;
+  }
+  .profile-image {
+    margin-top: 30px;
+    width: 150px;
+    height: 150px;
   }
 
   .container .heading-des {

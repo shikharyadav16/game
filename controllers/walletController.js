@@ -128,6 +128,8 @@ async function handleUpdateWallet(data) {
       _id,
     } = data;
 
+    console.log(data, "is data")
+
     await Wallet.create({
       userId: _id,
       transId: transactionId,

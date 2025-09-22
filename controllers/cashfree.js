@@ -5,6 +5,8 @@ require("dotenv").config();
 const { handleUpdateWallet, handleUpdateUser } = require("./walletController");
 
 // PG (Add Money)
+
+
 const PG_BASE = process.env.PG_BASE;
 const PG_CLIENT_ID = process.env.PG_CLIENT_ID;
 const PG_CLIENT_SECRET = process.env.PG_CLIENT_SECRET;
@@ -14,7 +16,8 @@ const PG_CLIENT_SECRET = process.env.PG_CLIENT_SECRET;
 const handleAddMoney = async (req, res) => {
   const { amount } = req.body;
   const { email, _id } = req.user;
-
+  const redirectUrl = `https://${req.get("host")}/payment-success?order_id={order_id}`
+  
   try {
 
     const phone = String((await User.findOne({ email }))?.phone || "");
@@ -31,7 +34,7 @@ const handleAddMoney = async (req, res) => {
           customer_phone: phone,
         },
         order_meta: {
-          return_url: `https://nextscrimz.onrender.com/payment-success?order_id={order_id}`
+          return_url: redirectUrl
         },
       },
       {
@@ -43,6 +46,11 @@ const handleAddMoney = async (req, res) => {
         },
       }
     );
+
+    // console.log({
+    //   order_id: response.data.order_id,
+    //   payment_session_id: response.data.payment_session_id,
+    // })
 
     res.json({
       order_id: response.data.order_id,
