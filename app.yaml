@@ -13,3 +13,12 @@ env_variables:
   PG_BASE: "https://api.cashfree.com/pg"
   PG_CLIENT_ID: "102995844237339bdf4d6bc2b818599201"
   PG_CLIENT_SECRET: "cfsk_ma_prod_53af2751840081850a8ba601b986cef5_3fc584cd"
+
+handlers:
+- url: /robots.txt
+  static_files: robots.txt
+  upload: robots.txt
+
+- url: /.*
+  script: auto
+  secure: always

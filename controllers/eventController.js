@@ -8,7 +8,7 @@ async function handleGetGames(req, res) {
     const game = (await User.findOne({email})).game;
 
     const games = await Event.find({
-      eventType: game,
+      eventType: game, eventStatus: "upcoming"
     });
     const user = await User.findOne({ email });
     const wallet = await user.wallet;
@@ -39,6 +39,7 @@ async function handleGetFilteredGames(req, res) {
       games = await Event.find({
         eventType: game,
         eventTeamSize: size,
+        eventStatus: "upcoming"
       });
     }
 

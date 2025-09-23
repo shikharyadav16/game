@@ -287,8 +287,8 @@
                                 console.log("Order Created:", data);
 
                                 if (data.payment_session_id) {
-                                    // const cashfree = Cashfree({ mode: "production" });
-                                    const cashfree = Cashfree({ mode: "sandbox" });
+                                    const cashfree = Cashfree({ mode: "production" });
+                                    // const cashfree = Cashfree({ mode: "sandbox" });
 
                                     cashfree.checkout({
                                         paymentSessionId: data.payment_session_id,
