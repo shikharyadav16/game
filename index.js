@@ -33,6 +33,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "landing.html"));
 });
 
+app.get('/sitemap.xml', (req, res) => {
+  res.sendFile(path.join(__dirname, 'sitemap.xml'));
+});
+
 app.use(limiter);
 app.use("/", quickRoutes);
 app.use("/", authRoutes);
