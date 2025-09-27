@@ -1,3 +1,7 @@
 User-agent: *
+Disallow: /login
+Disallow: /signup
+Disallow: /api
 Allow: /
+
 Sitemap: https://nextscrimz.xyz/sitemap.xml

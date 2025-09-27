@@ -18,7 +18,14 @@ const limiter = require("./middlewares/limiter");
 
 connectToDb();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://nextscrimz.xyz", 
+  ], 
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cookieParser());
