@@ -10,7 +10,7 @@ async function sendOTP(req, res) {
     try {
         const user = await User.findOne({ email: email });
         if (user) {
-            return res.status(409).json({ success: false, description: "Email already in use. Please use different email.", name: "Signup error!" });
+            return res.status(409).json({ success: false,  name: "Account error!", description: "Email already in use. Please use different email.", name: "Signup error!" });
         }
         await sendMail(email);
         return res.status(200).json({ success: true, redirected: "/otp-verification" });
@@ -66,6 +66,9 @@ async function checkLogin(req, res) {
 
         if (!user) {
             return res.status(404).json({ success: false, description: "User not found, Invalid email address.", name: "Login error!" })
+        }
+        if (user.status === "banned") {
+            return res.status(403).json({ success: false, description: "Your account is currently paused" })
         }
         if (!(await verifyPassword(password, user.password))) {
             return res.status(401).json({ success: false, description: "Invalid password.", name: "Login error!" })

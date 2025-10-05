@@ -4,6 +4,11 @@ const User = require("../models/User");
 async function handleGetGames(req, res) {
   const { email } = req.user;
   try {
+
+    if (!email) {
+      return res.redirect("/login");
+    }
+
     const game = (await User.findOne({ email })).game;
 
     const games = await Event.find({
