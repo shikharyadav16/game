@@ -27,7 +27,7 @@ async function handleGetEventRegister(req, res) {
     if (alreadyJoined) {
       return res
         .status(403)
-        .json({ success: false, message: "Already joined in this event" });
+        .send("Already joined in this event");
     }
 
     const { wallet, ign } = user;
@@ -90,6 +90,7 @@ async function handleRegPayment(req, res) {
 
     user.wallet -= totalCost;
 
+    const slot = event.eventArray.length + 1
     // Push registration references
     if (!user.registeredArray.includes(event._id)) {
       user.registeredArray.push(event._id);
@@ -97,8 +98,9 @@ async function handleRegPayment(req, res) {
     if (!alreadyExists) {
       let obj = {
         owner: _id,
-        teamName,
-        players
+        team: teamName,
+        players,
+        slot
       }
       event.eventArray.push(obj);
     }

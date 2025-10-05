@@ -99,6 +99,15 @@
                 </div>
               </div>
               <div class="detail-item">
+                <i class="fas fa-map"></i>
+                <div class="detail-text">
+                  <span class="detail-label">Map</span>
+                  <span class="detail-value" style="text-transform: capitalize">
+                    <%= event.eventMap %>
+                  </span>
+                </div>
+              </div>
+              <div class="detail-item">
                 <i class="fas fa-calendar"></i>
                 <div class="detail-text">
                   <span class="detail-label">Time</span>
@@ -183,6 +192,11 @@
               <button class="btn btn-details" onclick="showRules()">
                 <i class="fas fa-info-circle"></i> Details
               </button>
+              <% if (event.eventTeamSize !== "solo") { %>
+                <button class="btn btn-details" onclick="location.reload()" style="font-weight: bold; font-style: italic;">
+                   SLOT : <%= event.slot %>
+                </button>
+              <% } %>
               <button
                 class="btn btn-register"
                 data-id="<%= event.eventId %>"

@@ -80,13 +80,10 @@ const handleSuccessPayment = async (req, res) => {
     const referenceId = data.cf_order_id;     // cashfree reference id
     const status = data.order_status;
     const amount = data.order_amount;
-    const now = new Date();
-    const formattedDate = now.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
+    const formattedDate = Date.now();
     let balanceAfter;
+
+    console.log("Formatted Dtae dsfasdf", formattedDate)
 
     switch (status) {
       case "PAID":   
@@ -101,6 +98,7 @@ const handleSuccessPayment = async (req, res) => {
         return res.redirect("/wallet")
 
       case "ACTIVE":
+        console.log("Formatted Dtae", formattedDate)
 
         balanceAfter = await handleUpdateUser({ transactionId, referenceId, type: "credit", source: "topup", amount, formattedDate, status: "PENDING", _id: req.user._id });
 
@@ -143,7 +141,7 @@ async function handleWithdrawMoney(req, res) {
       return res.status(403).json({ success: false, message: "Insufficient balance." });
     }
 
-    const transId = "_draw" + Date.now();
+    const transId = "draw_" + Date.now();
 
     const withdrawObj = {
       userId: _id,

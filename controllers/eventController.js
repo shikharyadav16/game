@@ -4,20 +4,20 @@ const User = require("../models/User");
 async function handleGetGames(req, res) {
   const { email } = req.user;
   try {
-
-    const game = (await User.findOne({email})).game;
+    const game = (await User.findOne({ email })).game;
 
     const games = await Event.find({
-      eventType: game, eventStatus: "upcoming"
+      eventType: game,
+      eventStatus: "upcoming",
     });
+
     const user = await User.findOne({ email });
     const wallet = await user.wallet;
 
     return res.render("games.ejs", { games: games, wallet: wallet });
-
   } catch (err) {
     console.error("Error:", err);
-    return res.status(500).json({success: false, message: err.message});
+    return res.status(500).json({ success: false, message: err.message });
   }
 }
 
@@ -26,9 +26,8 @@ async function handleGetFilteredGames(req, res) {
   const { _id } = req.user;
 
   try {
-
     const { wallet, game } = await User.findById(_id);
-    
+
     let games;
 
     if (size === "all-games") {
@@ -39,7 +38,7 @@ async function handleGetFilteredGames(req, res) {
       games = await Event.find({
         eventType: game,
         eventTeamSize: size,
-        eventStatus: "upcoming"
+        eventStatus: "upcoming",
       });
     }
 
@@ -50,7 +49,7 @@ async function handleGetFilteredGames(req, res) {
     res.render("games.ejs", { games: games, wallet });
   } catch (err) {
     console.error("Error:", err);
-    return res.status(500).json({success: false, message: err.message});
+    return res.status(500).json({ success: false, message: err.message });
   }
 }
 
@@ -60,9 +59,18 @@ async function handleGetMyGames(req, res) {
   try {
     const user = await User.findById(_id);
 
-    const myEvents = await Event.find({
+    let myEvents = await Event.find({
       _id: { $in: user.registeredArray },
       eventStatus: "upcoming",
+    });
+
+    myEvents.forEach((event) => {
+      const found = event.eventArray.find(
+        (e) => e.owner.toString() === _id.toString()
+      );
+      if (found) {
+        event.slot = found.slot;
+      }
     });
 
     return res.render("my-games", {
@@ -74,7 +82,7 @@ async function handleGetMyGames(req, res) {
     });
   } catch (err) {
     console.log("Error:", err);
-    return res.status(500).json({success: false, message: err.message})
+    return res.status(500).json({ success: false, message: err.message });
   }
 }
 
@@ -84,7 +92,9 @@ async function handleGetMyIdp(req, res) {
   const id = Number(sId);
 
   if (Number.isNaN(id) || !id) {
-    return res.status(403).json({success: false, message: "Some error occured!" });
+    return res
+      .status(403)
+      .json({ success: false, message: "Some error occured!" });
   }
 
   const _id = req.body._id;
@@ -97,11 +107,11 @@ async function handleGetMyIdp(req, res) {
         .status(404)
         .json({ status: false, message: "Invalid id, event not found!" });
     }
-    
+
     if (!event.matchId || !event.matchPass) {
-        return res
-          .status(403)
-          .json({ status: false, message: "Event has not started yet!" });
+      return res
+        .status(403)
+        .json({ status: false, message: "Event has not started yet!" });
     }
 
     const matchId = event.matchId;
@@ -112,7 +122,6 @@ async function handleGetMyIdp(req, res) {
         .status(200)
         .json({ status: true, id: matchId, pass: matchPass });
     } else {
-
       const wallet = (await User.findById(_id)).wallet;
 
       return res
@@ -121,7 +130,7 @@ async function handleGetMyIdp(req, res) {
     }
   } catch (err) {
     console.log("Error:", err);
-    return res.status(500).json({success: false, message: err.message})
+    return res.status(500).json({ success: false, message: err.message });
   }
 }
 
@@ -130,9 +139,11 @@ async function handleGetDetails(req, res) {
 
   try {
     if (Number.isNaN(id) || !id) {
-      return res.status(403).json({success: false, message: "Some error occured!" });
+      return res
+        .status(403)
+        .json({ success: false, message: "Some error occured!" });
     }
-    
+
     const event = await Event.findOne({ eventId: id });
 
     if (!event) {
@@ -141,11 +152,16 @@ async function handleGetDetails(req, res) {
         .json({ status: false, message: "Invalid id, event not found!" });
     }
 
-    return res.status(200).json({ success: true, event })
-
+    return res.status(200).json({ success: true, event });
   } catch (err) {
     console.log("Error:", err);
   }
 }
 
-module.exports = { handleGetGames, handleGetFilteredGames, handleGetMyGames, handleGetMyIdp, handleGetDetails };
+module.exports = {
+  handleGetGames,
+  handleGetFilteredGames,
+  handleGetMyGames,
+  handleGetMyIdp,
+  handleGetDetails,
+};

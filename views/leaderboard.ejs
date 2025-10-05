@@ -233,7 +233,6 @@
         const data = await res.json();
 
         if (res.ok) {
-          console.log(data.usersList);
           makeList(data.usersList);
 
         } else {
@@ -256,7 +255,7 @@
 
       const podiumConfig = [{
           rank: 1,
-          avatar: "https://static.vecteezy.com/system/resources/thumbnails/054/555/561/small/a-man-wearing-headphones-and-sunglasses-is-wearing-a-hoodie-free-vector.jpg",
+          avatar: "/profile/"+`${(users[0]?.profileImage) ? users[0].profileImage : "profile-1"}.jpg`,
           badge: {
             text: "Champion",
             class: "badge-success"
@@ -265,7 +264,7 @@
         },
         {
           rank: 2,
-          avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+          avatar: "/profile/"+`${(users[1]?.profileImage) ? users[1].profileImage : "profile-2"}.jpg`,
           badge: {
             text: "Pro Player",
             class: "badge-primary"
@@ -274,7 +273,7 @@
         },
         {
           rank: 3,
-          avatar: "https://randomuser.me/api/portraits/men/67.jpg",
+          avatar: "/profile/"+`${(users[2]?.profileImage) ? users[2].profileImage : "profile-3"}.jpg`,
           badge: {
             text: "Pro Player",
             class: "badge-primary"
@@ -340,10 +339,8 @@
           <div class="player-info">
             <div class="player-avatar">
               <img
-                src="${
-                  user.avatar ||
-                  "https://randomuser.me/api/portraits/men/" + (32 + index * 5) + ".jpg"
-                }"
+                src="/profile/${
+                  user.profileImage}.jpg"
                 alt="${user.ign}"
               />
             </div>
