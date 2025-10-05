@@ -93,7 +93,7 @@ async function handleUpdateUser(data) {
       updatedUser = await User.findByIdAndUpdate(
         _id,
         {
-          $inc: { wallet: type === "debit" ? amount : -amount },
+          $inc: { wallet: type === "debit" ? -amount : amount },
           $push: { transactions: transaction },
         },
         { new: true }

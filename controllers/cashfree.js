@@ -154,6 +154,7 @@ async function handleWithdrawMoney(req, res) {
       createdAt: Date.now(),
       updatedAt: Date.now()
     }
+    console.log(amount, "is amount")
     await handleUpdateUser({ transactionId: transId, referenceId: null, type: "debit", source: "withdraw", amount, formattedDate: Date.now(), status: "PENDING", balanceAfter, _id: req.user._id });
     await handleUpdateWallet({ transactionId: transId, referenceId: null, type: "debit", source: "withdraw", amount, formattedDate: Date.now(), status: "PENDING", balanceAfter, _id: req.user._id });
     await Withdraw.create(withdrawObj);
