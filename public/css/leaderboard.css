@@ -30,10 +30,10 @@ body {
   text-align: center;
  
       background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(179, 179, 179, 0.3)),
-    url("https://wallpapers.com/images/featured/free-fire-gi0jpopdq4b0q5aj.jpg");
+    url("https://wallpapers.com/images/hd/garena-free-fire-steffie-i0eix11p1hv9e2ue.jpg");
   box-shadow: 0 0 30px 10px rgba(96, 96, 96, 0.6);
   background-size: cover;
-  background-position: center;
+  background-position: left;
   margin-bottom: 40px;
   border-bottom: 3px solid var(--primary);
   position: relative;
