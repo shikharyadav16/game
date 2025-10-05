@@ -88,11 +88,12 @@ async function handleUpdateUser(data) {
           { new: true }
         );
       }
+      
     } else if (status === "PENDING" && type === "debit") {
       updatedUser = await User.findByIdAndUpdate(
         _id,
         {
-          $inc: { wallet: type === "debite" ? amount : -amount },
+          $inc: { wallet: type === "debit" ? amount : -amount },
           $push: { transactions: transaction },
         },
         { new: true }
