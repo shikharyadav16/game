@@ -19,7 +19,7 @@ Our mission is to make competitive gaming more **accessible, transparent, and re
 
 ## 🌐 Website
 
-👉 [NextScrimz Official Website](https://nextscrimz.zyz)  
+👉 [NextScrimz Official Website](https://nextscrimz.xyz)  
 
 ---
 
