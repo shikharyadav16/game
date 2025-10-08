@@ -1,4 +1,4 @@
-#  NextScrimz
+#  🔥 NextScrimz
 
 **NextScrimz** is a platform built for **BGMI** and **Free Fire** players, teams, and organizers.  
 It makes it simple to **host scrims, tournaments, and custom matches** — with or without prize pools.  
