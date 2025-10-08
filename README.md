@@ -40,7 +40,7 @@ Our mission is to make competitive gaming more **accessible, transparent, and re
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/<your-username>/nextscrimz.git
+git clone https://github.com/shikharyadav16/nextscrimz.git
 cd nextscrimz
 ```
 2. Install dependencies:
